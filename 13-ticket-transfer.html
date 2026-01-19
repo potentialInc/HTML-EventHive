@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Transfer Ticket</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+secondary: '#64748B',
+canvas: '#F9FAFB',
+amber: {
+50: '#FFFBEB',
+100: '#FEF3C7',
+400: '#FBBF24',
+700: '#B45309',
+800: '#92400E',
+},
+blue: {
+50: '#EFF6FF',
+100: '#DBEAFE',
+600: '#2563EB',
+}
+}
+}
+}
+}
+</script>
+<style>
+/* Custom Checkbox Styles */
+.custom-checkbox input:checked + div {
+background-color: #3B82F6;
+border-color: #3B82F6;
+}
+.custom-checkbox input:checked + div svg {
+display: block;
+}
+</style></head>
+<body class="bg-canvas font-sans text-slate-900 antialiased min-h-screen flex flex-col items-center py-6 sm:py-10">
+
+    <!-- TOP LEFT: Back Button -->
+    <div class="w-full max-w-[500px] px-6 mb-2 flex items-center justify-start">
+        <a href="12-ticket-detail.html" class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all focus:outline-none focus:ring-2 focus:ring-primary/20">
+            <span class="iconify" data-icon="lucide:arrow-left" data-width="20" data-stroke-width="1.5"></span>
+        </a>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="w-full max-w-[500px] px-6 flex flex-col gap-6">
+
+        <!-- TICKET SUMMARY CARD -->
+        <div class="w-full bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4">
+            <!-- Thumbnail -->
+            <div class="flex-shrink-0 w-20 h-20 rounded-lg bg-gray-200 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/10"></div>
+            </div>
+            
+            <!-- Details -->
+            <div class="flex flex-col justify-center min-w-0">
+                <h2 class="text-base font-medium text-gray-900 truncate pr-2">Neon Nights: Synthwave Party</h2>
+                <div class="flex flex-col mt-1 gap-0.5">
+                    <span class="text-sm text-gray-500">General Admission</span>
+                    <span class="text-sm text-gray-500">Jan 25, 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRANSFER FORM SECTION -->
+        <div class="flex flex-col gap-6">
+            
+            <!-- Heading -->
+            <div>
+                <h3 class="text-2xl font-semibold tracking-tight text-gray-900">Transfer to Another Person</h3>
+            </div>
+
+            <!-- Email Input -->
+            <div class="flex flex-col gap-1.5">
+                <label for="email" class="text-sm font-medium text-gray-700">Recipient's Email Address</label>
+                <div class="relative group">
+                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors">
+                        <span class="iconify" data-icon="lucide:mail" data-width="20" data-stroke-width="1.5"></span>
+                    </div>
+                    <input type="email" id="email" class="w-full h-12 pl-10 pr-4 rounded-lg border border-gray-200 bg-white text-sm placeholder-gray-400 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all shadow-sm" placeholder="email@example.com">
+                </div>
+            </div>
+
+            <!-- Info Box -->
+            <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 flex gap-3 items-start">
+                <span class="iconify text-primary mt-0.5 flex-shrink-0" data-icon="lucide:info" data-width="18" data-stroke-width="1.5"></span>
+                <p class="text-sm text-blue-900 leading-relaxed">
+                    The recipient will receive an email with their new ticket. Your current ticket will be invalidated.
+                </p>
+            </div>
+
+            <!-- Warning Box -->
+            <div class="bg-amber-50 border border-amber-100 rounded-lg p-4 flex gap-3 items-start">
+                <span class="iconify text-amber-500 mt-0.5 flex-shrink-0" data-icon="lucide:triangle-alert" data-width="18" data-stroke-width="1.5"></span>
+                <div class="flex flex-col gap-1">
+                    <p class="text-sm font-medium text-amber-800">This action cannot be undone</p>
+                    <p class="text-sm text-amber-700 leading-relaxed">
+                        The recipient must have or create an EventHive account to receive the ticket.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Custom Checkbox -->
+            <label class="custom-checkbox flex items-start gap-3 cursor-pointer group select-none mt-2">
+                <input type="checkbox" class="peer sr-only">
+                <div class="w-5 h-5 mt-0.5 rounded border border-gray-300 bg-white flex items-center justify-center transition-all peer-focus:ring-2 peer-focus:ring-primary/20 peer-hover:border-gray-400">
+                    <svg class="hidden w-3.5 h-3.5 text-white pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <span class="text-sm text-gray-700 pt-0.5 group-hover:text-gray-900 transition-colors">I understand and want to transfer this ticket</span>
+            </label>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3 pt-2">
+                <button class="flex-1 h-12 rounded-xl border border-gray-200 bg-white text-gray-700 font-medium text-sm hover:bg-gray-50 hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200">
+                    Cancel
+                </button>
+                <button class="flex-1 h-12 rounded-xl bg-primary text-white font-medium text-sm hover:bg-blue-600 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed">
+                    Transfer Ticket
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+
+</body></html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Organizer Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+slate: {
+850: '#1e293b', // Custom dark shade
+}
+}
+}
+}
+}
+</script>
+<style>
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased min-h-screen flex">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="fixed top-0 left-0 w-[240px] h-screen bg-white border-r border-gray-200 flex flex-col z-50 hidden md:flex">
+        <!-- Logo -->
+        <div class="h-16 px-6 flex items-center">
+            <div class="flex items-center gap-2 text-slate-900">
+                <span class="iconify text-primary" data-icon="lucide:hexagon" data-width="24" data-height="24" data-stroke-width="1.5"></span>
+                <span class="text-lg font-semibold tracking-tight">EventHive</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-4 space-y-1">
+            <a href="16-dashboard-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-50 text-primary text-sm font-medium group transition-colors">
+                <span class="iconify" data-icon="lucide:layout-dashboard" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Dashboard
+            </a>
+            <a href="17-events-list-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:calendar" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Events
+            </a>
+            <a href="21-attendee-list.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:users" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Attendees
+            </a>
+            <a href="20-notification-settings-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:settings" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Settings
+            </a>
+            <a href="22-profile-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:help-circle" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Help &amp; Support
+            </a>
+        </nav>
+
+        <!-- User Profile Bottom -->
+        <div class="p-4 border-t border-gray-100">
+            <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="John Smith" class="w-9 h-9 rounded-full object-cover border border-gray-200">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-slate-900 truncate">John Smith</p>
+                    <p class="text-xs text-slate-500 truncate">Organizer</p>
+                </div>
+                <a href="02-login.html" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <span class="iconify" data-icon="lucide:log-out" data-width="18" data-height="18" data-stroke-width="1.5"></span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 md:ml-[240px] p-8 min-h-screen">
+        
+        <!-- Welcome Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+                <h2 class="text-4xl font-semibold tracking-tight text-slate-900">Welcome back, John</h2>
+                <p class="text-slate-500 mt-2">Here's what's happening with your events today.</p>
+            </div>
+            <a href="18-event-creation.html" class="bg-primary hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 shadow-sm shadow-blue-500/20 transition-all">
+                <span class="iconify" data-icon="lucide:plus" data-width="18" data-height="18" data-stroke-width="1.5"></span>
+                Create Event
+            </a>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            
+            <!-- Card 1: Total Events -->
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
+                        <span class="iconify" data-icon="lucide:calendar" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                    </div>
+                    <span class="flex items-center gap-1 text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                        <span class="iconify" data-icon="lucide:arrow-up-right" data-width="14" data-height="14"></span>
+                        12%
+                    </span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-4xl font-semibold tracking-tight text-slate-900">12</span>
+                    <span class="text-sm font-medium text-slate-500 mt-1">Total Events</span>
+                </div>
+            </div>
+
+            <!-- Card 2: Tickets Sold -->
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-primary">
+                        <span class="iconify" data-icon="lucide:ticket" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                    </div>
+                    <span class="flex items-center gap-1 text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                        <span class="iconify" data-icon="lucide:arrow-up-right" data-width="14" data-height="14"></span>
+                        8%
+                    </span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-4xl font-semibold tracking-tight text-slate-900">1,234</span>
+                    <span class="text-sm font-medium text-slate-500 mt-1">Tickets Sold</span>
+                </div>
+            </div>
+
+            <!-- Card 3: Revenue -->
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                        <span class="iconify" data-icon="lucide:dollar-sign" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                    </div>
+                    <span class="flex items-center gap-1 text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                        <span class="iconify" data-icon="lucide:arrow-up-right" data-width="14" data-height="14"></span>
+                        24%
+                    </span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-4xl font-semibold tracking-tight text-slate-900">$24,500</span>
+                    <span class="text-sm font-medium text-slate-500 mt-1">Total Revenue</span>
+                </div>
+            </div>
+
+            <!-- Card 4: Upcoming -->
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-600">
+                        <span class="iconify" data-icon="lucide:clock" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                    </div>
+                    <span class="text-xs font-medium text-slate-400">Next 7 days</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-4xl font-semibold tracking-tight text-slate-900">3</span>
+                    <span class="text-sm font-medium text-slate-500 mt-1">Upcoming Events</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- RECENT SALES TABLE -->
+            <div class="flex-1 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+                <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-white">
+                    <h3 class="text-lg font-semibold text-slate-900 tracking-tight">Recent Sales</h3>
+                    <a href="#" class="text-sm font-medium text-primary hover:text-blue-600">View All</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50/50">
+                                <th class="px-6 py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Event</th>
+                                <th class="px-6 py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Buyer</th>
+                                <th class="px-6 py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Tickets</th>
+                                <th class="px-6 py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Amount</th>
+                                <th class="px-6 py-3 text-xs font-medium text-slate-500 uppercase tracking-wider text-right">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 bg-white">
+                            <tr class="group hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">Neon Nights 2024</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">SJ</div>
+                                        <span class="text-sm text-slate-600">Sarah Jenkins</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">2</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">$90.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-right">Just now</td>
+                            </tr>
+                            <tr class="group hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">AI Tech Summit</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">MT</div>
+                                        <span class="text-sm text-slate-600">Mike Thompson</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">$299.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-right">2 mins ago</td>
+                            </tr>
+                            <tr class="group hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">Modern Art Gala</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">EL</div>
+                                        <span class="text-sm text-slate-600">Emma Lewis</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">4</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">$320.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-right">15 mins ago</td>
+                            </tr>
+                            <tr class="group hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">StartUp Pitch Day</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xs font-bold">DK</div>
+                                        <span class="text-sm text-slate-600">David Kim</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">$45.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-right">1 hour ago</td>
+                            </tr>
+                            <tr class="group hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">Neon Nights 2024</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-gray-100 text-slate-600 flex items-center justify-center text-xs font-bold">RP</div>
+                                        <span class="text-sm text-slate-600">Rachel Paul</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">3</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">$135.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-right">2 hours ago</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPCOMING EVENTS GRID -->
+        <div class="mt-8">
+            <h3 class="text-lg font-semibold text-slate-900 tracking-tight mb-5">Upcoming Events</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Event Card 1 -->
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex gap-5 group hover:border-blue-100 hover:shadow-md transition-all">
+                    <div class="w-32 h-32 rounded-lg bg-gray-100 shrink-0 overflow-hidden relative">
+                         <img src="https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&amp;fit=crop&amp;w=400&amp;q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Event">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between py-1">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-base font-semibold text-slate-900 leading-tight">Neon Nights Music Festival</h4>
+                                <button class="text-slate-400 hover:text-primary transition-colors">
+                                    <span class="iconify" data-icon="lucide:more-horizontal" data-width="18" data-height="18"></span>
+                                </button>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-1 flex items-center gap-1.5">
+                                <span class="iconify" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                                Jan 25, 2026 • 8:00 PM
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1.5">
+                                <span>120 / 500 sold</span>
+                                <span class="text-emerald-600">$2,400 revenue</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-primary h-1.5 rounded-full" style="width: 24%"></div>
+                            </div>
+                            <div class="mt-3 flex gap-2">
+                                <a href="19-event-management.html" class="w-full py-1.5 rounded border border-gray-200 text-xs font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center">Manage</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex gap-5 group hover:border-blue-100 hover:shadow-md transition-all">
+                    <div class="w-32 h-32 rounded-lg bg-gray-100 shrink-0 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&amp;fit=crop&amp;w=400&amp;q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Event">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between py-1">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-base font-semibold text-slate-900 leading-tight">Global AI Tech Summit</h4>
+                                <button class="text-slate-400 hover:text-primary transition-colors">
+                                    <span class="iconify" data-icon="lucide:more-horizontal" data-width="18" data-height="18"></span>
+                                </button>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-1 flex items-center gap-1.5">
+                                <span class="iconify" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                                Feb 12, 2026 • 9:00 AM
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1.5">
+                                <span>850 / 1,000 sold</span>
+                                <span class="text-emerald-600">$254,000 revenue</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <div class="mt-3 flex gap-2">
+                                <a href="19-event-management.html" class="w-full py-1.5 rounded border border-gray-200 text-xs font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center">Manage</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+
+</body></html>

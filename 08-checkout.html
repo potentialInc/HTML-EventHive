@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Checkout</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+primaryDark: '#2563EB',
+primaryLight: '#EFF6FF',
+dark: '#0F172A',
+secondary: '#64748B'
+},
+boxShadow: {
+'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+'float': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+}
+}
+}
+}
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Custom Checkbox */
+.custom-checkbox:checked {
+background-color: #3B82F6;
+border-color: #3B82F6;
+background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+}
+/* Custom Radio */
+input[type="radio"]:checked + div {
+border-color: #3B82F6;
+background-color: #EFF6FF;
+}
+input[type="radio"]:checked + div .radio-circle {
+border-color: #3B82F6;
+background-color: #3B82F6;
+box-shadow: 0 0 0 3px #EFF6FF;
+}
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900">
+
+    <main class="max-w-[1000px] mx-auto px-6 py-12 lg:px-12">
+        
+        <!-- Page Header -->
+        <h2 class="text-4xl font-bold text-gray-900 tracking-tight mb-8">Checkout</h2>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- LEFT COLUMN (60%) -->
+            <div class="w-full lg:w-[60%]">
+                <div class="bg-white rounded-xl shadow-md p-6 lg:p-8 border border-gray-100/50">
+                    
+                    <!-- Event Info -->
+                    <div class="flex items-start gap-5 mb-8">
+                        <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="Event Thumbnail" class="w-20 h-20 rounded-lg object-cover shadow-sm flex-shrink-0">
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 tracking-tight leading-snug mb-1">Neon Nights: Synthwave Party 2026</h4>
+                            <p class="text-sm font-medium text-gray-500 mb-1 flex items-center gap-1.5">
+                                <span class="iconify" data-icon="lucide:calendar" data-width="14"></span>
+                                Sat, Jan 25, 2026 at 7:00 PM EST
+                            </p>
+                            <p class="text-sm font-medium text-gray-500 flex items-center gap-1.5">
+                                <span class="iconify" data-icon="lucide:map-pin" data-width="14"></span>
+                                Madison Square Garden
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="h-px bg-gray-100 w-full mb-6"></div>
+
+                    <!-- Tickets -->
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-semibold text-gray-900">General Admission <span class="text-gray-400 font-normal">x 2</span></span>
+                                <span class="text-xs text-gray-500">Standard Entry</span>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-900">$90.00</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-semibold text-gray-900">VIP Pass <span class="text-gray-400 font-normal">x 1</span></span>
+                                <span class="text-xs text-gray-500">Skip the line + Drink</span>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-900">$120.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Breakdown -->
+                    <div class="space-y-3 pt-6 border-t border-gray-100">
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Subtotal</span>
+                            <span class="font-medium text-gray-900">$210.00</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Service Fee</span>
+                            <span class="font-medium text-gray-500">$10.50</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Tax</span>
+                            <span class="font-medium text-gray-500">$5.25</span>
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div class="flex justify-between items-center mt-6 pt-6 border-t-2 border-gray-100">
+                        <span class="text-lg font-bold text-gray-900 tracking-tight">Total</span>
+                        <h4 class="text-2xl font-bold text-gray-900 tracking-tight">$225.75</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN (40%) -->
+            <div class="w-full lg:w-[40%]">
+                <div class="bg-white rounded-xl shadow-md p-6 lg:p-8 border border-gray-100/50 sticky top-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 tracking-tight">Payment</h3>
+
+                    <!-- Saved Cards -->
+                    <div class="space-y-3 mb-6">
+                        <label class="relative block cursor-pointer group">
+                            <input type="radio" name="payment_method" class="peer sr-only">
+                            <div class="p-3 rounded-lg border border-gray-200 hover:border-blue-300 transition-all bg-white flex items-center gap-3">
+                                <div class="w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center radio-circle transition-all flex-shrink-0"></div>
+                                <span class="iconify text-2xl" data-icon="logos:visa" data-width="32"></span>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-semibold text-gray-900">•••• 4242</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500">Expires 12/25</span>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="relative block cursor-pointer group">
+                            <input type="radio" name="payment_method" class="peer sr-only">
+                            <div class="p-3 rounded-lg border border-gray-200 hover:border-blue-300 transition-all bg-white flex items-center gap-3">
+                                <div class="w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center radio-circle transition-all flex-shrink-0"></div>
+                                <span class="iconify text-2xl" data-icon="logos:mastercard" data-width="32"></span>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-semibold text-gray-900">•••• 8888</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500">Expires 06/26</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="h-px bg-gray-200 flex-1"></div>
+                        <span class="text-xs font-medium text-gray-400 px-3 uppercase tracking-wider">Or pay with</span>
+                        <div class="h-px bg-gray-200 flex-1"></div>
+                    </div>
+
+                    <!-- New Card Form -->
+                    <div class="space-y-4 mb-6">
+                        <!-- Card Number -->
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1.5">Card Number</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                                    <span class="iconify" data-icon="lucide:credit-card" data-width="18"></span>
+                                </span>
+                                <input type="text" class="block w-full pl-10 pr-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm" placeholder="0000 0000 0000 0000">
+                            </div>
+                        </div>
+
+                        <!-- Expiry & CVC -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1.5">Expiration</label>
+                                <input type="text" class="block w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm" placeholder="MM / YY">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1.5">CVC</label>
+                                <div class="relative">
+                                    <input type="text" class="block w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm" placeholder="123">
+                                    <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
+                                        <span class="iconify" data-icon="lucide:help-circle" data-width="16"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cardholder Name -->
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1.5">Cardholder Name</label>
+                            <input type="text" class="block w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm" placeholder="Full Name">
+                        </div>
+                    </div>
+
+                    <!-- Checkboxes -->
+                    <div class="space-y-3 mb-8">
+                        <label class="flex items-start gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary/25 mt-0.5 custom-checkbox appearance-none border transition-colors cursor-pointer" checked="">
+                            <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Billing address same as account</span>
+                        </label>
+                        <label class="flex items-start gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary/25 mt-0.5 custom-checkbox appearance-none border transition-colors cursor-pointer">
+                            <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Save card for future purchases</span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <a href="09-order-confirmation.html" class="w-full h-[56px] bg-primary hover:bg-primaryDark text-white text-base font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 transform active:scale-[0.99] mb-6">
+                        Pay $225.75
+                    </a>
+
+                    <!-- Security Badges -->
+                    <div class="flex items-center justify-center gap-4 text-gray-400 mb-6 opacity-70 grayscale hover:grayscale-0 transition-all">
+                        <div class="flex items-center gap-1.5 text-xs font-medium">
+                            <span class="iconify" data-icon="lucide:lock" data-width="12"></span>
+                            Secure checkout
+                        </div>
+                        <div class="h-3 w-px bg-gray-300"></div>
+                        <span class="iconify" data-icon="logos:stripe" data-width="32"></span>
+                        <span class="iconify" data-icon="logos:visa" data-width="24"></span>
+                        <span class="iconify" data-icon="logos:mastercard" data-width="20"></span>
+                    </div>
+                    
+                    <div class="text-center">
+                         <a href="#" class="text-sm text-primary font-medium hover:text-primaryDark transition-colors">Use a different card</a>
+                    </div>
+
+                    <!-- Terms -->
+                    <p class="text-[11px] text-center text-gray-400 leading-relaxed mt-6">
+                        By confirming your payment, you accept the <a href="#" class="underline hover:text-gray-600">Terms of Service</a> and <a href="#" class="underline hover:text-gray-600">Refund Policy</a>.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body></html>

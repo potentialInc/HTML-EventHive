@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive Splash Screen</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+secondary: '#1D4ED8',
+purpleAccent: '#8B5CF6',
+}
+}
+}
+}
+</script>
+<style>
+/* Custom spinner animation for smooth continuous rotation */
+@keyframes spin-smooth {
+to { transform: rotate(360deg); }
+}
+.spinner-loader {
+animation: spin-smooth 1s linear infinite;
+}
+</style></head>
+<body class="bg-gray-900 font-sans antialiased overflow-hidden selection:bg-white/20">
+
+    <!-- Splash Screen Container -->
+    <div class="fixed inset-0 w-full h-full bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex flex-col items-center justify-center text-white z-50">
+        
+        <!-- Logo Container -->
+        <!-- Using a custom SVG for the "Hive" logo to ensure exact 120px width and clean geometry -->
+        <div class="w-[120px] h-[120px] flex items-center justify-center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full text-white">
+                <!-- Abstract Hive Hexagon Shape -->
+                <path d="M12 22l-8.5-5V7L12 2l8.5 5v10L12 22z" fill="white" fill-opacity="0.1" stroke="white" stroke-width="1"></path>
+                <path d="M12 8l-4 2.5v4.5l4 2.5 4-2.5v-4.5L12 8z" fill="currentColor"></path>
+                <path d="M12 2v6" stroke="white"></path>
+                <path d="M12 22v-5.5" stroke="white"></path>
+                <path d="M20.5 7l-4.5 3" stroke="white"></path>
+                <path d="M3.5 7l4.5 3" stroke="white"></path>
+                <path d="M20.5 17l-4.5-2.5" stroke="white"></path>
+                <path d="M3.5 17l4.5-2.5" stroke="white"></path>
+            </svg>
+        </div>
+
+        <!-- App Name -->
+        <!-- mt-6 corresponds to 24px spacing -->
+        <h2 class="mt-6 text-4xl font-semibold tracking-tight text-white select-none">
+            EventHive
+        </h2>
+
+        <!-- Loading Spinner -->
+        <!-- mt-12 gives breathing room between title and spinner -->
+        <div class="mt-12">
+            <svg class="spinner-loader w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-100" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </div>
+
+    </div>
+
+    <!-- Auto-redirect to login after 2 seconds -->
+    <script>
+        setTimeout(function() {
+            window.location.href = '02-login.html';
+        }, 2000);
+    </script>
+
+</body></html>

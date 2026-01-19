@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Export Data</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+slate: {
+850: '#1e293b',
+900: '#0f172a',
+}
+},
+boxShadow: {
+'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+'card': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)'
+}
+}
+}
+}
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Custom Radio/Button Group styling */
+.format-radio:checked + div {
+background-color: #EFF6FF; /* blue-50 */
+color: #3B82F6;
+border-color: #3B82F6;
+}
+.date-input-wrapper:focus-within {
+border-color: #3B82F6;
+box-shadow: 0 0 0 1px #3B82F6;
+}
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased min-h-screen flex">
+
+    <!-- DARK SIDEBAR -->
+    <aside class="fixed top-0 left-0 w-[240px] h-screen bg-[#1E293B] flex flex-col z-50 hidden md:flex text-white border-r border-slate-700/30">
+        <!-- Logo -->
+        <div class="h-16 px-6 flex items-center border-b border-slate-700/50">
+            <div class="flex items-center gap-2">
+                <span class="iconify text-white" data-icon="lucide:hexagon" data-width="24" data-height="24" data-stroke-width="1.5"></span>
+                <span class="text-lg font-semibold tracking-tight">EventHive</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto no-scrollbar">
+            <a href="23-admin-dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:layout-dashboard" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Dashboard
+            </a>
+            <a href="24-admin-attendees.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:users" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Attendees
+            </a>
+            <a href="25-admin-organizers.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:user-check" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Organizers
+            </a>
+            <a href="26-admin-events.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:calendar" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Events
+            </a>
+            <a href="27-admin-transactions.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:credit-card" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Transactions
+            </a>
+            <a href="28-admin-reviews.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:star" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Reviews
+            </a>
+
+            <!-- Active State: Export -->
+            <a href="29-admin-export.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white text-sm font-medium shadow-sm transition-colors group">
+                <span class="iconify text-white" data-icon="lucide:download" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Export
+            </a>
+        </nav>
+
+        <!-- Admin Profile Bottom -->
+        <div class="p-4 border-t border-slate-700/50 bg-[#162032]">
+            <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Admin" class="w-9 h-9 rounded-full object-cover border border-slate-600">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-white truncate">James Anderson</p>
+                    <p class="text-xs text-slate-400 truncate">Super Admin</p>
+                </div>
+                <a href="02-login.html" class="text-slate-400 hover:text-white">
+                    <span class="iconify" data-icon="lucide:log-out" data-width="18" data-height="18" data-stroke-width="1.5"></span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 md:ml-[240px] p-8 min-h-screen flex flex-col w-full max-w-[1600px] mx-auto relative">
+        
+        <!-- HEADER -->
+        <header class="flex flex-col gap-1 mb-8">
+            <h2 class="text-4xl font-semibold tracking-tight text-slate-900">Export Data</h2>
+            <p class="text-sm text-slate-500">Download platform data in various formats.</p>
+        </header>
+
+        <!-- EXPORT CARDS GRID -->
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-12">
+            
+            <!-- CARD 1: USERS EXPORT -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col h-full">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                        <span class="iconify text-primary" data-icon="lucide:users" data-width="32" data-height="32" data-stroke-width="1.5"></span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-semibold text-slate-900 tracking-tight">Users Export</h4>
+                        <p class="text-sm text-slate-500 mt-1">Export all user data including profiles and activity</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 flex-1">
+                    <!-- Date Range -->
+                    <div>
+                        <label class="text-xs font-medium text-slate-700 mb-1.5 block">Date Range</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="date-input-wrapper relative border border-gray-200 rounded-lg bg-white px-3 py-2 transition-all">
+                                <span class="text-xs text-slate-400 block mb-0.5">From</span>
+                                <input type="text" value="Oct 24, 2023" class="w-full text-sm font-medium text-slate-900 outline-none bg-transparent p-0 border-none placeholder-slate-400 focus:ring-0">
+                                <span class="iconify absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                            </div>
+                            <div class="date-input-wrapper relative border border-gray-200 rounded-lg bg-white px-3 py-2 transition-all">
+                                <span class="text-xs text-slate-400 block mb-0.5">To</span>
+                                <input type="text" value="Oct 24, 2024" class="w-full text-sm font-medium text-slate-900 outline-none bg-transparent p-0 border-none placeholder-slate-400 focus:ring-0">
+                                <span class="iconify absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Format Selector -->
+                    <div>
+                        <label class="text-xs font-medium text-slate-700 mb-1.5 block">Format</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="format_users" class="hidden format-radio" checked="">
+                                <div class="border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <span class="iconify" data-icon="lucide:file-spreadsheet" data-width="16" data-height="16"></span> CSV
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="format_users" class="hidden format-radio">
+                                <div class="border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <span class="iconify" data-icon="lucide:file" data-width="16" data-height="16"></span> Excel
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        <span class="iconify" data-icon="lucide:download" data-width="18" data-height="18"></span>
+                        Download Users
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 2: EVENTS EXPORT -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col h-full">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                        <span class="iconify text-primary" data-icon="lucide:calendar" data-width="32" data-height="32" data-stroke-width="1.5"></span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-semibold text-slate-900 tracking-tight">Events Export</h4>
+                        <p class="text-sm text-slate-500 mt-1">Export event data with attendance and revenue</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 flex-1">
+                    <!-- Date Range -->
+                    <div>
+                        <label class="text-xs font-medium text-slate-700 mb-1.5 block">Date Range</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="date-input-wrapper relative border border-gray-200 rounded-lg bg-white px-3 py-2 transition-all">
+                                <span class="text-xs text-slate-400 block mb-0.5">From</span>
+                                <input type="text" value="Sep 01, 2024" class="w-full text-sm font-medium text-slate-900 outline-none bg-transparent p-0 border-none placeholder-slate-400 focus:ring-0">
+                                <span class="iconify absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                            </div>
+                            <div class="date-input-wrapper relative border border-gray-200 rounded-lg bg-white px-3 py-2 transition-all">
+                                <span class="text-xs text-slate-400 block mb-0.5">To</span>
+                                <input type="text" value="Oct 24, 2024" class="w-full text-sm font-medium text-slate-900 outline-none bg-transparent p-0 border-none placeholder-slate-400 focus:ring-0">
+                                <span class="iconify absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Format Selector -->
+                    <div>
+                        <label class="text-xs font-medium text-slate-700 mb-1.5 block">Format</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="format_events" class="hidden format-radio">
+                                <div class="border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <span class="iconify" data-icon="lucide:file-spreadsheet" data-width="16" data-height="16"></span> CSV
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="format_events" class="hidden format-radio" checked="">
+                                <div class="border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <span class="iconify" data-icon="lucide:file" data-width="16" data-height="16"></span> Excel
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        <span class="iconify" data-icon="lucide:download" data-width="18" data-height="18"></span>
+                        Download Events
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 3: TRANSACTIONS EXPORT -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col h-full">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                        <span class="iconify text-primary" data-icon="lucide:credit-card" data-width="32" data-height="32" data-stroke-width="1.5"></span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-semibold text-slate-900 tracking-tight">Transactions Export</h4>
+                        <p class="text-sm text-slate-500 mt-1">Export financial transactions and payment data</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 flex-1">
+                    <!-- Date Range -->
+                    <div>
+                        <label class="text-xs font-medium text-slate-700 mb-1.5 block">Date Range</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="date-input-wrapper relative border border-gray-200 rounded-lg bg-white px-3 py-2 transition-all">
+                                <span class="text-xs text-slate-400 block mb-0.5">From</span>
+                                <input type="text" value="Oct 01, 2024" class="w-full text-sm font-medium text-slate-900 outline-none bg-transparent p-0 border-none placeholder-slate-400 focus:ring-0">
+                                <span class="iconify absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                            </div>
+                            <div class="date-input-wrapper relative border border-gray-200 rounded-lg bg-white px-3 py-2 transition-all">
+                                <span class="text-xs text-slate-400 block mb-0.5">To</span>
+                                <input type="text" value="Oct 24, 2024" class="w-full text-sm font-medium text-slate-900 outline-none bg-transparent p-0 border-none placeholder-slate-400 focus:ring-0">
+                                <span class="iconify absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Format Selector -->
+                    <div>
+                        <label class="text-xs font-medium text-slate-700 mb-1.5 block">Format</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="format_trans" class="hidden format-radio" checked="">
+                                <div class="border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <span class="iconify" data-icon="lucide:file-spreadsheet" data-width="16" data-height="16"></span> CSV
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="format_trans" class="hidden format-radio">
+                                <div class="border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <span class="iconify" data-icon="lucide:file" data-width="16" data-height="16"></span> Excel
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        <span class="iconify" data-icon="lucide:download" data-width="18" data-height="18"></span>
+                        Download Transactions
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 4: REVIEWS EXPORT -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col h-full">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                        <span class="iconify text-primary" data-icon="lucide:star" data-width="32" data-height="32" data-stroke-width="1.5"></span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-semibold text-slate-900 tracking-tight">Reviews Export</h4>
+                        <p class="text-sm text-slate-500 mt-1">Export user reviews and ratings data</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 flex-1">
+                    <!-- Date Range -->
+                    <div>
+                        <label class="text-xs font-medium text-slate-700 mb-1.5 block">Date Range</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="date-input-wrapper relative border border-gray-200 rounded-lg bg-white px-3 py-2 transition-all">
+                                <span class="text-xs text-slate-400 block mb-0.5">From</span>
+                                <input type="text" value="Jan 01, 2024" class="w-full text-sm font-medium text-slate-900 outline-none bg-transparent p-0 border-none placeholder-slate-400 focus:ring-0">
+                                <span class="iconify absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                            </div>
+                            <div class="date-input-wrapper relative border border-gray-200 rounded-lg bg-white px-3 py-2 transition-all">
+                                <span class="text-xs text-slate-400 block mb-0.5">To</span>
+                                <input type="text" value="Oct 24, 2024" class="w-full text-sm font-medium text-slate-900 outline-none bg-transparent p-0 border-none placeholder-slate-400 focus:ring-0">
+                                <span class="iconify absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="lucide:calendar" data-width="14" data-height="14"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Format Selector -->
+                    <div>
+                        <label class="text-xs font-medium text-slate-700 mb-1.5 block">Format</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="format_reviews" class="hidden format-radio" checked="">
+                                <div class="border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <span class="iconify" data-icon="lucide:file-spreadsheet" data-width="16" data-height="16"></span> CSV
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="format_reviews" class="hidden format-radio">
+                                <div class="border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                    <span class="iconify" data-icon="lucide:file" data-width="16" data-height="16"></span> Excel
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        <span class="iconify" data-icon="lucide:download" data-width="18" data-height="18"></span>
+                        Download Reviews
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RECENT EXPORTS SECTION -->
+        <div class="mb-12">
+            <h3 class="text-lg font-semibold text-slate-900 mb-4 tracking-tight">Recent Exports</h3>
+            
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50/50 border-b border-gray-200">
+                                <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">File Name</th>
+                                <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Type</th>
+                                <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Date</th>
+                                <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Size</th>
+                                <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                                <th class="p-4 w-16"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <!-- Row 1 -->
+                            <tr class="hover:bg-gray-50/80 transition-colors">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded bg-green-50 text-green-600 flex items-center justify-center">
+                                            <span class="iconify" data-icon="lucide:file-spreadsheet" data-width="16" data-height="16"></span>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-900">users_export_oct_2024.csv</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm text-slate-600">Users Data</td>
+                                <td class="p-4 text-sm text-slate-500">Oct 24, 2024</td>
+                                <td class="p-4 text-sm text-slate-500">2.4 MB</td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20">
+                                        Ready
+                                    </span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button class="p-1.5 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-md transition-colors">
+                                        <span class="iconify" data-icon="lucide:download" data-width="18" data-height="18"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-gray-50/80 transition-colors">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded bg-blue-50 text-primary flex items-center justify-center">
+                                            <span class="iconify" data-icon="lucide:file" data-width="16" data-height="16"></span>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-900">transactions_q3_2024.xlsx</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm text-slate-600">Transactions</td>
+                                <td class="p-4 text-sm text-slate-500">Oct 23, 2024</td>
+                                <td class="p-4 text-sm text-slate-500">8.1 MB</td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20">
+                                        Ready
+                                    </span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button class="p-1.5 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-md transition-colors">
+                                        <span class="iconify" data-icon="lucide:download" data-width="18" data-height="18"></span>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-gray-50/80 transition-colors">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded bg-green-50 text-green-600 flex items-center justify-center">
+                                            <span class="iconify" data-icon="lucide:file-spreadsheet" data-width="16" data-height="16"></span>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-900">events_summary_2024.csv</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm text-slate-600">Events Data</td>
+                                <td class="p-4 text-sm text-slate-500">Oct 21, 2024</td>
+                                <td class="p-4 text-sm text-slate-500">1.2 MB</td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                                        Expired
+                                    </span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button class="p-1.5 text-slate-300 cursor-not-allowed rounded-md">
+                                        <span class="iconify" data-icon="lucide:download" data-width="18" data-height="18"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body></html>

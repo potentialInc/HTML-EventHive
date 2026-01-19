@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Create Event</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+slate: {
+850: '#1e293b',
+}
+}
+}
+}
+}
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Custom Select Arrow */
+select {
+appearance: none;
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+background-position: right 0.75rem center;
+background-repeat: no-repeat;
+background-size: 1.25em 1.25em;
+}
+/* Custom Radio */
+input[type="radio"]:checked {
+background-color: #3B82F6;
+border-color: #3B82F6;
+background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+}
+/* Custom Date Picker Indicator */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+opacity: 0.5;
+cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+opacity: 1;
+}
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased min-h-screen flex">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="fixed top-0 left-0 w-[240px] h-screen bg-white border-r border-gray-200 flex flex-col z-50 hidden md:flex">
+        <!-- Logo -->
+        <div class="h-16 px-6 flex items-center">
+            <div class="flex items-center gap-2 text-slate-900">
+                <span class="iconify text-primary" data-icon="lucide:hexagon" data-width="24" data-height="24" data-stroke-width="1.5"></span>
+                <span class="text-lg font-semibold tracking-tight">EventHive</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-4 space-y-1">
+            <a href="16-dashboard-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:layout-dashboard" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Dashboard
+            </a>
+            <!-- Active State for Events -->
+            <a href="17-events-list-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-50 text-primary text-sm font-medium group transition-colors">
+                <span class="iconify" data-icon="lucide:calendar" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Events
+            </a>
+            <a href="21-attendee-list.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:users" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Attendees
+            </a>
+            <a href="20-notification-settings-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:settings" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Settings
+            </a>
+            <a href="22-profile-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:help-circle" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Help &amp; Support
+            </a>
+        </nav>
+
+        <!-- User Profile Bottom -->
+        <div class="p-4 border-t border-gray-100">
+            <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="John Smith" class="w-9 h-9 rounded-full object-cover border border-gray-200">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-slate-900 truncate">John Smith</p>
+                    <p class="text-xs text-slate-500 truncate">Organizer</p>
+                </div>
+                <a href="02-login.html" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <span class="iconify" data-icon="lucide:log-out" data-width="18" data-height="18" data-stroke-width="1.5"></span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 md:ml-[240px] p-8 min-h-screen flex flex-col">
+        
+        <!-- HEADER -->
+        <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div class="flex items-center gap-4">
+                <a href="17-events-list-organizer.html" class="p-2 -ml-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-gray-100 transition-colors">
+                    <span class="iconify" data-icon="lucide:arrow-left" data-width="24" data-height="24" data-stroke-width="1.5"></span>
+                </a>
+                <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Create New Event</h2>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 bg-white border border-gray-200 hover:bg-gray-50 hover:text-slate-900 transition-all shadow-sm">
+                    Save Draft
+                </button>
+                <button class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary hover:bg-blue-600 transition-all shadow-sm shadow-blue-500/20">
+                    Publish Event
+                </button>
+            </div>
+        </header>
+
+        <!-- FORM CONTAINER -->
+        <div class="mx-auto w-full max-w-[800px] bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+            <form class="space-y-10">
+                
+                <!-- Basic Info Section -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2 border-b border-gray-100 pb-2 mb-4">
+                        <span class="iconify text-primary" data-icon="lucide:info" data-width="20" data-height="20"></span>
+                        <h3 class="text-lg font-medium text-slate-900">Basic Info</h3>
+                    </div>
+                    
+                    <div>
+                        <label for="event-title" class="block text-sm font-medium text-slate-700 mb-1.5">Event Title</label>
+                        <input type="text" id="event-title" placeholder="e.g. Tech Innovators Summit 2024" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                    </div>
+
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-slate-700 mb-1.5">Category</label>
+                        <select id="category" class="w-full bg-white border border-gray-200 rounded-lg pl-3 pr-10 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm cursor-pointer">
+                            <option value="" disabled="" selected="">Select a category...</option>
+                            <option>Music</option>
+                            <option>Conference</option>
+                            <option>Workshop</option>
+                            <option>Networking</option>
+                            <option>Charity</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-slate-700 mb-1.5">Description</label>
+                        <textarea id="description" rows="4" placeholder="Describe your event..." class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm resize-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Date & Time Section -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2 border-b border-gray-100 pb-2 mb-4">
+                        <span class="iconify text-primary" data-icon="lucide:clock" data-width="20" data-height="20"></span>
+                        <h3 class="text-lg font-medium text-slate-900">Date &amp; Time</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="start-date" class="block text-sm font-medium text-slate-700 mb-1.5">Start Date</label>
+                            <input type="date" id="start-date" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                        </div>
+                        <div>
+                            <label for="start-time" class="block text-sm font-medium text-slate-700 mb-1.5">Start Time</label>
+                            <input type="time" id="start-time" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                        </div>
+                        <div>
+                            <label for="end-date" class="block text-sm font-medium text-slate-700 mb-1.5">End Date</label>
+                            <input type="date" id="end-date" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                        </div>
+                        <div>
+                            <label for="end-time" class="block text-sm font-medium text-slate-700 mb-1.5">End Time</label>
+                            <input type="time" id="end-time" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location Section -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2 border-b border-gray-100 pb-2 mb-4">
+                        <span class="iconify text-primary" data-icon="lucide:map-pin" data-width="20" data-height="20"></span>
+                        <h3 class="text-lg font-medium text-slate-900">Location</h3>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-3">Venue Type</label>
+                        <div class="flex gap-6">
+                            <label class="inline-flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="venue_type" value="physical" class="w-4 h-4 text-primary border-gray-300 focus:ring-primary cursor-pointer appearance-none border rounded-full checked:bg-primary checked:border-primary transition-all" checked="">
+                                <span class="text-sm text-slate-700 group-hover:text-slate-900">Physical Location</span>
+                            </label>
+                            <label class="inline-flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="venue_type" value="online" class="w-4 h-4 text-primary border-gray-300 focus:ring-primary cursor-pointer appearance-none border rounded-full checked:bg-primary checked:border-primary transition-all">
+                                <span class="text-sm text-slate-700 group-hover:text-slate-900">Online</span>
+                            </label>
+                            <label class="inline-flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="venue_type" value="hybrid" class="w-4 h-4 text-primary border-gray-300 focus:ring-primary cursor-pointer appearance-none border rounded-full checked:bg-primary checked:border-primary transition-all">
+                                <span class="text-sm text-slate-700 group-hover:text-slate-900">Hybrid</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="venue-name" class="block text-sm font-medium text-slate-700 mb-1.5">Venue Name</label>
+                        <input type="text" id="venue-name" placeholder="e.g. Moscone Center" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                    </div>
+
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-slate-700 mb-1.5">Address</label>
+                        <input type="text" id="address" placeholder="e.g. 747 Howard St" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-slate-700 mb-1.5">City</label>
+                            <input type="text" id="city" placeholder="e.g. San Francisco" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                        </div>
+                        <div>
+                            <label for="country" class="block text-sm font-medium text-slate-700 mb-1.5">Country</label>
+                            <select id="country" class="w-full bg-white border border-gray-200 rounded-lg pl-3 pr-10 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm cursor-pointer">
+                                <option value="" disabled="" selected="">Select country...</option>
+                                <option>United States</option>
+                                <option>United Kingdom</option>
+                                <option>Canada</option>
+                                <option>Australia</option>
+                                <option>Germany</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tickets Section -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2 border-b border-gray-100 pb-2 mb-4">
+                        <span class="iconify text-primary" data-icon="lucide:ticket" data-width="20" data-height="20"></span>
+                        <h3 class="text-lg font-medium text-slate-900">Tickets</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label for="price" class="block text-sm font-medium text-slate-700 mb-1.5">Ticket Price</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
+                                <input type="number" id="price" placeholder="0.00" class="w-full bg-white border border-gray-200 rounded-lg pl-7 pr-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="total-tickets" class="block text-sm font-medium text-slate-700 mb-1.5">Total Tickets</label>
+                            <input type="number" id="total-tickets" placeholder="e.g. 100" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                        </div>
+                        <div>
+                            <label for="early-bird" class="block text-sm font-medium text-slate-700 mb-1.5">
+                                Early Bird Price <span class="text-slate-400 font-normal ml-1">(Optional)</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
+                                <input type="number" id="early-bird" placeholder="0.00" class="w-full bg-white border border-gray-200 rounded-lg pl-7 pr-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Media Section -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2 border-b border-gray-100 pb-2 mb-4">
+                        <span class="iconify text-primary" data-icon="lucide:image" data-width="20" data-height="20"></span>
+                        <h3 class="text-lg font-medium text-slate-900">Media</h3>
+                    </div>
+
+                    <div class="w-full">
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">Cover Image</label>
+                        <div class="mt-1 flex justify-center px-6 pt-10 pb-12 border-2 border-gray-200 border-dashed rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all cursor-pointer group">
+                            <div class="space-y-2 text-center">
+                                <div class="mx-auto h-12 w-12 text-slate-300 group-hover:text-primary transition-colors flex items-center justify-center rounded-full bg-gray-50 group-hover:bg-blue-50">
+                                    <span class="iconify" data-icon="lucide:camera" data-width="24" data-height="24"></span>
+                                </div>
+                                <div class="flex text-sm text-slate-600 justify-center">
+                                    <label for="file-upload" class="relative cursor-pointer rounded-md bg-transparent font-medium text-primary hover:text-blue-600 focus-within:outline-none">
+                                        <span>Upload event cover image</span>
+                                        <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                    </label>
+                                </div>
+                                <p class="text-xs text-slate-400">PNG, JPG up to 10MB</p>
+                                <p class="text-xs text-slate-400 font-medium pt-2">Recommended: 1200x600px</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+
+
+</body></html>

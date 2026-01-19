@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Discover Events</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+primaryDark: '#2563EB',
+primaryLight: '#EFF6FF',
+dark: '#1E293B'
+},
+boxShadow: {
+'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+'card': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+}
+}
+}
+}
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar {
+display: none;
+}
+.no-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+/* Smooth scrolling for horizontal areas */
+.scroll-smooth {
+scroll-behavior: smooth;
+}
+</style></head>
+<body class="bg-gray-50/50 font-sans text-slate-900 antialiased">
+
+    <!-- Top Nav: Sticky, 72px -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-white border-b border-gray-200 h-[72px] transition-shadow duration-300">
+        <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between gap-4">
+            
+            <!-- Left: Logo -->
+            <div class="flex items-center gap-2 flex-shrink-0 cursor-pointer">
+                <div class="w-8 h-8 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-lg flex items-center justify-center text-white shadow-sm">
+                    <span class="iconify" data-icon="lucide:hexagon" data-width="18" style="stroke-width: 2.5;"></span>
+                </div>
+                <span class="text-lg font-semibold tracking-tight text-gray-900 hidden sm:block">EventHive</span>
+            </div>
+
+            <!-- Center: Search Bar (Max 480px, 44px height) -->
+            <a href="10-search.html" class="flex-1 max-w-[480px] hidden md:block">
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <span class="iconify text-gray-400 group-focus-within:text-primary transition-colors" data-icon="lucide:search" data-width="18"></span>
+                    </div>
+                    <input type="text" class="block w-full h-[44px] pl-10 pr-4 bg-gray-100/50 border border-gray-200 rounded-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm cursor-pointer" placeholder="Search events, artists, or venues..." readonly>
+                    <div class="absolute inset-y-0 right-2 flex items-center">
+                        <button class="p-1 text-gray-400 hover:text-gray-600">
+                            <span class="iconify" data-icon="lucide:sliders-horizontal" data-width="16"></span>
+                        </button>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Right: Location & Profile -->
+            <div class="flex items-center gap-3 md:gap-5 flex-shrink-0">
+                <!-- Location Button -->
+                <button class="hidden lg:flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors px-2 py-1 rounded-md hover:bg-gray-100">
+                    <span class="iconify text-gray-500" data-icon="lucide:map-pin" data-width="18"></span>
+                    <span>San Francisco, CA</span>
+                </button>
+                
+                <!-- Notifications (Mobile/Tablet only placeholder) -->
+                <button class="lg:hidden text-gray-500">
+                    <span class="iconify" data-icon="lucide:search" data-width="20"></span>
+                </button>
+
+                <!-- Profile Avatar -->
+                <a href="15-profile-attendee.html" class="relative">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Profile" class="h-10 w-10 rounded-full border border-gray-200 object-cover shadow-sm hover:ring-2 hover:ring-primary hover:ring-offset-2 transition-all">
+                    <div class="absolute bottom-0 right-0 h-2.5 w-2.5 bg-green-500 border-2 border-white rounded-full"></div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pb-20">
+        
+        <!-- Hero Section (400px) -->
+        <div class="relative w-full h-[400px] overflow-hidden bg-gray-900 group">
+            <!-- Background Image -->
+            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80" alt="Featured Event" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+            <!-- Content -->
+            <div class="absolute bottom-0 left-0 w-full p-6 md:p-10 max-w-7xl mx-auto flex flex-col items-start z-10">
+                
+                <!-- Category Badge -->
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/90 text-white backdrop-blur-sm mb-4 border border-white/10 shadow-sm">
+                    Music Festival
+                </span>
+
+                <!-- Title -->
+                <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-2 drop-shadow-sm">
+                    Electric Horizon 2024
+                </h1>
+
+                <!-- Details -->
+                <div class="flex items-center gap-4 text-white/90 text-sm md:text-base font-medium mb-6">
+                    <div class="flex items-center gap-1.5">
+                        <span class="iconify" data-icon="lucide:calendar" data-width="18"></span>
+                        <span>Oct 12-14</span>
+                    </div>
+                    <div class="w-1 h-1 bg-white/50 rounded-full"></div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="iconify" data-icon="lucide:map-pin" data-width="18"></span>
+                        <span>Golden Gate Park</span>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="flex items-center gap-4">
+                    <a href="07-event-detail.html" class="h-11 px-6 bg-primary hover:bg-primaryDark text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
+                        <span class="iconify" data-icon="lucide:ticket" data-width="18"></span>
+                        Get Tickets
+                    </a>
+                    <a href="07-event-detail.html" class="h-11 px-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-sm font-medium rounded-lg transition-all flex items-center justify-center">
+                        More Info
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dots Navigation -->
+            <div class="absolute bottom-8 right-6 md:right-10 flex gap-2 z-20">
+                <button class="w-2.5 h-2.5 rounded-full bg-white shadow-sm transition-all"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-white/40 hover:bg-white/70 transition-all"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-white/40 hover:bg-white/70 transition-all"></button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 space-y-12 mt-12">
+            
+            <!-- Categories Section -->
+            <section>
+                <div class="flex items-center justify-between mb-5">
+                    <h3 class="text-xl font-semibold text-gray-900 tracking-tight">Browse by Category</h3>
+                    <a href="#" class="text-sm font-medium text-primary hover:text-primaryDark flex items-center gap-1">
+                        See All <span class="iconify" data-icon="lucide:chevron-right" data-width="16"></span>
+                    </a>
+                </div>
+                
+                <div class="relative -mx-6 px-6 overflow-hidden">
+                    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                        <!-- Category Pills (44px height) -->
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                            <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:music" data-width="18"></span>
+                            Music
+                        </button>
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                            <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:trophy" data-width="18"></span>
+                            Sports
+                        </button>
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                            <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:palette" data-width="18"></span>
+                            Arts
+                        </button>
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                            <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:utensils" data-width="18"></span>
+                            Food &amp; Drink
+                        </button>
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                            <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:cpu" data-width="18"></span>
+                            Tech
+                        </button>
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                            <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:users" data-width="18"></span>
+                            Community
+                        </button>
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                            <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:martini" data-width="18"></span>
+                            Nightlife
+                        </button>
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                            <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:briefcase" data-width="18"></span>
+                            Business
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Events (Carousel) -->
+            <section class="relative group">
+                <div class="flex items-center justify-between mb-5">
+                    <h3 class="text-xl font-semibold text-gray-900 tracking-tight">Featured Events</h3>
+                    <div class="flex gap-2">
+                        <button class="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center hover:border-gray-300 hover:bg-gray-50 transition-all" onclick="scrollCarousel('left')">
+                            <span class="iconify text-gray-600" data-icon="lucide:chevron-left" data-width="16"></span>
+                        </button>
+                        <button class="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center hover:border-gray-300 hover:bg-gray-50 transition-all" onclick="scrollCarousel('right')">
+                            <span class="iconify text-gray-600" data-icon="lucide:chevron-right" data-width="16"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="featured-carousel" class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth pb-4 -mx-1 px-1">
+                    
+                    <!-- Card 1 -->
+                    <a href="07-event-detail.html" class="w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
+                        <div class="h-40 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-gray-900 shadow-sm">$45</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Sat, Oct 24 • 8:00 PM</div>
+                            <h4 class="text-base font-semibold text-gray-900 leading-tight mb-1 truncate">Neon Nights: Synthwave Party</h4>
+                            <p class="text-sm text-gray-500 truncate">The Midway, San Francisco</p>
+                        </div>
+                    </a>
+
+                    <!-- Card 2 -->
+                    <a href="07-event-detail.html" class="w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
+                        <div class="h-40 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-gray-900 shadow-sm">Free</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Sun, Oct 25 • 10:00 AM</div>
+                            <h4 class="text-base font-semibold text-gray-900 leading-tight mb-1 truncate">Tech Innovators Summit</h4>
+                            <p class="text-sm text-gray-500 truncate">Moscone Center</p>
+                        </div>
+                    </a>
+
+                    <!-- Card 3 -->
+                    <a href="07-event-detail.html" class="w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
+                        <div class="h-40 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-gray-900 shadow-sm">$120</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Fri, Oct 30 • 7:00 PM</div>
+                            <h4 class="text-base font-semibold text-gray-900 leading-tight mb-1 truncate">Abstract Art Gallery Opening</h4>
+                            <p class="text-sm text-gray-500 truncate">SF MOMA</p>
+                        </div>
+                    </a>
+
+                     <!-- Card 4 -->
+                     <a href="07-event-detail.html" class="w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
+                        <div class="h-40 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1551632436-cbf8dd354ca8?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-gray-900 shadow-sm">$35</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Sat, Nov 02 • 9:00 AM</div>
+                            <h4 class="text-base font-semibold text-gray-900 leading-tight mb-1 truncate">Morning Yoga in the Park</h4>
+                            <p class="text-sm text-gray-500 truncate">Dolores Park</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Upcoming Events (Grid) -->
+            <section>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                    <h3 class="text-xl font-semibold text-gray-900 tracking-tight">Upcoming Events</h3>
+                    
+                    <!-- Filter Dropdown -->
+                    <div class="relative inline-block text-left">
+                        <button type="button" class="inline-flex justify-center items-center w-full px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-primary shadow-sm" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                            This Week
+                            <span class="iconify ml-2 text-gray-400" data-icon="lucide:chevron-down" data-width="16"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Event Card 1 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1459749411177-287ce35e8b2f?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute top-3 left-3 bg-white/95 backdrop-blur rounded-lg px-2.5 py-1 flex flex-col items-center shadow-sm text-gray-900 min-w-[50px]">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-red-500">Oct</span>
+                                <span class="text-lg font-bold leading-none">28</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-1 leading-tight group-hover:text-primary transition-colors">StartUp Networking Night</h4>
+                            <p class="text-sm text-gray-500 mb-4">WeWork Salesforce Tower</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                                <div class="flex -space-x-2">
+                                    <img class="w-7 h-7 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="">
+                                    <img class="w-7 h-7 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="">
+                                    <div class="w-7 h-7 rounded-full border-2 border-white bg-gray-100 text-[10px] font-bold flex items-center justify-center text-gray-600">+42</div>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-900">$25</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card 2 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute top-3 left-3 bg-white/95 backdrop-blur rounded-lg px-2.5 py-1 flex flex-col items-center shadow-sm text-gray-900 min-w-[50px]">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-red-500">Oct</span>
+                                <span class="text-lg font-bold leading-none">29</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-1 leading-tight group-hover:text-primary transition-colors">Jazz by the Bay</h4>
+                            <p class="text-sm text-gray-500 mb-4">Pier 23 Cafe</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                                <div class="flex -space-x-2">
+                                    <img class="w-7 h-7 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="">
+                                    <div class="w-7 h-7 rounded-full border-2 border-white bg-gray-100 text-[10px] font-bold flex items-center justify-center text-gray-600">+120</div>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-900">$55</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card 3 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1560439514-e960a3ef5019?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute top-3 left-3 bg-white/95 backdrop-blur rounded-lg px-2.5 py-1 flex flex-col items-center shadow-sm text-gray-900 min-w-[50px]">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-red-500">Nov</span>
+                                <span class="text-lg font-bold leading-none">01</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-1 leading-tight group-hover:text-primary transition-colors">Coffee Tasting Workshop</h4>
+                            <p class="text-sm text-gray-500 mb-4">Sightglass Coffee</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                                <div class="flex -space-x-2">
+                                    <img class="w-7 h-7 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="">
+                                    <img class="w-7 h-7 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="">
+                                    <div class="w-7 h-7 rounded-full border-2 border-white bg-gray-100 text-[10px] font-bold flex items-center justify-center text-gray-600">+8</div>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-900">$30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex justify-center">
+                    <button class="px-8 py-3 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-medium rounded-lg transition-all shadow-sm hover:shadow-md text-sm">
+                        Load More Events
+                    </button>
+                </div>
+            </section>
+
+            <!-- Events Near You (List) -->
+            <section class="pb-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-gray-900 tracking-tight">Events Near You</h3>
+                    <button class="text-sm font-medium text-primary hover:text-primaryDark flex items-center gap-1 border border-primary/20 px-3 py-1.5 rounded-md hover:bg-primary/5 transition-colors">
+                        <span class="iconify" data-icon="lucide:map" data-width="16"></span>
+                        View Map
+                    </button>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- List Item 1 -->
+                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex gap-4 hover:border-gray-300 hover:shadow-card transition-all group cursor-pointer">
+                        <div class="w-[100px] h-[100px] rounded-lg overflow-hidden flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                        <div class="flex-1 py-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-base font-semibold text-gray-900 leading-tight mb-1 group-hover:text-primary transition-colors">Local Food Truck Festival</h4>
+                                <p class="text-sm text-gray-500">SoMa StrEAT Food Park • Tomorrow, 11:00 AM</p>
+                            </div>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-100">
+                                        <span class="iconify mr-1" data-icon="lucide:map-pin" data-width="10"></span>
+                                        0.8 mi
+                                    </span>
+                                    <span class="text-xs text-gray-400">Food</span>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-900">Free</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- List Item 2 -->
+                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex gap-4 hover:border-gray-300 hover:shadow-card transition-all group cursor-pointer">
+                        <div class="w-[100px] h-[100px] rounded-lg overflow-hidden flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1524338198850-8a2ff6389420?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                        <div class="flex-1 py-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-base font-semibold text-gray-900 leading-tight mb-1 group-hover:text-primary transition-colors">Design Systems Workshop</h4>
+                                <p class="text-sm text-gray-500">General Assembly SF • Nov 03, 6:00 PM</p>
+                            </div>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-100">
+                                        <span class="iconify mr-1" data-icon="lucide:map-pin" data-width="10"></span>
+                                        1.2 mi
+                                    </span>
+                                    <span class="text-xs text-gray-400">Education</span>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-900">$150</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1E293B] text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 bg-blue-500 rounded-md flex items-center justify-center text-white">
+                            <span class="iconify" data-icon="lucide:hexagon" data-width="14"></span>
+                        </div>
+                        <span class="text-base font-bold text-white tracking-tight">EventHive</span>
+                    </div>
+                    <p class="text-xs leading-relaxed text-gray-400">Discover and book the best events in your city. Join the community today.</p>
+                </div>
+                
+                <div>
+                    <h5 class="text-sm font-semibold text-white mb-3">Company</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-sm font-semibold text-white mb-3">Support</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-sm font-semibold text-white mb-3">Social</h5>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><span class="iconify" data-icon="lucide:twitter" data-width="18"></span></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><span class="iconify" data-icon="lucide:instagram" data-width="18"></span></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><span class="iconify" data-icon="lucide:linkedin" data-width="18"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700/50 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>© 2024 EventHive Inc. All rights reserved.</p>
+                <div class="flex gap-4 mt-2 md:mt-0">
+                    <a href="#" class="hover:text-gray-300">Privacy</a>
+                    <a href="#" class="hover:text-gray-300">Terms</a>
+                    <a href="#" class="hover:text-gray-300">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 0) {
+                nav.classList.add('shadow-subtle');
+            } else {
+                nav.classList.remove('shadow-subtle');
+            }
+        });
+
+        // Simple carousel scroll
+        function scrollCarousel(direction) {
+            const container = document.getElementById('featured-carousel');
+            const scrollAmount = 300;
+            if (direction === 'left') {
+                container.scrollLeft -= scrollAmount;
+            } else {
+                container.scrollLeft += scrollAmount;
+            }
+        }
+    </script>
+
+</body></html>

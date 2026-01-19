@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Admin Loading</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+slate: {
+850: '#1e293b',
+900: '#0f172a',
+}
+},
+animation: {
+'spin-slow': 'spin 1.5s linear infinite',
+}
+}
+}
+}
+</script>
+<style>
+/* Custom styles for components */
+.loader {
+border-top-color: white;
+-webkit-animation: spinner 1s linear infinite;
+animation: spinner 1s linear infinite;
+}
+@keyframes spinner {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+</style></head>
+<body class="bg-[#1E293B] font-sans text-white antialiased min-h-screen flex flex-col items-center justify-center overflow-hidden">
+
+    <!-- Logo Section -->
+    <div class="flex flex-col items-center justify-center animate-fade-in">
+        <!-- Logo Icon -->
+        <span class="iconify text-white drop-shadow-2xl" data-icon="lucide:ticket" data-width="120" data-height="120" data-stroke-width="1.5"></span>
+        
+        <!-- App Name (Optional context, keeping minimal as requested) -->
+        <h1 class="text-5xl font-bold tracking-tighter mt-8 text-white">EventHive</h1>
+        
+        <!-- Admin Panel Title -->
+        <h2 class="text-4xl font-medium tracking-tight text-white/90 mt-4">Admin Panel</h2>
+        
+        <!-- Loading Spinner -->
+        <div class="mt-12">
+            <div class="w-10 h-10 border-4 border-white/20 border-t-white rounded-full loader"></div>
+        </div>
+    </div>
+
+    <!-- Auto-redirect to admin dashboard after 2 seconds -->
+    <script>
+        setTimeout(function() {
+            window.location.href = '23-admin-dashboard.html';
+        }, 2000);
+    </script>
+
+</body></html>

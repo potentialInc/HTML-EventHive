@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - My Tickets</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+secondary: '#64748B',
+canvas: '#F9FAFB',
+}
+}
+}
+}
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- TOP NAV -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-gray-200 h-[64px]">
+        <div class="max-w-3xl mx-auto h-full px-6 flex items-center justify-between">
+            <a href="06-home.html" class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-lg flex items-center justify-center text-white">
+                    <span class="iconify" data-icon="lucide:hexagon" data-width="18" style="stroke-width: 2.5;"></span>
+                </div>
+                <span class="text-lg font-semibold tracking-tight text-gray-900">EventHive</span>
+            </a>
+            <a href="15-profile-attendee.html" class="relative">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Profile" class="h-9 w-9 rounded-full border border-gray-200 object-cover hover:ring-2 hover:ring-primary hover:ring-offset-2 transition-all">
+            </a>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <header class="bg-white px-6 pt-6 pb-0">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-bold tracking-tight text-gray-900 mb-6">My Tickets</h2>
+            
+            <!-- TAB BAR -->
+            <div class="flex items-center gap-8 border-b border-gray-200">
+                <button class="h-12 border-b-2 border-primary text-primary font-medium text-sm px-1 flex items-center gap-2">
+                    Upcoming
+                    <span class="bg-blue-100 text-primary text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+                </button>
+                <button class="h-12 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm px-1 transition-colors flex items-center gap-2">
+                    Past
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- UPCOMING TAB CONTENT -->
+    <main class="max-w-3xl mx-auto px-6 py-6">
+        
+        <!-- Ticket List -->
+        <div class="flex flex-col gap-4">
+
+            <!-- Ticket Card 1 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col sm:flex-row gap-5 items-start sm:items-center group hover:shadow-md transition-all duration-200">
+                <!-- Thumbnail -->
+                <div class="w-20 h-20 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&amp;w=200&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+
+                <!-- Center Info -->
+                <div class="flex-1 min-w-0 flex flex-col gap-1">
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight truncate">Neon Nights: Synthwave Party</h3>
+                    <div class="flex items-center gap-1.5 text-sm text-gray-500">
+                        <span class="iconify" data-icon="lucide:calendar" data-width="14"></span>
+                        <span class="truncate">Sat, Jan 25, 2026 • 7:00 PM EST</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-sm text-gray-500">
+                        <span class="iconify" data-icon="lucide:map-pin" data-width="14"></span>
+                        <span class="truncate">Madison Square Garden</span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200">
+                            General Admission x 2
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right Section: QR & Actions -->
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 border-gray-100 pt-4 sm:pt-0 pl-0 sm:pl-4 sm:border-l">
+                    <!-- QR Preview -->
+                    <div class="w-[60px] h-[60px] bg-white border border-gray-200 rounded p-1 flex-shrink-0">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=EventHiveTicket123" alt="QR" class="w-full h-full opacity-80 mix-blend-multiply">
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col gap-2">
+                        <a href="12-ticket-detail.html" class="h-8 px-4 bg-primary hover:bg-blue-600 text-white text-xs font-medium rounded-md shadow-sm transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap">
+                            View Ticket
+                        </a>
+                        <a href="13-ticket-transfer.html" class="h-8 px-4 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-medium rounded-md transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap">
+                            Transfer
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket Card 2 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col sm:flex-row gap-5 items-start sm:items-center group hover:shadow-md transition-all duration-200">
+                <!-- Thumbnail -->
+                <div class="w-20 h-20 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&amp;w=200&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+
+                <!-- Center Info -->
+                <div class="flex-1 min-w-0 flex flex-col gap-1">
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight truncate">Future Tech Summit 2026</h3>
+                    <div class="flex items-center gap-1.5 text-sm text-gray-500">
+                        <span class="iconify" data-icon="lucide:calendar" data-width="14"></span>
+                        <span class="truncate">Mon, Feb 12, 2026 • 9:00 AM PST</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-sm text-gray-500">
+                        <span class="iconify" data-icon="lucide:map-pin" data-width="14"></span>
+                        <span class="truncate">Moscone Center, SF</span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
+                            VIP Pass x 1
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right Section: QR & Actions -->
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 border-gray-100 pt-4 sm:pt-0 pl-0 sm:pl-4 sm:border-l">
+                    <!-- QR Preview -->
+                    <div class="w-[60px] h-[60px] bg-white border border-gray-200 rounded p-1 flex-shrink-0">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=EventHiveTicket456" alt="QR" class="w-full h-full opacity-80 mix-blend-multiply">
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col gap-2">
+                        <a href="12-ticket-detail.html" class="h-8 px-4 bg-primary hover:bg-blue-600 text-white text-xs font-medium rounded-md shadow-sm transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap">
+                            View Ticket
+                        </a>
+                        <a href="13-ticket-transfer.html" class="h-8 px-4 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-medium rounded-md transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap">
+                            Transfer
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket Card 3 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col sm:flex-row gap-5 items-start sm:items-center group hover:shadow-md transition-all duration-200">
+                <!-- Thumbnail -->
+                <div class="w-20 h-20 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+
+                <!-- Center Info -->
+                <div class="flex-1 min-w-0 flex flex-col gap-1">
+                    <h3 class="font-bold text-gray-900 text-lg leading-tight truncate">Abstract Painting Class</h3>
+                    <div class="flex items-center gap-1.5 text-sm text-gray-500">
+                        <span class="iconify" data-icon="lucide:calendar" data-width="14"></span>
+                        <span class="truncate">Sun, Mar 05, 2026 • 2:00 PM EST</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-sm text-gray-500">
+                        <span class="iconify" data-icon="lucide:map-pin" data-width="14"></span>
+                        <span class="truncate">Brooklyn Art Lofts</span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200">
+                            Workshop Entry x 1
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right Section: QR & Actions -->
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 border-gray-100 pt-4 sm:pt-0 pl-0 sm:pl-4 sm:border-l">
+                    <!-- QR Preview -->
+                    <div class="w-[60px] h-[60px] bg-white border border-gray-200 rounded p-1 flex-shrink-0">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=EventHiveTicket789" alt="QR" class="w-full h-full opacity-80 mix-blend-multiply">
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col gap-2">
+                        <a href="12-ticket-detail.html" class="h-8 px-4 bg-primary hover:bg-blue-600 text-white text-xs font-medium rounded-md shadow-sm transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap">
+                            View Ticket
+                        </a>
+                        <a href="13-ticket-transfer.html" class="h-8 px-4 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-medium rounded-md transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap">
+                            Transfer
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State (Hidden) -->
+            <div class="hidden flex flex-col items-center justify-center py-20 text-center">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                    <span class="iconify text-gray-400" data-icon="lucide:ticket" data-width="32" data-stroke-width="1.5"></span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">No upcoming tickets</h3>
+                <p class="text-gray-500 text-sm mb-6 max-w-xs">You haven't purchased any tickets for upcoming events yet.</p>
+                <button class="h-10 px-6 bg-primary text-white text-sm font-medium rounded-lg shadow-sm hover:bg-blue-600 transition-colors">
+                    Browse Events
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+
+</body></html>

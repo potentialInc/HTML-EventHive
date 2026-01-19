@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive Login</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+primaryDark: '#1D4ED8',
+}
+}
+}
+}
+</script>
+<style>
+/* Hide scrollbar for clean split screen */
+body {
+scrollbar-width: none;
+-ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+display: none;
+}
+.glass-effect {
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.2);
+}
+</style></head>
+<body class="bg-white font-sans antialiased h-screen w-full flex overflow-hidden">
+
+    <!-- LEFT PANEL: Illustration & Tagline -->
+    <div class="hidden lg:flex w-1/2 bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] relative flex-col justify-center items-center p-12 overflow-hidden text-center">
+        
+        <!-- Decorative Background Elements -->
+        <div class="absolute inset-0 overflow-hidden opacity-20">
+            <svg class="absolute top-0 left-0 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 text-white" fill="currentColor" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40"></circle>
+            </svg>
+            <svg class="absolute bottom-0 right-0 w-[600px] h-[600px] translate-x-1/3 translate-y-1/3 text-white" fill="currentColor" viewBox="0 0 100 100">
+                <polygon points="50,0 100,25 100,75 50,100 0,75 0,25"></polygon>
+            </svg>
+        </div>
+
+        <!-- Central Illustration Composition -->
+        <div class="relative z-10 mb-12 w-full max-w-md aspect-square flex items-center justify-center">
+            <!-- Abstract Event Cards Illustration -->
+            <div class="relative w-64 h-64">
+                <!-- Card 1 -->
+                <div class="absolute top-0 right-4 w-48 h-64 bg-white/10 rounded-2xl rotate-12 border border-white/20 backdrop-blur-sm shadow-2xl"></div>
+                <!-- Card 2 -->
+                <div class="absolute top-4 left-4 w-48 h-64 bg-white/20 rounded-2xl -rotate-6 border border-white/30 backdrop-blur-md shadow-2xl flex flex-col items-center justify-center p-6">
+                    <span class="iconify text-white mb-4 opacity-90" data-icon="lucide:ticket" data-width="48" data-height="48" style="stroke-width: 1.5;"></span>
+                    <div class="w-full h-2 bg-white/30 rounded-full mb-2"></div>
+                    <div class="w-2/3 h-2 bg-white/30 rounded-full"></div>
+                </div>
+                <!-- Floating Elements -->
+                <div class="absolute -top-8 -left-8 glass-effect p-3 rounded-xl animate-bounce" style="animation-duration: 3s;">
+                    <span class="iconify text-white" data-icon="lucide:music" data-width="24"></span>
+                </div>
+                <div class="absolute -bottom-4 -right-8 glass-effect p-3 rounded-xl animate-bounce" style="animation-duration: 4s;">
+                    <span class="iconify text-white" data-icon="lucide:calendar" data-width="24"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="relative z-10 max-w-lg">
+            <h2 class="text-4xl font-semibold text-white tracking-tight mb-4">
+                Discover Amazing Events
+            </h2>
+            <p class="text-white/80 text-base font-medium leading-relaxed">
+                Connect with experiences that inspire. Join a community of event enthusiasts and creators today.
+            </p>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: Login Form -->
+    <div class="w-full lg:w-1/2 flex flex-col justify-center items-center p-8 bg-white h-full overflow-y-auto">
+        <div class="w-full max-w-[400px] flex flex-col">
+            
+            <!-- Header Group -->
+            <div class="flex flex-col items-center mb-8 text-center">
+                <!-- Logo (48px) -->
+                <div class="w-12 h-12 mb-6 text-[#3B82F6]">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                        <path d="M12 22l-8.5-5V7L12 2l8.5 5v10L12 22z" fill="#3B82F6" fill-opacity="0.1"></path>
+                        <path d="M12 8l-4 2.5v4.5l4 2.5 4-2.5v-4.5L12 8z"></path>
+                        <path d="M12 2v6 M12 22v-5.5 M20.5 7l-4.5 3 M3.5 7l4.5 3 M20.5 17l-4.5-2.5 M3.5 17l4.5-2.5"></path>
+                    </svg>
+                </div>
+                
+                <h2 class="text-4xl font-semibold text-gray-900 tracking-tight mb-2">
+                    Welcome back
+                </h2>
+                <p class="text-gray-500 text-sm">
+                    Sign in to your account
+                </p>
+            </div>
+
+            <!-- Form -->
+            <form action="#" class="space-y-5" onsubmit="event.preventDefault();">
+                <!-- Email Input -->
+                <div class="space-y-1.5">
+                    <label for="email" class="block text-xs font-medium text-gray-700 ml-1">Email address</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <span class="iconify text-gray-400 group-focus-within:text-[#3B82F6] transition-colors" data-icon="lucide:mail" data-width="20" style="stroke-width: 1.5;"></span>
+                        </div>
+                        <input type="email" id="email" class="block w-full h-12 pl-11 pr-4 bg-white border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all text-gray-900" placeholder="name@example.com" required="">
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div class="space-y-1.5">
+                    <div class="flex items-center justify-between ml-1">
+                        <label for="password" class="block text-xs font-medium text-gray-700">Password</label>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <span class="iconify text-gray-400 group-focus-within:text-[#3B82F6] transition-colors" data-icon="lucide:lock" data-width="20" style="stroke-width: 1.5;"></span>
+                        </div>
+                        <input type="password" id="password" class="block w-full h-12 pl-11 pr-12 bg-white border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all text-gray-900" placeholder="Enter your password" required="">
+                        <button type="button" class="absolute inset-y-0 right-0 pr-3.5 flex items-center cursor-pointer text-gray-400 hover:text-gray-600 focus:outline-none">
+                            <span class="iconify" data-icon="lucide:eye" data-width="20" style="stroke-width: 1.5;"></span>
+                        </button>
+                    </div>
+                    <div class="flex justify-end mt-1">
+                        <a href="03-forgot-password.html" class="text-xs font-medium text-[#3B82F6] hover:text-[#1D4ED8] transition-colors">
+                            Forgot password?
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sign In Button -->
+                <a href="06-home.html" class="w-full h-12 bg-[#3B82F6] hover:bg-[#1D4ED8] text-white font-medium rounded-lg shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center text-sm tracking-wide">
+                    Sign In
+                </a>
+            </form>
+
+            <!-- Divider -->
+            <div class="relative my-8">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-200"></div>
+                </div>
+                <div class="relative flex justify-center text-xs uppercase">
+                    <span class="bg-white px-4 text-gray-400 font-medium tracking-wider">Or continue with</span>
+                </div>
+            </div>
+
+            <!-- Social Login -->
+            <button type="button" class="w-full h-12 bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 text-gray-700 font-medium rounded-lg transition-all duration-200 flex items-center justify-center gap-3 text-sm">
+                <span class="iconify" data-icon="logos:google-icon" data-width="20"></span>
+                Google
+            </button>
+
+            <!-- Footer -->
+            <p class="mt-8 text-center text-sm text-gray-500">
+                Don't have an account?
+                <a href="05-signup.html" class="font-medium text-[#3B82F6] hover:text-[#1D4ED8] transition-colors">
+                    Sign up
+                </a>
+            </p>
+        </div>
+    </div>
+
+
+</body></html>

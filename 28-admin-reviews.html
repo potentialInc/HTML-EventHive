@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Review Management</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+slate: {
+850: '#1e293b',
+900: '#0f172a',
+}
+},
+boxShadow: {
+'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+'floating': '0 10px 40px -10px rgba(0,0,0,0.2)'
+}
+}
+}
+}
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Custom Checkbox */
+.custom-checkbox {
+appearance: none;
+background-color: #fff;
+margin: 0;
+font: inherit;
+color: currentColor;
+width: 1.15em;
+height: 1.15em;
+border: 1px solid #d1d5db;
+border-radius: 0.25em;
+display: grid;
+place-content: center;
+transition: all 0.2s ease-in-out;
+}
+.custom-checkbox::before {
+content: "";
+width: 0.65em;
+height: 0.65em;
+transform: scale(0);
+transition: 120ms transform ease-in-out;
+box-shadow: inset 1em 1em white;
+transform-origin: center;
+clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+.custom-checkbox:checked {
+background-color: #3B82F6;
+border-color: #3B82F6;
+}
+.custom-checkbox:checked::before {
+transform: scale(1);
+}
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased min-h-screen flex">
+
+    <!-- DARK SIDEBAR -->
+    <aside class="fixed top-0 left-0 w-[240px] h-screen bg-[#1E293B] flex flex-col z-50 hidden md:flex text-white border-r border-slate-700/30">
+        <!-- Logo -->
+        <div class="h-16 px-6 flex items-center border-b border-slate-700/50">
+            <div class="flex items-center gap-2">
+                <span class="iconify text-white" data-icon="lucide:hexagon" data-width="24" data-height="24" data-stroke-width="1.5"></span>
+                <span class="text-lg font-semibold tracking-tight">EventHive</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto no-scrollbar">
+            <a href="23-admin-dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:layout-dashboard" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Dashboard
+            </a>
+            <a href="24-admin-attendees.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:users" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Attendees
+            </a>
+            <a href="25-admin-organizers.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:user-check" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Organizers
+            </a>
+            <a href="26-admin-events.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:calendar" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Events
+            </a>
+            <a href="27-admin-transactions.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:credit-card" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Transactions
+            </a>
+
+            <!-- Active State: Reviews -->
+            <a href="28-admin-reviews.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white text-sm font-medium shadow-sm transition-colors group">
+                <span class="iconify text-white" data-icon="lucide:star" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Reviews
+            </a>
+
+             <a href="29-admin-export.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:download" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Export
+            </a>
+        </nav>
+
+        <!-- Admin Profile Bottom -->
+        <div class="p-4 border-t border-slate-700/50 bg-[#162032]">
+            <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Admin" class="w-9 h-9 rounded-full object-cover border border-slate-600">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-white truncate">James Anderson</p>
+                    <p class="text-xs text-slate-400 truncate">Super Admin</p>
+                </div>
+                <a href="02-login.html" class="text-slate-400 hover:text-white">
+                    <span class="iconify" data-icon="lucide:log-out" data-width="18" data-height="18" data-stroke-width="1.5"></span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 md:ml-[240px] p-8 min-h-screen flex flex-col w-full max-w-[1600px] mx-auto relative">
+        
+        <!-- HEADER -->
+        <header class="flex flex-col gap-1 mb-8">
+            <h2 class="text-4xl font-semibold tracking-tight text-slate-900">Reviews</h2>
+            <p class="text-sm text-slate-500">Moderate user reviews and maintain platform quality.</p>
+        </header>
+
+        <!-- TOOLBAR -->
+        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col xl:flex-row items-center justify-between gap-4 mb-6">
+            <div class="flex flex-col sm:flex-row items-center gap-3 w-full xl:w-auto">
+                <!-- Search -->
+                <div class="relative w-full sm:w-[240px]">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="iconify text-slate-400" data-icon="lucide:search" data-width="16" data-height="16"></span>
+                    </div>
+                    <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg text-sm placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors" placeholder="Search reviews...">
+                </div>
+
+                <!-- Status Filter -->
+                <div class="relative w-full sm:w-auto group">
+                    <button class="w-full sm:w-auto flex items-center justify-between gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-slate-700 hover:bg-gray-50 transition-colors">
+                        <span class="flex items-center gap-2">
+                            <span class="iconify text-slate-400" data-icon="lucide:filter" data-width="16" data-height="16"></span>
+                            Status: All
+                        </span>
+                        <span class="iconify text-slate-400" data-icon="lucide:chevron-down" data-width="16" data-height="16"></span>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="hidden group-hover:block absolute top-full left-0 mt-1 w-48 bg-white border border-gray-100 rounded-lg shadow-lg z-20 py-1">
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">All</a>
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">Published</a>
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">Hidden</a>
+                    </div>
+                </div>
+
+                <!-- Rating Filter -->
+                <div class="relative w-full sm:w-auto group">
+                    <button class="w-full sm:w-auto flex items-center justify-between gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-slate-700 hover:bg-gray-50 transition-colors">
+                        <span class="flex items-center gap-2">
+                            <span class="iconify text-slate-400" data-icon="lucide:star" data-width="16" data-height="16"></span>
+                            Rating: All
+                        </span>
+                        <span class="iconify text-slate-400" data-icon="lucide:chevron-down" data-width="16" data-height="16"></span>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="hidden group-hover:block absolute top-full left-0 mt-1 w-48 bg-white border border-gray-100 rounded-lg shadow-lg z-20 py-1">
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">All</a>
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">5 Stars</a>
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">4 Stars</a>
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">3 Stars</a>
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">2 Stars</a>
+                        <a href="#" class="block px-3 py-1.5 text-xs text-slate-700 hover:bg-gray-50">1 Star</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mb-20">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50/50 border-b border-gray-200">
+                            <th class="p-4 w-12 text-center">
+                                <input type="checkbox" class="custom-checkbox cursor-pointer">
+                            </th>
+                            <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Event Name</th>
+                            <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Reviewer</th>
+                            <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Rating</th>
+                            <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Review</th>
+                            <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                            <th class="p-4 text-xs font-medium text-slate-500 uppercase tracking-wider hidden md:table-cell">Date</th>
+                            <th class="p-4 w-16"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        
+                        <!-- Row 1: 5 Stars, Published -->
+                        <tr class="hover:bg-gray-50/80 transition-colors">
+                            <td class="p-4 text-center">
+                                <input type="checkbox" class="custom-checkbox cursor-pointer">
+                            </td>
+                            <td class="p-4 text-sm font-medium text-slate-900">
+                                Neon Music Festival
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Reviewer" class="w-6 h-6 rounded-full border border-gray-200">
+                                    <span class="text-sm text-slate-700">Alice Freeman</span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex text-yellow-400">
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <p class="text-sm text-slate-600 truncate max-w-[200px] xl:max-w-xs">Absolutely loved the vibe! The sound system was incredible and the organization was...</p>
+                            </td>
+                            <td class="p-4">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20">
+                                    Published
+                                </span>
+                            </td>
+                            <td class="p-4 text-sm text-slate-500 hidden md:table-cell">Oct 24, 2024</td>
+                            <td class="p-4 text-right relative group">
+                                <button class="p-1.5 text-slate-400 hover:text-slate-600 rounded-md hover:bg-slate-100 transition-colors">
+                                    <span class="iconify" data-icon="lucide:more-horizontal" data-width="18" data-height="18"></span>
+                                </button>
+                                <!-- Action Dropdown -->
+                                <div class="hidden group-hover:block absolute right-8 top-6 w-40 bg-white rounded-lg shadow-lg border border-gray-100 z-10 py-1 animate-in fade-in zoom-in duration-200">
+                                    <a href="#" class="flex items-center gap-2 px-3 py-2 text-xs text-slate-700 hover:bg-gray-50">
+                                        <span class="iconify" data-icon="lucide:eye" data-width="14" data-height="14"></span> View Full Review
+                                    </a>
+                                    <a href="#" class="flex items-center gap-2 px-3 py-2 text-xs text-slate-700 hover:bg-gray-50">
+                                        <span class="iconify" data-icon="lucide:eye-off" data-width="14" data-height="14"></span> Hide Review
+                                    </a>
+                                    <a href="#" class="flex items-center gap-2 px-3 py-2 text-xs text-red-600 hover:bg-red-50">
+                                        <span class="iconify" data-icon="lucide:trash-2" data-width="14" data-height="14"></span> Delete Review
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2: 3 Stars, Published (Selected) -->
+                        <tr class="hover:bg-gray-50/80 transition-colors bg-blue-50/30">
+                            <td class="p-4 text-center">
+                                <input type="checkbox" class="custom-checkbox cursor-pointer" checked="">
+                            </td>
+                            <td class="p-4 text-sm font-medium text-slate-900">
+                                Downtown Food Market
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Reviewer" class="w-6 h-6 rounded-full border border-gray-200">
+                                    <span class="text-sm text-slate-700">Marcus Johnson</span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex text-yellow-400">
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify text-gray-200" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify text-gray-200" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <p class="text-sm text-slate-600 truncate max-w-[200px] xl:max-w-xs">Good event but the queue was too long for entry. Need better crowd management...</p>
+                            </td>
+                            <td class="p-4">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20">
+                                    Published
+                                </span>
+                            </td>
+                            <td class="p-4 text-sm text-slate-500 hidden md:table-cell">Oct 23, 2024</td>
+                            <td class="p-4 text-right relative group">
+                                <button class="p-1.5 text-slate-400 hover:text-slate-600 rounded-md hover:bg-slate-100 transition-colors">
+                                    <span class="iconify" data-icon="lucide:more-horizontal" data-width="18" data-height="18"></span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3: 1 Star, Hidden (Selected) -->
+                        <tr class="hover:bg-gray-50/80 transition-colors bg-blue-50/30">
+                            <td class="p-4 text-center">
+                                <input type="checkbox" class="custom-checkbox cursor-pointer" checked="">
+                            </td>
+                            <td class="p-4 text-sm font-medium text-slate-900">
+                                Modern Art Exhibition
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-[10px] font-bold">EK</div>
+                                    <span class="text-sm text-slate-700">Elena K.</span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex text-yellow-400">
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify text-gray-200" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify text-gray-200" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify text-gray-200" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify text-gray-200" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <p class="text-sm text-slate-400 truncate max-w-[200px] xl:max-w-xs italic">Terrible experience, would not recommend to anyone. The staff was rude...</p>
+                            </td>
+                            <td class="p-4">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                                    Hidden
+                                </span>
+                            </td>
+                            <td class="p-4 text-sm text-slate-500 hidden md:table-cell">Oct 22, 2024</td>
+                            <td class="p-4 text-right relative group">
+                                <button class="p-1.5 text-slate-400 hover:text-slate-600 rounded-md hover:bg-slate-100 transition-colors">
+                                    <span class="iconify" data-icon="lucide:more-horizontal" data-width="18" data-height="18"></span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 4: 4 Stars, Published -->
+                        <tr class="hover:bg-gray-50/80 transition-colors">
+                            <td class="p-4 text-center">
+                                <input type="checkbox" class="custom-checkbox cursor-pointer">
+                            </td>
+                            <td class="p-4 text-sm font-medium text-slate-900">
+                                Future Tech Summit 2024
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Reviewer" class="w-6 h-6 rounded-full border border-gray-200">
+                                    <span class="text-sm text-slate-700">David Chen</span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex text-yellow-400">
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify text-gray-200" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <p class="text-sm text-slate-600 truncate max-w-[200px] xl:max-w-xs">Great organization, friendly staff and informative sessions. The food was okay...</p>
+                            </td>
+                            <td class="p-4">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20">
+                                    Published
+                                </span>
+                            </td>
+                            <td class="p-4 text-sm text-slate-500 hidden md:table-cell">Oct 21, 2024</td>
+                            <td class="p-4 text-right relative group">
+                                <button class="p-1.5 text-slate-400 hover:text-slate-600 rounded-md hover:bg-slate-100 transition-colors">
+                                    <span class="iconify" data-icon="lucide:more-horizontal" data-width="18" data-height="18"></span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 5: 5 Stars, Published -->
+                        <tr class="hover:bg-gray-50/80 transition-colors">
+                            <td class="p-4 text-center">
+                                <input type="checkbox" class="custom-checkbox cursor-pointer">
+                            </td>
+                            <td class="p-4 text-sm font-medium text-slate-900">
+                                Neon Music Festival
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Reviewer" class="w-6 h-6 rounded-full border border-gray-200">
+                                    <span class="text-sm text-slate-700">Sarah O'Connor</span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex text-yellow-400">
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                    <span class="iconify" data-icon="lucide:star" data-width="14" data-height="14" data-fill="currentColor"></span>
+                                </div>
+                            </td>
+                            <td class="p-4">
+                                <p class="text-sm text-slate-600 truncate max-w-[200px] xl:max-w-xs">Best night of my life! Can't wait for next year. Everything was perfect...</p>
+                            </td>
+                            <td class="p-4">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20">
+                                    Published
+                                </span>
+                            </td>
+                            <td class="p-4 text-sm text-slate-500 hidden md:table-cell">Oct 20, 2024</td>
+                            <td class="p-4 text-right relative group">
+                                <button class="p-1.5 text-slate-400 hover:text-slate-600 rounded-md hover:bg-slate-100 transition-colors">
+                                    <span class="iconify" data-icon="lucide:more-horizontal" data-width="18" data-height="18"></span>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between gap-4">
+                <div class="text-sm text-slate-500">
+                    Showing <span class="font-medium text-slate-900">1-25</span> of <span class="font-medium text-slate-900">8,456</span>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <button class="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-slate-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
+                    <div class="hidden sm:flex items-center gap-1">
+                        <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-50 text-sm font-medium text-slate-900 ring-1 ring-gray-200">1</button>
+                        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium text-slate-500 hover:bg-gray-50">2</button>
+                        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium text-slate-500 hover:bg-gray-50">3</button>
+                        <span class="w-8 h-8 flex items-center justify-center text-slate-400">...</span>
+                        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium text-slate-500 hover:bg-gray-50">12</button>
+                    </div>
+                    <button class="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-slate-600 hover:bg-gray-50">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BULK ACTIONS BAR (Floating) -->
+        <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 animate-in slide-in-from-bottom-4 duration-500">
+            <div class="bg-[#1E293B] text-white px-4 py-3 rounded-xl shadow-floating flex items-center gap-6 border border-slate-700/50">
+                <div class="flex items-center gap-2 pl-1 border-r border-slate-600 pr-6">
+                    <div class="w-5 h-5 bg-primary rounded flex items-center justify-center">
+                        <span class="iconify" data-icon="lucide:minus" data-width="14" data-height="14"></span>
+                    </div>
+                    <span class="text-sm font-medium">2 selected</span>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <button class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-200 hover:text-white hover:bg-slate-700 rounded-lg transition-colors">
+                        <span class="iconify" data-icon="lucide:eye-off" data-width="14" data-height="14"></span>
+                        Hide Selected
+                    </button>
+                    <button class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors">
+                        <span class="iconify" data-icon="lucide:trash-2" data-width="14" data-height="14"></span>
+                        Delete Selected
+                    </button>
+                </div>
+                
+                <button class="ml-2 text-slate-400 hover:text-white">
+                    <span class="iconify" data-icon="lucide:x" data-width="18" data-height="18"></span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+</body></html>

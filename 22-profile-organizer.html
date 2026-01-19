@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Organizer Profile</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+slate: {
+850: '#1e293b',
+}
+}
+}
+}
+}
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased min-h-screen flex">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="fixed top-0 left-0 w-[240px] h-screen bg-white border-r border-gray-200 flex flex-col z-50 hidden md:flex">
+        <!-- Logo -->
+        <div class="h-16 px-6 flex items-center">
+            <div class="flex items-center gap-2 text-slate-900">
+                <span class="iconify text-primary" data-icon="lucide:hexagon" data-width="24" data-height="24" data-stroke-width="1.5"></span>
+                <span class="text-lg font-semibold tracking-tight">EventHive</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-4 space-y-1">
+            <a href="16-dashboard-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:layout-dashboard" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Dashboard
+            </a>
+            <a href="17-events-list-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:calendar" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Events
+            </a>
+            <a href="21-attendee-list.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:users" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Attendees
+            </a>
+            <a href="20-notification-settings-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:settings" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Settings
+            </a>
+            <a href="22-profile-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:help-circle" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Help &amp; Support
+            </a>
+        </nav>
+
+        <!-- User Profile Bottom (Active) -->
+        <div class="p-4 border-t border-gray-100 bg-gray-50/50">
+            <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="John Smith" class="w-9 h-9 rounded-full object-cover border border-gray-200">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-slate-900 truncate">John Smith</p>
+                    <p class="text-xs text-slate-500 truncate">Organizer</p>
+                </div>
+                <button class="text-slate-600">
+                    <span class="iconify" data-icon="lucide:chevron-right" data-width="18" data-height="18" data-stroke-width="1.5"></span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 md:ml-[240px] p-8 min-h-screen flex flex-col max-w-7xl mx-auto w-full">
+        
+        <!-- PROFILE HEADER CARD -->
+        <div class="bg-white rounded-2xl shadow-md p-8 flex flex-col md:flex-row gap-8 items-start md:items-center relative overflow-hidden">
+            <!-- Left: Avatar -->
+            <div class="relative shrink-0">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="Profile" class="w-[120px] h-[120px] rounded-full object-cover border-4 border-white shadow-sm">
+                <div class="absolute bottom-1 right-1 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center border-4 border-white z-10" title="Verified Organizer">
+                    <span class="iconify" data-icon="lucide:check" data-width="16" data-height="16" data-stroke-width="3"></span>
+                </div>
+            </div>
+
+            <!-- Right: Info -->
+            <div class="flex-1 w-full">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
+                    <h2 class="text-4xl font-semibold tracking-tight text-slate-900">John Smith</h2>
+                    <button class="px-4 py-2 bg-white border border-gray-200 hover:bg-gray-50 text-slate-700 text-sm font-medium rounded-lg transition-colors shadow-sm">
+                        Edit Profile
+                    </button>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4 mb-4 text-sm">
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-yellow-50 text-yellow-700 rounded-full border border-yellow-100">
+                        <span class="iconify text-yellow-500 fill-yellow-500" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                        <span class="font-semibold">4.8</span>
+                        <span class="text-yellow-600/80">(234 reviews)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-6 text-sm text-slate-500">
+                    <div class="flex items-center gap-2">
+                        <span class="iconify text-slate-400" data-icon="lucide:calendar" data-width="16" data-height="16"></span>
+                        <span><strong class="text-slate-900 font-medium">45</strong> events hosted</span>
+                    </div>
+                    <div class="hidden sm:block w-1 h-1 bg-slate-300 rounded-full"></div>
+                    <div class="flex items-center gap-2">
+                        <span class="iconify text-slate-400" data-icon="lucide:ticket" data-width="16" data-height="16"></span>
+                        <span><strong class="text-slate-900 font-medium">12,340</strong> tickets sold</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REVIEWS SECTION -->
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- LEFT COLUMN: Rating Breakdown -->
+            <div class="lg:col-span-4 space-y-6">
+                <h3 class="text-2xl font-semibold tracking-tight text-slate-900">Reviews from Attendees</h3>
+                
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <div class="flex items-end gap-3 mb-6">
+                        <span class="text-5xl font-bold text-slate-900 tracking-tight">4.8</span>
+                        <div class="flex flex-col mb-1.5">
+                            <div class="flex text-yellow-400 gap-0.5 mb-0.5">
+                                <span class="iconify fill-current" data-icon="lucide:star" data-width="16" data-height="16"></span>
+                                <span class="iconify fill-current" data-icon="lucide:star" data-width="16" data-height="16"></span>
+                                <span class="iconify fill-current" data-icon="lucide:star" data-width="16" data-height="16"></span>
+                                <span class="iconify fill-current" data-icon="lucide:star" data-width="16" data-height="16"></span>
+                                <span class="iconify fill-current" data-icon="lucide:star-half" data-width="16" data-height="16"></span>
+                            </div>
+                            <span class="text-xs text-slate-500 font-medium">Based on 234 reviews</span>
+                        </div>
+                    </div>
+
+                    <!-- Bars -->
+                    <div class="space-y-3">
+                        <!-- 5 Star -->
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-3 font-medium text-slate-600">5</span>
+                            <span class="iconify text-slate-300" data-icon="lucide:star" data-width="12" data-height="12"></span>
+                            <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-yellow-400 rounded-full" style="width: 65%"></div>
+                            </div>
+                            <span class="w-8 text-right text-slate-400 text-xs">65%</span>
+                        </div>
+                        <!-- 4 Star -->
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-3 font-medium text-slate-600">4</span>
+                            <span class="iconify text-slate-300" data-icon="lucide:star" data-width="12" data-height="12"></span>
+                            <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-yellow-400 rounded-full" style="width: 20%"></div>
+                            </div>
+                            <span class="w-8 text-right text-slate-400 text-xs">20%</span>
+                        </div>
+                        <!-- 3 Star -->
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-3 font-medium text-slate-600">3</span>
+                            <span class="iconify text-slate-300" data-icon="lucide:star" data-width="12" data-height="12"></span>
+                            <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-yellow-400 rounded-full" style="width: 10%"></div>
+                            </div>
+                            <span class="w-8 text-right text-slate-400 text-xs">10%</span>
+                        </div>
+                        <!-- 2 Star -->
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-3 font-medium text-slate-600">2</span>
+                            <span class="iconify text-slate-300" data-icon="lucide:star" data-width="12" data-height="12"></span>
+                            <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-yellow-400 rounded-full" style="width: 3%"></div>
+                            </div>
+                            <span class="w-8 text-right text-slate-400 text-xs">3%</span>
+                        </div>
+                        <!-- 1 Star -->
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-3 font-medium text-slate-600">1</span>
+                            <span class="iconify text-slate-300" data-icon="lucide:star" data-width="12" data-height="12"></span>
+                            <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-yellow-400 rounded-full" style="width: 2%"></div>
+                            </div>
+                            <span class="w-8 text-right text-slate-400 text-xs">2%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SETTINGS MENU -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 mt-8">
+                    <div class="p-4 border-b border-gray-100">
+                         <h4 class="text-sm font-semibold text-slate-900 uppercase tracking-wider">Account Settings</h4>
+                    </div>
+                    <nav class="flex flex-col">
+                        <a href="20-notification-settings-organizer.html" class="flex items-center gap-3 px-4 py-3.5 text-sm font-medium text-slate-700 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0">
+                            <span class="iconify text-slate-400" data-icon="lucide:university" data-width="18" data-height="18"></span>
+                            Payout Settings
+                            <span class="iconify ml-auto text-slate-300" data-icon="lucide:chevron-right" data-width="16" data-height="16"></span>
+                        </a>
+                        <a href="20-notification-settings-organizer.html" class="flex items-center gap-3 px-4 py-3.5 text-sm font-medium text-slate-700 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0">
+                            <span class="iconify text-slate-400" data-icon="lucide:bell" data-width="18" data-height="18"></span>
+                            Notification Settings
+                            <span class="iconify ml-auto text-slate-300" data-icon="lucide:chevron-right" data-width="16" data-height="16"></span>
+                        </a>
+                        <a href="20-notification-settings-organizer.html" class="flex items-center gap-3 px-4 py-3.5 text-sm font-medium text-slate-700 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0">
+                            <span class="iconify text-slate-400" data-icon="lucide:help-circle" data-width="18" data-height="18"></span>
+                            Help &amp; Support
+                            <span class="iconify ml-auto text-slate-300" data-icon="lucide:chevron-right" data-width="16" data-height="16"></span>
+                        </a>
+                        <a href="02-login.html" class="flex items-center gap-3 px-4 py-3.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors w-full text-left">
+                            <span class="iconify text-red-500" data-icon="lucide:log-out" data-width="18" data-height="18"></span>
+                            Logout
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Review List -->
+            <div class="lg:col-span-8 flex flex-col gap-4 mt-8 lg:mt-14">
+                
+                <!-- Review 1 -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Sarah J." class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-900">Sarah Johnson</h4>
+                                <p class="text-xs text-slate-500">January 15, 2026</p>
+                            </div>
+                        </div>
+                        <div class="flex text-yellow-400 gap-0.5">
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        The event was incredibly well organized! Entry was smooth, the venue was perfect, and the staff were very helpful. Looking forward to the next one hosted by John.
+                    </p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Michael C." class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-900">Michael Chen</h4>
+                                <p class="text-xs text-slate-500">December 22, 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex text-yellow-400 gap-0.5">
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Great atmosphere and amazing sound quality. The VIP section was definitely worth the extra cost. My only suggestion would be to add more food vendors next time.
+                    </p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Emma W." class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-900">Emma Wilson</h4>
+                                <p class="text-xs text-slate-500">November 05, 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex text-yellow-400 gap-0.5">
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                            <span class="iconify fill-current" data-icon="lucide:star" data-width="14" data-height="14"></span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        John always puts on a great show. Efficient check-in process and great communication leading up to the event day.
+                    </p>
+                </div>
+
+                <button class="mt-2 w-full py-3 bg-white border border-gray-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors shadow-sm">
+                    Load More Reviews
+                </button>
+            </div>
+        </div>
+        
+        <div class="h-12"></div>
+    </main>
+
+</body></html>

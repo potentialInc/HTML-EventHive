@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Notification Settings</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+slate: {
+850: '#1e293b',
+}
+}
+}
+}
+}
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Custom Toggle Switch Transition */
+.toggle-checkbox:checked {
+right: 0;
+border-color: #3B82F6;
+}
+.toggle-checkbox:checked + .toggle-label {
+background-color: #3B82F6;
+}
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased min-h-screen flex">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="fixed top-0 left-0 w-[240px] h-screen bg-white border-r border-gray-200 flex flex-col z-50 hidden md:flex">
+        <!-- Logo -->
+        <div class="h-16 px-6 flex items-center">
+            <div class="flex items-center gap-2 text-slate-900">
+                <span class="iconify text-primary" data-icon="lucide:hexagon" data-width="24" data-height="24" data-stroke-width="1.5"></span>
+                <span class="text-lg font-semibold tracking-tight">EventHive</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-4 space-y-1">
+            <a href="16-dashboard-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:layout-dashboard" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Dashboard
+            </a>
+            <a href="17-events-list-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:calendar" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Events
+            </a>
+            <a href="21-attendee-list.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:users" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Attendees
+            </a>
+            <!-- Active State for Settings -->
+            <a href="20-notification-settings-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-50 text-primary text-sm font-medium group transition-colors">
+                <span class="iconify" data-icon="lucide:settings" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Settings
+            </a>
+            <a href="22-profile-organizer.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 text-sm font-medium group transition-colors">
+                <span class="iconify text-slate-400 group-hover:text-slate-600" data-icon="lucide:help-circle" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Help &amp; Support
+            </a>
+        </nav>
+
+        <!-- User Profile Bottom -->
+        <div class="p-4 border-t border-gray-100">
+            <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="John Smith" class="w-9 h-9 rounded-full object-cover border border-gray-200">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-slate-900 truncate">John Smith</p>
+                    <p class="text-xs text-slate-500 truncate">Organizer</p>
+                </div>
+                <a href="02-login.html" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <span class="iconify" data-icon="lucide:log-out" data-width="18" data-height="18" data-stroke-width="1.5"></span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 md:ml-[240px] p-8 min-h-screen flex flex-col">
+        
+        <!-- HEADER -->
+        <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 max-w-[700px] mx-auto w-full">
+            <div>
+                <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Notification Settings</h2>
+                <p class="text-sm text-slate-500 mt-1">Manage how and when you receive alerts.</p>
+            </div>
+            <button class="px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-primary hover:bg-blue-600 transition-all shadow-sm shadow-blue-500/20 flex items-center gap-2">
+                Save Changes
+            </button>
+        </header>
+
+        <!-- SETTINGS CARD -->
+        <div class="max-w-[700px] w-full mx-auto bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+            
+            <!-- Email Notifications Section -->
+            <div class="p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="p-2 bg-blue-50 text-primary rounded-lg">
+                        <span class="iconify" data-icon="lucide:mail" data-width="20" data-height="20"></span>
+                    </div>
+                    <h3 class="text-lg font-medium text-slate-900">Email Notifications</h3>
+                </div>
+                <p class="text-sm text-slate-500 ml-[52px] mb-6">Manage email alerts for your events and account activity.</p>
+                
+                <div class="space-y-6 ml-[52px]">
+                    <!-- Item 1 -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <label class="text-sm font-medium text-slate-900 block">New Ticket Purchase</label>
+                            <p class="text-xs text-slate-500 mt-0.5">Receive email when someone buys a ticket</p>
+                        </div>
+                        <!-- Toggle ON -->
+                        <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                            <span class="sr-only">Enable</span>
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
+                        </button>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <label class="text-sm font-medium text-slate-900 block">Event Reminder</label>
+                            <p class="text-xs text-slate-500 mt-0.5">Get notified 24 hours before your event</p>
+                        </div>
+                        <!-- Toggle ON -->
+                        <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                            <span class="sr-only">Enable</span>
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
+                        </button>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <label class="text-sm font-medium text-slate-900 block">Attendee Messages</label>
+                            <p class="text-xs text-slate-500 mt-0.5">Email alerts for attendee inquiries</p>
+                        </div>
+                        <!-- Toggle ON -->
+                        <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                            <span class="sr-only">Enable</span>
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
+                        </button>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <label class="text-sm font-medium text-slate-900 block">Sales Report</label>
+                            <p class="text-xs text-slate-500 mt-0.5">Weekly sales summary every Monday</p>
+                        </div>
+                        <!-- Toggle OFF -->
+                        <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:bg-gray-300">
+                            <span class="sr-only">Enable</span>
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-px bg-gray-100 mx-8"></div>
+
+            <!-- Push Notifications Section -->
+            <div class="p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                        <span class="iconify" data-icon="lucide:bell" data-width="20" data-height="20"></span>
+                    </div>
+                    <h3 class="text-lg font-medium text-slate-900">Push Notifications</h3>
+                </div>
+                <p class="text-sm text-slate-500 ml-[52px] mb-6">Real-time alerts to your mobile device.</p>
+                
+                <div class="space-y-6 ml-[52px]">
+                    <!-- Item 1 -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <label class="text-sm font-medium text-slate-900 block">Real-time Sales</label>
+                            <p class="text-xs text-slate-500 mt-0.5">Instant alerts for ticket purchases</p>
+                        </div>
+                        <!-- Toggle ON -->
+                        <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                            <span class="sr-only">Enable</span>
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
+                        </button>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <label class="text-sm font-medium text-slate-900 block">Check-in Alerts</label>
+                            <p class="text-xs text-slate-500 mt-0.5">Notify when attendees check in</p>
+                        </div>
+                        <!-- Toggle OFF -->
+                        <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:bg-gray-300">
+                            <span class="sr-only">Enable</span>
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1"></span>
+                        </button>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <label class="text-sm font-medium text-slate-900 block">Low Ticket Warning</label>
+                            <p class="text-xs text-slate-500 mt-0.5">Alert when less than 10% tickets remain</p>
+                        </div>
+                        <!-- Toggle ON -->
+                        <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                            <span class="sr-only">Enable</span>
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-px bg-gray-100 mx-8"></div>
+
+            <!-- SMS Notifications Section -->
+            <div class="p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                        <span class="iconify" data-icon="lucide:smartphone" data-width="20" data-height="20"></span>
+                    </div>
+                    <h3 class="text-lg font-medium text-slate-900">SMS Notifications</h3>
+                </div>
+                <p class="text-sm text-slate-500 ml-[52px] mb-6">Receive critical updates via text message.</p>
+
+                <div class="ml-[52px]">
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
+                    <div class="flex gap-3">
+                        <div class="relative w-full max-w-[300px]">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-500 border-r border-gray-200 pr-3 my-2">
+                                <span class="text-sm font-medium">US +1</span>
+                            </div>
+                            <input type="tel" class="block w-full pl-[70px] pr-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow" placeholder="(555) 000-0000" value="(415) 555-0198">
+                        </div>
+                        <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors">
+                            Verify
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 flex items-center gap-1">
+                        <span class="iconify text-emerald-500" data-icon="lucide:check-circle-2" data-width="14" data-height="14"></span>
+                        Verified
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="h-8"></div> <!-- Bottom spacer -->
+    </main>
+
+
+</body></html>

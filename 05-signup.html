@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Sign Up</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+primaryDark: '#2563EB',
+primaryLight: '#EFF6FF',
+}
+}
+}
+}
+</script>
+<style>
+/* Custom scrollbar for form section if needed */
+.no-scrollbar::-webkit-scrollbar {
+display: none;
+}
+.no-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+</style></head>
+<body class="bg-white font-sans antialiased h-screen w-full flex overflow-hidden">
+
+    <!-- Left Split: Illustration (Hidden on mobile) -->
+    <div class="hidden lg:flex w-1/2 bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] relative overflow-hidden flex-col items-center justify-center p-12 text-center select-none">
+        
+        <!-- Decorative Background Circles -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-300 opacity-10 rounded-full blur-3xl"></div>
+
+        <!-- Illustration Composition -->
+        <div class="relative z-10 w-full max-w-md aspect-square bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 shadow-2xl flex items-center justify-center mb-10 overflow-hidden group">
+            <!-- Floating Icons -->
+            <span class="iconify text-white/90 absolute top-12 left-12 transform -rotate-12 transition-transform duration-700 group-hover:-translate-y-2" data-icon="lucide:music" data-width="64"></span>
+            <span class="iconify text-white/80 absolute bottom-20 right-16 transform rotate-12 transition-transform duration-700 group-hover:translate-y-2 delay-100" data-icon="lucide:calendar-heart" data-width="56"></span>
+            <span class="iconify text-white/90 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-110 transition-transform duration-500 group-hover:scale-125" data-icon="lucide:ticket" data-width="120" style="stroke-width: 1;"></span>
+            
+            <!-- Cards decorative -->
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-tr from-purple-500 to-indigo-500 rounded-2xl shadow-lg opacity-80 animate-pulse"></div>
+            <div class="absolute -top-5 -right-5 w-24 h-24 bg-gradient-to-bl from-cyan-400 to-blue-400 rounded-full shadow-lg opacity-60"></div>
+        </div>
+
+        <h1 class="relative z-10 text-4xl font-semibold text-white tracking-tight mb-4">Join the Experience</h1>
+        <p class="relative z-10 text-lg text-blue-100 max-w-sm font-medium">Discover, book, and organize unforgettable events with the world's most vibrant community.</p>
+    </div>
+
+    <!-- Right Split: Form -->
+    <div class="w-full lg:w-1/2 h-full bg-white overflow-y-auto no-scrollbar flex flex-col items-center py-10 px-6 sm:px-12">
+        <div class="w-full max-w-[440px] flex flex-col">
+            
+            <!-- Logo & Header -->
+            <div class="flex flex-col items-center text-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-xl flex items-center justify-center text-white shadow-sm mb-5">
+                    <span class="iconify" data-icon="lucide:hexagon" data-width="28" style="stroke-width: 2;"></span>
+                </div>
+                <h2 class="text-4xl font-semibold text-gray-900 tracking-tight mb-2">Create Account</h2>
+                <p class="text-sm text-gray-500 font-medium">Join EventHive today</p>
+            </div>
+
+            <form class="space-y-4" onsubmit="event.preventDefault();">
+                
+                <!-- User Type Toggle -->
+                <div class="bg-gray-100 p-1 rounded-[14px] flex h-[48px] relative">
+                    <button type="button" class="flex-1 flex items-center justify-center text-sm font-semibold rounded-[12px] shadow-sm bg-[#3B82F6] text-white transition-all duration-200" id="btn-attendee" onclick="toggleUserType('attendee')">
+                        Attendee
+                    </button>
+                    <button type="button" class="flex-1 flex items-center justify-center text-sm font-medium rounded-[12px] text-gray-500 hover:text-gray-700 transition-all duration-200" id="btn-organizer" onclick="toggleUserType('organizer')">
+                        Organizer
+                    </button>
+                </div>
+
+                <!-- Profile Photo Upload -->
+                <div class="flex justify-center py-2">
+                    <div class="group w-20 h-20 rounded-full border-2 border-dashed border-gray-300 hover:border-[#3B82F6] hover:bg-blue-50 cursor-pointer flex flex-col items-center justify-center transition-all duration-200 relative overflow-hidden bg-gray-50" onclick="document.getElementById('file-upload').click()">
+                        <input type="file" id="file-upload" class="hidden" accept="image/*" onchange="previewImage(this)">
+                        <div id="upload-placeholder" class="flex flex-col items-center">
+                            <span class="iconify text-gray-400 group-hover:text-[#3B82F6] transition-colors mb-1" data-icon="lucide:camera" data-width="20"></span>
+                            <span class="text-[10px] uppercase font-semibold text-gray-400 group-hover:text-[#3B82F6] tracking-wide">Upload</span>
+                        </div>
+                        <img id="upload-preview" class="absolute inset-0 w-full h-full object-cover hidden">
+                    </div>
+                </div>
+
+                <!-- Full Name -->
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <span class="iconify text-gray-400 group-focus-within:text-[#3B82F6] transition-colors" data-icon="lucide:user" data-width="18"></span>
+                    </div>
+                    <input type="text" class="block w-full h-[48px] pl-10 pr-4 bg-white border border-gray-200 rounded-[12px] text-sm placeholder-gray-400 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all text-gray-900 shadow-sm" placeholder="Full Name" required="">
+                </div>
+
+                <!-- Email -->
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <span class="iconify text-gray-400 group-focus-within:text-[#3B82F6] transition-colors" data-icon="lucide:mail" data-width="18"></span>
+                    </div>
+                    <input type="email" class="block w-full h-[48px] pl-10 pr-4 bg-white border border-gray-200 rounded-[12px] text-sm placeholder-gray-400 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all text-gray-900 shadow-sm" placeholder="Email address" required="">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <span class="iconify text-gray-400 group-focus-within:text-[#3B82F6] transition-colors" data-icon="lucide:lock" data-width="18"></span>
+                        </div>
+                        <input type="password" id="password" class="block w-full h-[48px] pl-10 pr-10 bg-white border border-gray-200 rounded-[12px] text-sm placeholder-gray-400 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all text-gray-900 shadow-sm" placeholder="Password" required="" oninput="checkPasswordStrength(this.value)">
+                        <button type="button" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none" onclick="togglePassword('password')">
+                            <span class="iconify" data-icon="lucide:eye" data-width="18"></span>
+                        </button>
+                    </div>
+                    <!-- Compact Requirements -->
+                    <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 pl-1" id="pwd-reqs">
+                        <span class="text-[11px] text-gray-400 flex items-center gap-1 transition-colors" id="req-len">• 8+ chars</span>
+                        <span class="text-[11px] text-gray-400 flex items-center gap-1 transition-colors" id="req-num">• 1 number</span>
+                        <span class="text-[11px] text-gray-400 flex items-center gap-1 transition-colors" id="req-sym">• 1 symbol</span>
+                    </div>
+                </div>
+
+                <!-- Phone (Optional) -->
+                <div class="relative group flex">
+                    <!-- Fake Country Dropdown -->
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
+                        <button type="button" class="flex items-center gap-1 text-gray-500 hover:text-gray-700 text-sm focus:outline-none border-r border-gray-200 pr-2 h-6">
+                            <span class="iconify" data-icon="lucide:phone" data-width="16"></span>
+                            <span class="text-xs font-medium">US +1</span>
+                            <span class="iconify text-gray-400" data-icon="lucide:chevron-down" data-width="12"></span>
+                        </button>
+                    </div>
+                    <input type="tel" class="block w-full h-[48px] pl-[100px] pr-4 bg-white border border-gray-200 rounded-[12px] text-sm placeholder-gray-400 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all text-gray-900 shadow-sm" placeholder="Phone number (Optional)">
+                </div>
+
+                <!-- Location (Optional) -->
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <span class="iconify text-gray-400 group-focus-within:text-[#3B82F6] transition-colors" data-icon="lucide:map-pin" data-width="18"></span>
+                    </div>
+                    <input type="text" class="block w-full h-[48px] pl-10 pr-4 bg-white border border-gray-200 rounded-[12px] text-sm placeholder-gray-400 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all text-gray-900 shadow-sm" placeholder="Location (Optional)">
+                </div>
+
+                <!-- Terms -->
+                <div class="flex items-start gap-3 mt-1">
+                    <div class="relative flex items-center pt-0.5">
+                        <input type="checkbox" id="terms" class="peer h-4 w-4 cursor-pointer appearance-none rounded border border-gray-300 shadow-sm transition-all checked:border-[#3B82F6] checked:bg-[#3B82F6] hover:border-[#3B82F6]">
+                        <span class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100">
+                            <span class="iconify" data-icon="lucide:check" data-width="12" style="stroke-width: 3;"></span>
+                        </span>
+                    </div>
+                    <label for="terms" class="text-xs text-gray-500 leading-tight">
+                        I agree to the <a href="#" class="text-[#3B82F6] hover:text-blue-700 font-medium">Terms of Service</a> and <a href="#" class="text-[#3B82F6] hover:text-blue-700 font-medium">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <!-- Create Account Button -->
+                <a href="06-home.html" class="w-full h-[48px] bg-[#3B82F6] hover:bg-blue-700 text-white font-semibold rounded-[12px] shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center text-sm tracking-wide mt-2">
+                    Create Account
+                </a>
+
+                <!-- Divider -->
+                <div class="relative flex py-2 items-center">
+                    <div class="flex-grow border-t border-gray-200"></div>
+                    <span class="flex-shrink-0 mx-4 text-xs font-medium text-gray-400 uppercase tracking-wide">Or continue with</span>
+                    <div class="flex-grow border-t border-gray-200"></div>
+                </div>
+
+                <!-- Google Button -->
+                <button type="button" class="w-full h-[48px] bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-medium rounded-[12px] transition-all duration-200 flex items-center justify-center text-sm gap-2.5">
+                    <span class="iconify" data-icon="flat-color-icons:google" data-width="20"></span>
+                    Google
+                </button>
+
+            </form>
+
+            <!-- Footer -->
+            <p class="text-center mt-8 text-sm text-gray-500 pb-4">
+                Already have an account? <a href="02-login.html" class="text-[#3B82F6] font-semibold hover:underline">Log in</a>
+            </p>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleUserType(type) {
+            const btnAttendee = document.getElementById('btn-attendee');
+            const btnOrganizer = document.getElementById('btn-organizer');
+            
+            const activeClasses = ['bg-[#3B82F6]', 'text-white', 'shadow-sm'];
+            const inactiveClasses = ['text-gray-500', 'hover:text-gray-700'];
+
+            if (type === 'attendee') {
+                btnAttendee.classList.add(...activeClasses);
+                btnAttendee.classList.remove(...inactiveClasses);
+                
+                btnOrganizer.classList.remove(...activeClasses);
+                btnOrganizer.classList.add(...inactiveClasses);
+            } else {
+                btnOrganizer.classList.add(...activeClasses);
+                btnOrganizer.classList.remove(...inactiveClasses);
+                
+                btnAttendee.classList.remove(...activeClasses);
+                btnAttendee.classList.add(...inactiveClasses);
+            }
+        }
+
+        function togglePassword(id) {
+            const input = document.getElementById(id);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('upload-preview');
+                    const placeholder = document.getElementById('upload-placeholder');
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function checkPasswordStrength(val) {
+            const reqLen = document.getElementById('req-len');
+            const reqNum = document.getElementById('req-num');
+            const reqSym = document.getElementById('req-sym');
+            
+            // Helper to update style
+            const update = (el, valid) => {
+                if (valid) {
+                    el.classList.remove('text-gray-400');
+                    el.classList.add('text-green-600', 'font-medium');
+                } else {
+                    el.classList.add('text-gray-400');
+                    el.classList.remove('text-green-600', 'font-medium');
+                }
+            };
+
+            update(reqLen, val.length >= 8);
+            update(reqNum, /[0-9]/.test(val));
+            update(reqSym, /[^A-Za-z0-9]/.test(val));
+        }
+    </script>
+
+</body></html>
