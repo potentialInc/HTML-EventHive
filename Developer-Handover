@@ -1,0 +1,3038 @@
+# EventHive - Developer Handover Guide
+
+**Document Version:** 1.0
+**Date:** 2026-01-20
+**Project:** EventHive - Event Discovery & Booking Platform
+
+---
+
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [Quick Start](#quick-start)
+3. [File Structure & Navigation Map](#file-structure--navigation-map)
+4. [PRD to HTML Mapping](#prd-to-html-mapping)
+5. [Design System & Components](#design-system--components)
+6. [User Flow Diagrams](#user-flow-diagrams)
+7. [Implementation Checklist](#implementation-checklist)
+8. [Page-by-Page Guide](#page-by-page-guide)
+9. [Technical Stack](#technical-stack)
+10. [Next Steps](#next-steps)
+
+---
+
+## Project Overview
+
+### What is EventHive?
+
+EventHive is a web-based event discovery and booking platform connecting event organizers with attendees. The platform enables organizers to create and manage events while providing attendees with a streamlined experience to discover, book, and attend local community events.
+
+### Project Goals
+
+1. Provide a simplified event creation process for organizers with smart templates
+2. Enable neighborhood-based event discovery for attendees
+3. Streamline the ticket purchasing and event check-in process
+4. Build a trusted community through reviews and ratings
+
+### User Types
+
+| User Type | Description | Permissions |
+|-----------|-------------|-------------|
+| **Attendee** | Browse events, purchase tickets, view booking history, leave reviews, manage profile, save events to wishlist | Read events, Purchase tickets, Submit reviews, Manage own profile |
+| **Organizer** | Create and manage events, set ticket types and pricing, track ticket sales, manage attendee lists, send updates | Create/Edit/Delete own events, View attendee lists, Send updates, Manage payout settings |
+| **Admin** | Manage all users, events, transactions; access analytics dashboard; handle disputes and refunds | Full system access, User management, Event moderation, Transaction refunds, Analytics access |
+
+### Key Documents
+
+- **PRD Document**: [`.claude-project/prd/EventHive_PRD_260118.md`](.claude-project/prd/EventHive_PRD_260118.md)
+- **HTML Prototypes**: `html/` directory (30 files)
+- **This Document**: Developer handover guide
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- Text editor / IDE (VS Code recommended)
+- Basic knowledge of HTML, CSS, JavaScript
+- Familiarity with Tailwind CSS
+- Understanding of React (for production implementation)
+
+### Viewing HTML Prototypes
+
+1. Navigate to the `html/` directory
+2. Open `index.html` (Splash Screen) in your browser
+3. Click through the prototypes to understand the flow
+4. All pages are linked and interactive
+
+### File Locations
+
+```
+project-root/
+├── .claude-project/
+│   └── prd/
+│       └── EventHive_PRD_260118.md          # Complete PRD
+│   └── DEVELOPER_HANDOVER.md                # This file
+├── html/
+│   ├── index.html                           # Splash Screen
+│   ├── 02-login.html                        # Login
+│   ├── 03-forgot-password.html              # Forgot Password
+│   └── ... (30 HTML files total)
+└── EventHive_PRD_260118.pdf                 # Original PDF
+```
+
+---
+
+## File Structure & Navigation Map
+
+### Complete File List (30 HTML Pages)
+
+#### Common Pages (Authentication)
+| File | Page Name | PRD Reference | Description |
+|------|-----------|---------------|-------------|
+| `index.html` | Splash Screen | Part 2 > Section 1 > Splash Page | App logo with loading animation, auto-redirects after 2s |
+| `02-login.html` | Login | Part 2 > Section 1 > Login Page | Email/password + Google OAuth |
+| `03-forgot-password.html` | Forgot Password | Part 2 > Section 1 > Forgot Password | Email input, sends reset link |
+| `04-reset-password.html` | Reset Password | Part 2 > Section 1 > Reset Password | New password + confirm password |
+| `05-signup.html` | Sign Up | Part 2 > Section 1 > Sign Up Page | Registration with user type selection |
+
+#### Attendee Pages
+| File | Page Name | PRD Reference | Navigation Tab |
+|------|-----------|---------------|----------------|
+| `06-home.html` | Home | Part 2 > Section 2 > 1. Home Tab | Home Tab - Main feed |
+| `07-event-detail.html` | Event Detail | Part 2 > Section 2 > 1. Home Tab > Event Detail | From event cards |
+| `08-checkout.html` | Checkout | Part 2 > Section 2 > 1. Home Tab > Checkout | From event detail |
+| `09-order-confirmation.html` | Order Confirmation | Part 2 > Section 2 > 1. Home Tab > Order Confirmation | After payment |
+| `10-search.html` | Search | Part 2 > Section 2 > 2. Search Tab | Search Tab |
+| `11-my-tickets.html` | My Tickets | Part 2 > Section 2 > 3. My Tickets Tab | My Tickets Tab |
+| `12-ticket-detail.html` | Ticket Detail | Part 2 > Section 2 > 3. My Tickets Tab > Ticket Detail | From tickets list |
+| `13-ticket-transfer.html` | Ticket Transfer | Not in PRD (Additional feature) | From ticket detail |
+| `14-review-submission.html` | Review Submission | Part 2 > Section 2 > 3. My Tickets Tab > Review | From past tickets |
+| `15-profile-attendee.html` | Profile | Part 2 > Section 2 > 4. Profile Tab | Profile Tab |
+
+#### Organizer Pages
+| File | Page Name | PRD Reference | Navigation Tab |
+|------|-----------|---------------|----------------|
+| `16-dashboard-organizer.html` | Dashboard | Part 2 > Section 3 > 1. Dashboard Tab | Dashboard Tab |
+| `17-events-list-organizer.html` | Events List | Part 2 > Section 3 > 2. Events Tab | Events Tab |
+| `18-event-creation.html` | Event Creation | Part 2 > Section 3 > 2. Events Tab > Creation | Create Event button |
+| `19-event-management.html` | Event Management | Part 2 > Section 3 > 2. Events Tab > Management | From events list |
+| `20-notification-settings-organizer.html` | Notification Settings | Not fully in PRD | Settings menu |
+| `21-attendee-list.html` | Attendee List | Part 2 > Section 3 > 2. Events Tab > Attendee List | From event management |
+| `22-profile-organizer.html` | Profile | Part 2 > Section 3 > 3. Profile Tab | Profile Tab |
+
+#### Admin Pages
+| File | Page Name | PRD Reference | Navigation Tab |
+|------|-----------|---------------|----------------|
+| `30-admin-splash.html` | Admin Splash | Custom admin entry | Admin entry point |
+| `23-admin-dashboard.html` | Admin Dashboard | Part 3 > Dashboard Home Page | Dashboard |
+| `24-admin-attendees.html` | Attendee Management | Part 3 > User Management > Attendees | Attendees |
+| `25-admin-organizers.html` | Organizer Management | Part 3 > User Management > Organizers | Organizers |
+| `26-admin-events.html` | Event Management | Part 3 > Event Management | Events |
+| `27-admin-transactions.html` | Transaction Management | Part 3 > Transaction Management | Transactions |
+| `28-admin-reviews.html` | Review Management | Part 3 > Review Management | Reviews |
+| `29-admin-export.html` | Export Data | Part 3 > Export / Data Download | Export |
+
+---
+
+## PRD to HTML Mapping
+
+### Part 1: Basic Information (PRD) → Implementation
+
+#### Terminology
+All terms defined in PRD should be used consistently in:
+- UI labels
+- Button text
+- Form fields
+- Error messages
+- Help text
+
+**Key Terms:**
+- Event (not "Activity" or "Gathering")
+- Attendee (not "User" or "Customer")
+- Organizer (not "Host" or "Creator")
+- Ticket (not "Pass" or "Entry")
+- Check-in (not "Check in" or "Checkin")
+
+#### User Relationships (Database Schema Hint)
+- Organizer → Attendee: **1:N** (One organizer, many attendees per event)
+- Attendee → Event: **N:N** (Attendees book multiple events, events have multiple attendees)
+- Organizer → Event: **1:N** (One organizer creates multiple events)
+
+### Part 2: User Application → HTML Files
+
+#### Section 1: Common Pages
+
+| PRD Section | HTML File(s) | Key Components |
+|-------------|--------------|----------------|
+| Splash Page | `index.html` | Logo, Loading animation, Auto-redirect (2s) |
+| Login Page | `02-login.html` | Email field, Password field, Google OAuth button, "Forgot Password" link |
+| Forgot Password | `03-forgot-password.html` | Email input, "Send Reset Link" button |
+| Reset Password | `04-reset-password.html` | New password, Confirm password, Password strength indicator |
+| Sign Up Page | `05-signup.html` | Email, Password, Full Name, Phone (optional), Profile photo (optional), Location (optional), User type selector (Attendee/Organizer) |
+
+#### Section 2: Attendee Pages
+
+##### Home Tab
+| PRD Component | HTML File | Element Location |
+|---------------|-----------|------------------|
+| Featured Events Section | `06-home.html` | Horizontal carousel after hero |
+| Categories Section | `06-home.html` | Grid below featured events |
+| Upcoming Events Section | `06-home.html` | Vertical list, infinite scroll |
+| Events Near You Section | `06-home.html` | Location-based section |
+| Event Detail Page | `07-event-detail.html` | Full page with header, info, tickets, reviews |
+| Checkout Page | `08-checkout.html` | Order summary + Stripe payment form |
+| Order Confirmation | `09-order-confirmation.html` | Success message, QR code, ticket details |
+
+##### Search Tab
+| PRD Component | HTML File | Element Location |
+|---------------|-----------|------------------|
+| Search Bar | `10-search.html` | Top of page with filters |
+| Filter Options | `10-search.html` | Date, Category, Location, Price filters |
+| Search Results | `10-search.html` | List view with sort options |
+
+##### My Tickets Tab
+| PRD Component | HTML File | Element Location |
+|---------------|-----------|------------------|
+| Tab Switcher | `11-my-tickets.html` | Upcoming / Past tabs |
+| Upcoming Tickets | `11-my-tickets.html` | List with QR preview |
+| Past Tickets | `11-my-tickets.html` | List with "Leave Review" buttons |
+| Ticket Detail | `12-ticket-detail.html` | Large QR code, ticket info, "Add to Wallet" |
+| Review Submission | `14-review-submission.html` | Star rating (1-5), text area |
+
+##### Profile Tab
+| PRD Component | HTML File | Element Location |
+|---------------|-----------|------------------|
+| Profile Header | `15-profile-attendee.html` | Top section with edit button |
+| Wishlist Section | `15-profile-attendee.html` | Saved events list |
+| Settings Menu | `15-profile-attendee.html` | Notifications, Payment, Privacy, Help, Logout |
+
+#### Section 3: Organizer Pages
+
+##### Dashboard Tab
+| PRD Component | HTML File | Element Location |
+|---------------|-----------|------------------|
+| Stats Overview | `16-dashboard-organizer.html` | 4 stat cards (Events, Tickets, Revenue, Upcoming) |
+| Recent Sales | `16-dashboard-organizer.html` | Table of recent transactions |
+| Upcoming Events | `16-dashboard-organizer.html` | Event cards list |
+
+##### Events Tab
+| PRD Component | HTML File | Element Location |
+|---------------|-----------|------------------|
+| Tab Switcher | `17-events-list-organizer.html` | Active / Past / Draft tabs |
+| Events List | `17-events-list-organizer.html` | Cards with quick stats |
+| Create Event Button | `17-events-list-organizer.html` | Top-right CTA button |
+| Event Creation Page | `18-event-creation.html` | 5-step wizard (Basic Info, Date/Location, Media, Tickets, Review) |
+| Event Management | `19-event-management.html` | Stats, Edit, Attendees, Send Update, Cancel |
+| Attendee List | `21-attendee-list.html` | Search, list, check-in toggle, export CSV |
+
+##### Profile Tab
+| PRD Component | HTML File | Element Location |
+|---------------|-----------|------------------|
+| Organizer Profile Header | `22-profile-organizer.html` | Profile info with rating |
+| Reviews Section | `22-profile-organizer.html` | List of reviews from attendees |
+| Settings Menu | `22-profile-organizer.html` | Payout, Notifications, Help, Logout |
+
+### Part 3: Admin Dashboard → HTML Files
+
+| PRD Section | HTML File | Key Features |
+|-------------|-----------|--------------|
+| Dashboard Home | `23-admin-dashboard.html` | Stat cards, period filter, charts, recent activity |
+| Attendee Management | `24-admin-attendees.html` | List, search, filters, create, edit, suspend |
+| Organizer Management | `25-admin-organizers.html` | List, search, filters, create, edit, verify, suspend |
+| Event Management | `26-admin-events.html` | List with filters, detail view, cancel/feature actions |
+| Transaction Management | `27-admin-transactions.html` | Transaction list, refund processing |
+| Review Management | `28-admin-reviews.html` | Review list, hide/publish/delete actions |
+| Export Data | `29-admin-export.html` | Export users, events, transactions, reviews to CSV/Excel |
+
+---
+
+## Design System & Components
+
+### Color Palette
+
+#### Primary Colors
+```css
+Primary Blue:     #3B82F6  (rgb(59, 130, 246))
+Primary Dark:     #2563EB  (rgb(37, 99, 235))
+Primary Light:    #EFF6FF  (rgb(239, 246, 255))
+Secondary:        #1D4ED8  (rgb(29, 78, 216))
+Purple Accent:    #8B5CF6  (rgb(139, 92, 246))
+```
+
+#### Neutral Colors
+```css
+Dark:             #1E293B  (Slate 800)
+Gray 900:         #0F172A
+Gray 800:         #1E293B
+Gray 700:         #334155
+Gray 600:         #475569
+Gray 500:         #64748B
+Gray 400:         #94A3B8
+Gray 300:         #CBD5E1
+Gray 200:         #E2E8F0
+Gray 100:         #F1F5F9
+Gray 50:          #F8FAFC
+```
+
+#### Utility Colors
+```css
+Success Green:    #10B981
+Warning Yellow:   #F59E0B
+Error Red:        #EF4444
+Info Blue:        #3B82F6
+```
+
+### Typography
+
+#### Font Family
+```css
+Primary Font: 'Inter', sans-serif
+Fallback: system-ui, -apple-system, sans-serif
+```
+
+**Loading:**
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+
+#### Font Sizes
+| Element | Size | Weight | Usage |
+|---------|------|--------|-------|
+| Page Titles | 36px (text-4xl) | 600 (Semibold) | Dashboard headings |
+| Section Headers | 24px (text-2xl) | 600 (Semibold) | Section titles |
+| Card Titles | 18px (text-lg) | 600 (Semibold) | Event cards, modals |
+| Body Text | 16px (text-base) | 400 (Regular) | Descriptions, content |
+| Small Text | 14px (text-sm) | 400-500 | Labels, captions |
+| Tiny Text | 12px (text-xs) | 400 | Helper text, timestamps |
+
+### Spacing System
+
+**Tailwind Spacing Scale:**
+```
+4px   = 1  (space-1, p-1, m-1)
+8px   = 2  (space-2, p-2, m-2)
+12px  = 3  (space-3, p-3, m-3)
+16px  = 4  (space-4, p-4, m-4)
+20px  = 5  (space-5, p-5, m-5)
+24px  = 6  (space-6, p-6, m-6)
+32px  = 8  (space-8, p-8, m-8)
+48px  = 12 (space-12, p-12, m-12)
+```
+
+**Common Patterns:**
+- Card padding: `p-6` (24px)
+- Button padding: `px-5 py-2.5` (20px horizontal, 10px vertical)
+- Section spacing: `mb-8` or `mb-12` (32px or 48px)
+- Input height: `h-11` (44px)
+
+### Component Library
+
+#### 1. Buttons
+
+##### Primary Button
+```html
+<button class="bg-primary hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 shadow-sm transition-all">
+  Button Text
+</button>
+```
+
+##### Secondary Button
+```html
+<button class="bg-white hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-medium border border-gray-200 shadow-sm transition-all">
+  Button Text
+</button>
+```
+
+##### Destructive Button
+```html
+<button class="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-sm transition-all">
+  Delete
+</button>
+```
+
+##### Icon Button
+```html
+<button class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+  <span class="iconify" data-icon="lucide:more-horizontal" data-width="20"></span>
+</button>
+```
+
+#### 2. Form Inputs
+
+##### Text Input
+```html
+<input type="text"
+  class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+  placeholder="Enter text...">
+```
+
+##### Search Input
+```html
+<div class="relative">
+  <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+    <span class="iconify text-gray-400" data-icon="lucide:search" data-width="18"></span>
+  </div>
+  <input type="text"
+    class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary"
+    placeholder="Search...">
+</div>
+```
+
+##### Select Dropdown
+```html
+<select class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+  <option>Option 1</option>
+  <option>Option 2</option>
+</select>
+```
+
+##### Textarea
+```html
+<textarea rows="4"
+  class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary resize-none"
+  placeholder="Enter description..."></textarea>
+```
+
+#### 3. Cards
+
+##### Event Card
+```html
+<div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+  <!-- Image -->
+  <div class="relative h-48 bg-gray-200">
+    <img src="image.jpg" alt="Event" class="w-full h-full object-cover">
+    <div class="absolute top-3 right-3">
+      <span class="px-2 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-700">
+        Music
+      </span>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-4">
+    <h3 class="text-lg font-semibold text-gray-900 mb-2">Event Title</h3>
+    <div class="flex items-center gap-2 text-sm text-gray-600 mb-1">
+      <span class="iconify" data-icon="lucide:calendar" data-width="16"></span>
+      <span>Dec 25, 2026 • 7:00 PM</span>
+    </div>
+    <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
+      <span class="iconify" data-icon="lucide:map-pin" data-width="16"></span>
+      <span>San Francisco, CA</span>
+    </div>
+    <div class="flex items-center justify-between">
+      <span class="text-lg font-semibold text-primary">$25</span>
+      <span class="text-xs text-gray-500">120 attending</span>
+    </div>
+  </div>
+</div>
+```
+
+##### Stat Card
+```html
+<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
+        <span class="iconify text-primary" data-icon="lucide:calendar" data-width="20"></span>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600">Total Events</p>
+        <p class="text-2xl font-semibold text-gray-900">24</p>
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center gap-1 text-xs">
+    <span class="text-green-600">↑ 12%</span>
+    <span class="text-gray-500">from last month</span>
+  </div>
+</div>
+```
+
+#### 4. Navigation
+
+##### Top Navigation Bar (Attendee)
+```html
+<nav class="sticky top-0 z-50 bg-white border-b border-gray-200 h-[72px]">
+  <div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between gap-4">
+    <!-- Logo -->
+    <div class="flex items-center gap-2 cursor-pointer">
+      <div class="w-8 h-8 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-lg flex items-center justify-center text-white">
+        <span class="iconify" data-icon="lucide:hexagon" data-width="18"></span>
+      </div>
+      <span class="text-lg font-semibold text-gray-900">EventHive</span>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="flex-1 max-w-[480px]">
+      <input type="text" placeholder="Search events..." class="w-full h-[44px] px-4 bg-gray-100 border border-gray-200 rounded-full">
+    </div>
+
+    <!-- Profile -->
+    <button class="relative">
+      <img src="profile.jpg" alt="Profile" class="h-10 w-10 rounded-full border border-gray-200">
+    </button>
+  </div>
+</nav>
+```
+
+##### Sidebar Navigation (Organizer)
+```html
+<aside class="fixed top-0 left-0 w-[240px] h-screen bg-white border-r border-gray-200 flex flex-col z-50">
+  <!-- Logo -->
+  <div class="h-16 px-6 flex items-center">
+    <div class="flex items-center gap-2">
+      <span class="iconify text-primary" data-icon="lucide:hexagon" data-width="24"></span>
+      <span class="text-lg font-semibold">EventHive</span>
+    </div>
+  </div>
+
+  <!-- Navigation Links -->
+  <nav class="flex-1 px-3 py-4 space-y-1">
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-50 text-primary text-sm font-medium">
+      <span class="iconify" data-icon="lucide:layout-dashboard" data-width="20"></span>
+      Dashboard
+    </a>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 text-sm font-medium">
+      <span class="iconify" data-icon="lucide:calendar" data-width="20"></span>
+      Events
+    </a>
+  </nav>
+</aside>
+```
+
+##### Bottom Navigation (Mobile)
+```html
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 md:hidden">
+  <div class="flex items-center justify-around h-16 px-4">
+    <a href="#" class="flex flex-col items-center gap-1 text-primary">
+      <span class="iconify" data-icon="lucide:home" data-width="24"></span>
+      <span class="text-xs font-medium">Home</span>
+    </a>
+    <a href="#" class="flex flex-col items-center gap-1 text-gray-500">
+      <span class="iconify" data-icon="lucide:search" data-width="24"></span>
+      <span class="text-xs">Search</span>
+    </a>
+    <a href="#" class="flex flex-col items-center gap-1 text-gray-500">
+      <span class="iconify" data-icon="lucide:ticket" data-width="24"></span>
+      <span class="text-xs">Tickets</span>
+    </a>
+    <a href="#" class="flex flex-col items-center gap-1 text-gray-500">
+      <span class="iconify" data-icon="lucide:user" data-width="24"></span>
+      <span class="text-xs">Profile</span>
+    </a>
+  </div>
+</nav>
+```
+
+#### 5. Modals & Dialogs
+
+##### Modal Base Structure
+```html
+<!-- Backdrop -->
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <!-- Modal -->
+  <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-6 border-b border-gray-100">
+      <h3 class="text-lg font-semibold text-gray-900">Modal Title</h3>
+      <button class="text-gray-400 hover:text-gray-600">
+        <span class="iconify" data-icon="lucide:x" data-width="20"></span>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-6">
+      <p class="text-gray-600">Modal content goes here...</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex items-center justify-end gap-3 p-6 border-t border-gray-100">
+      <button class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
+      <button class="px-4 py-2 bg-primary text-white rounded-lg">Confirm</button>
+    </div>
+  </div>
+</div>
+```
+
+#### 6. Tables
+
+##### Admin Table
+```html
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  <table class="w-full">
+    <thead class="bg-gray-50 border-b border-gray-200">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Name
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Status
+        </th>
+        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+          John Doe
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+            Active
+          </span>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+          <button class="text-primary hover:text-blue-700">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+#### 7. Badges & Tags
+
+```html
+<!-- Status Badges -->
+<span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">Active</span>
+<span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded-full">Pending</span>
+<span class="px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded-full">Cancelled</span>
+<span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs font-medium rounded-full">Draft</span>
+
+<!-- Category Tags -->
+<span class="px-3 py-1 bg-blue-50 text-blue-700 text-sm font-medium rounded-lg">Music</span>
+<span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-medium rounded-lg">Arts</span>
+<span class="px-3 py-1 bg-orange-50 text-orange-700 text-sm font-medium rounded-lg">Food</span>
+```
+
+#### 8. Empty States
+
+```html
+<div class="flex flex-col items-center justify-center py-12 px-4 text-center">
+  <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+    <span class="iconify text-gray-400" data-icon="lucide:calendar-x" data-width="32"></span>
+  </div>
+  <h3 class="text-lg font-semibold text-gray-900 mb-2">No events found</h3>
+  <p class="text-gray-500 mb-6 max-w-sm">You haven't created any events yet. Get started by creating your first event.</p>
+  <button class="bg-primary text-white px-5 py-2.5 rounded-lg text-sm font-medium">
+    Create Event
+  </button>
+</div>
+```
+
+#### 9. Loading States
+
+```html
+<!-- Spinner -->
+<div class="flex items-center justify-center py-12">
+  <svg class="animate-spin w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+  </svg>
+</div>
+
+<!-- Skeleton Card -->
+<div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 animate-pulse">
+  <div class="h-48 bg-gray-200"></div>
+  <div class="p-4">
+    <div class="h-6 bg-gray-200 rounded mb-3"></div>
+    <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+    <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+  </div>
+</div>
+```
+
+### Icons
+
+**Icon Library:** Iconify (Lucide icons)
+
+**CDN:**
+```html
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+```
+
+**Usage:**
+```html
+<span class="iconify" data-icon="lucide:calendar" data-width="20" data-height="20"></span>
+```
+
+**Common Icons:**
+- `lucide:calendar` - Events, dates
+- `lucide:map-pin` - Location
+- `lucide:ticket` - Tickets
+- `lucide:users` - Attendees, groups
+- `lucide:search` - Search
+- `lucide:heart` - Wishlist, likes
+- `lucide:share-2` - Share
+- `lucide:settings` - Settings
+- `lucide:plus` - Add, create
+- `lucide:edit` - Edit
+- `lucide:trash-2` - Delete
+- `lucide:more-horizontal` - More options
+- `lucide:x` - Close
+- `lucide:check` - Confirm, success
+- `lucide:alert-circle` - Alert, warning
+
+### Responsive Breakpoints
+
+```css
+/* Tailwind Breakpoints */
+sm:  640px  @media (min-width: 640px)
+md:  768px  @media (min-width: 768px)
+lg:  1024px @media (min-width: 1024px)
+xl:  1280px @media (min-width: 1280px)
+2xl: 1536px @media (min-width: 1536px)
+```
+
+**Usage Pattern:**
+```html
+<!-- Mobile-first approach -->
+<div class="p-4 md:p-6 lg:p-8">
+  <!-- Padding increases with screen size -->
+</div>
+
+<div class="flex flex-col md:flex-row gap-4">
+  <!-- Stack on mobile, row on desktop -->
+</div>
+
+<div class="hidden md:block">
+  <!-- Hidden on mobile, visible on desktop -->
+</div>
+```
+
+---
+
+## User Flow Diagrams
+
+### Attendee User Flow
+
+```
+[Splash Screen]
+    ↓
+[Login / Sign Up] ←→ [Forgot Password] → [Reset Password]
+    ↓
+[Home Page]
+    ├── Featured Events → [Event Detail] → [Checkout] → [Order Confirmation]
+    ├── Categories → [Filtered Events] → [Event Detail]
+    ├── Upcoming Events → [Event Detail]
+    └── Events Near You → [Event Detail]
+
+[Search Tab]
+    └── Search Results → [Event Detail]
+
+[My Tickets Tab]
+    ├── Upcoming Tickets → [Ticket Detail] → [Ticket Transfer]
+    └── Past Tickets → [Review Submission]
+
+[Profile Tab]
+    ├── Wishlist → [Event Detail]
+    ├── Edit Profile
+    ├── Settings
+    │   ├── Notifications
+    │   ├── Payment Methods
+    │   ├── Privacy
+    │   └── Help
+    └── Logout → [Login]
+```
+
+### Organizer User Flow
+
+```
+[Splash Screen]
+    ↓
+[Login / Sign Up]
+    ↓
+[Dashboard]
+    ├── Stats Overview
+    ├── Recent Sales
+    └── Upcoming Events → [Event Management]
+
+[Events Tab]
+    ├── Active Events → [Event Management]
+    │                      ├── Edit → [Event Creation (Edit Mode)]
+    │                      ├── View Attendees → [Attendee List]
+    │                      ├── Send Update
+    │                      └── Cancel Event
+    ├── Past Events → [Event Management (Read-only)]
+    ├── Draft Events → [Event Creation (Continue)]
+    └── [Create Event] → [Event Creation] (5 steps)
+                            ├── Step 1: Basic Info
+                            ├── Step 2: Date & Location
+                            ├── Step 3: Media
+                            ├── Step 4: Tickets
+                            └── Step 5: Review & Publish → [Event Management]
+
+[Attendee List]
+    ├── Search Attendees
+    ├── Check-in Toggle
+    └── Export to CSV
+
+[Profile Tab]
+    ├── Profile Header
+    ├── Reviews
+    └── Settings
+        ├── Payout Settings
+        ├── Notifications
+        ├── Help
+        └── Logout → [Login]
+```
+
+### Admin User Flow
+
+```
+[Admin Splash]
+    ↓
+[Login]
+    ↓
+[Admin Dashboard]
+    ├── Statistics Cards (Users, Events, Revenue, Sales)
+    ├── Period Filter
+    ├── Charts
+    └── Recent Activity
+
+[Attendees Management]
+    ├── List All Attendees
+    ├── Search & Filter
+    ├── Create New Attendee
+    ├── Edit Attendee
+    └── Suspend Attendee
+
+[Organizers Management]
+    ├── List All Organizers
+    ├── Search & Filter
+    ├── Create New Organizer
+    ├── Edit Organizer
+    ├── Verify Organizer
+    └── Suspend Organizer
+
+[Events Management]
+    ├── List All Events
+    ├── Filter by Status/Date/Category
+    ├── View Event Details
+    ├── Cancel Event
+    └── Feature Event
+
+[Transactions Management]
+    ├── List All Transactions
+    ├── Search & Filter
+    └── Process Refund
+
+[Reviews Management]
+    ├── List All Reviews
+    ├── Search & Filter
+    ├── Hide Review
+    ├── Publish Review
+    └── Delete Review
+
+[Export Data]
+    ├── Export Users (CSV/Excel)
+    ├── Export Events (CSV/Excel)
+    ├── Export Transactions (CSV/Excel)
+    └── Export Reviews (CSV/Excel)
+```
+
+---
+
+## Implementation Checklist
+
+### Phase 1: Foundation Setup
+
+#### 1.1 Project Structure
+- [ ] Create React app with TypeScript
+- [ ] Set up Tailwind CSS
+- [ ] Configure routing (React Router)
+- [ ] Set up state management (Context API or Redux)
+- [ ] Create folder structure (components, pages, hooks, utils, types)
+
+#### 1.2 Design System Implementation
+- [ ] Create theme configuration file
+- [ ] Implement color palette variables
+- [ ] Set up typography system
+- [ ] Create base component library
+  - [ ] Button variants (Primary, Secondary, Destructive, Icon)
+  - [ ] Input components (Text, Search, Select, Textarea)
+  - [ ] Card components (Event Card, Stat Card)
+  - [ ] Modal/Dialog component
+  - [ ] Table component
+  - [ ] Badge/Tag components
+  - [ ] Empty state component
+  - [ ] Loading states (Spinner, Skeleton)
+
+#### 1.3 Layout Components
+- [ ] Top Navigation Bar (Attendee)
+- [ ] Sidebar Navigation (Organizer)
+- [ ] Sidebar Navigation (Admin - Dark Theme)
+- [ ] Bottom Navigation (Mobile)
+- [ ] Page Layout Wrapper
+- [ ] Container/Max-width wrapper
+
+### Phase 2: Authentication Flow
+
+#### 2.1 Common Pages
+- [ ] Splash Screen (`index.html` → `SplashScreen.tsx`)
+- [ ] Login Page (`02-login.html` → `LoginPage.tsx`)
+  - [ ] Email/Password form
+  - [ ] Google OAuth integration
+  - [ ] Form validation
+  - [ ] Error handling
+- [ ] Sign Up Page (`05-signup.html` → `SignUpPage.tsx`)
+  - [ ] Registration form
+  - [ ] User type selection (Attendee/Organizer)
+  - [ ] Form validation
+  - [ ] Terms acceptance checkbox
+- [ ] Forgot Password (`03-forgot-password.html` → `ForgotPasswordPage.tsx`)
+- [ ] Reset Password (`04-reset-password.html` → `ResetPasswordPage.tsx`)
+  - [ ] Password strength indicator
+  - [ ] Password confirmation
+
+#### 2.2 Authentication Logic
+- [ ] Auth context/store setup
+- [ ] Protected route component
+- [ ] Role-based access control
+- [ ] Session management
+- [ ] Auto-redirect based on user type
+
+### Phase 3: Attendee Application
+
+#### 3.1 Home Tab
+- [ ] Home Page (`06-home.html` → `HomePage.tsx`)
+  - [ ] Hero section
+  - [ ] Featured Events carousel
+  - [ ] Categories grid
+  - [ ] Upcoming Events list (infinite scroll)
+  - [ ] Events Near You section
+- [ ] Event Detail Page (`07-event-detail.html` → `EventDetailPage.tsx`)
+  - [ ] Event header with image
+  - [ ] Event information section
+  - [ ] Ticket selection
+  - [ ] Reviews section
+  - [ ] Wishlist button
+  - [ ] Share button
+- [ ] Checkout Page (`08-checkout.html` → `CheckoutPage.tsx`)
+  - [ ] Order summary
+  - [ ] Stripe payment integration
+  - [ ] Saved cards display
+- [ ] Order Confirmation (`09-order-confirmation.html` → `OrderConfirmationPage.tsx`)
+  - [ ] Success message
+  - [ ] QR code generation
+  - [ ] "Add to Calendar" functionality
+
+#### 3.2 Search Tab
+- [ ] Search Page (`10-search.html` → `SearchPage.tsx`)
+  - [ ] Search bar with autocomplete
+  - [ ] Filter panel (Date, Category, Location, Price)
+  - [ ] Search results list
+  - [ ] Sort options
+
+#### 3.3 My Tickets Tab
+- [ ] My Tickets Page (`11-my-tickets.html` → `MyTicketsPage.tsx`)
+  - [ ] Tab switcher (Upcoming/Past)
+  - [ ] Tickets list with QR preview
+  - [ ] "Leave Review" buttons for past tickets
+- [ ] Ticket Detail Page (`12-ticket-detail.html` → `TicketDetailPage.tsx`)
+  - [ ] Large QR code display
+  - [ ] Ticket information
+  - [ ] "Add to Wallet" functionality
+- [ ] Ticket Transfer Page (`13-ticket-transfer.html` → `TicketTransferPage.tsx`)
+- [ ] Review Submission (`14-review-submission.html` → `ReviewSubmissionPage.tsx`)
+  - [ ] Star rating component (1-5)
+  - [ ] Review text area
+  - [ ] Form validation
+
+#### 3.4 Profile Tab
+- [ ] Profile Page (`15-profile-attendee.html` → `ProfilePage.tsx`)
+  - [ ] Profile header with edit
+  - [ ] Wishlist section
+  - [ ] Settings menu
+    - [ ] Notification settings
+    - [ ] Payment methods
+    - [ ] Privacy settings
+    - [ ] Help center
+    - [ ] Logout
+
+### Phase 4: Organizer Application
+
+#### 4.1 Dashboard Tab
+- [ ] Dashboard Page (`16-dashboard-organizer.html` → `OrganizerDashboard.tsx`)
+  - [ ] Stats overview cards
+  - [ ] Recent sales table
+  - [ ] Upcoming events section
+  - [ ] "Create Event" CTA
+
+#### 4.2 Events Tab
+- [ ] Events List Page (`17-events-list-organizer.html` → `EventsListPage.tsx`)
+  - [ ] Tab switcher (Active/Past/Draft)
+  - [ ] Events list with quick stats
+  - [ ] "Create Event" button
+- [ ] Event Creation Page (`18-event-creation.html` → `EventCreationPage.tsx`)
+  - [ ] Step 1: Basic Info form
+  - [ ] Step 2: Date & Location form
+  - [ ] Step 3: Media upload
+  - [ ] Step 4: Tickets configuration
+  - [ ] Step 5: Review & Publish
+  - [ ] Auto-save to drafts (future enhancement)
+  - [ ] Non-linear navigation (future enhancement)
+- [ ] Event Management Page (`19-event-management.html` → `EventManagementPage.tsx`)
+  - [ ] Event stats display
+  - [ ] Edit button → Event Creation (edit mode)
+  - [ ] View attendees button → Attendee List
+  - [ ] Send update functionality
+  - [ ] Cancel event functionality
+- [ ] Attendee List Page (`21-attendee-list.html` → `AttendeeListPage.tsx`)
+  - [ ] Search functionality
+  - [ ] Attendees table
+  - [ ] Check-in toggle per attendee
+  - [ ] Export to CSV button
+
+#### 4.3 Profile Tab
+- [ ] Organizer Profile (`22-profile-organizer.html` → `OrganizerProfilePage.tsx`)
+  - [ ] Profile header with rating
+  - [ ] Reviews section
+  - [ ] Settings menu
+    - [ ] Payout settings
+    - [ ] Notifications
+    - [ ] Help
+    - [ ] Logout
+
+### Phase 5: Admin Dashboard
+
+#### 5.1 Dashboard
+- [ ] Admin Dashboard (`23-admin-dashboard.html` → `AdminDashboard.tsx`)
+  - [ ] Statistics cards
+  - [ ] Period filter dropdown
+  - [ ] Charts (user signups, ticket sales, revenue)
+  - [ ] Recent activity feed
+
+#### 5.2 User Management
+- [ ] Attendees Management (`24-admin-attendees.html` → `AdminAttendeesPage.tsx`)
+  - [ ] List view with pagination
+  - [ ] Search & filters
+  - [ ] Create attendee modal
+  - [ ] Edit attendee modal
+  - [ ] Suspend attendee action
+  - [ ] Bulk actions (checkboxes + actions)
+- [ ] Organizers Management (`25-admin-organizers.html` → `AdminOrganizersPage.tsx`)
+  - [ ] List view with pagination
+  - [ ] Search & filters
+  - [ ] Create organizer modal
+  - [ ] Edit organizer modal
+  - [ ] Verify organizer action
+  - [ ] Suspend organizer action
+  - [ ] Bulk actions
+
+#### 5.3 Content Management
+- [ ] Events Management (`26-admin-events.html` → `AdminEventsPage.tsx`)
+  - [ ] Events list with filters
+  - [ ] Event detail view
+  - [ ] Cancel event action
+  - [ ] Feature event action
+- [ ] Transactions Management (`27-admin-transactions.html` → `AdminTransactionsPage.tsx`)
+  - [ ] Transactions list
+  - [ ] Search & filters
+  - [ ] Refund processing modal
+- [ ] Reviews Management (`28-admin-reviews.html` → `AdminReviewsPage.tsx`)
+  - [ ] Reviews list
+  - [ ] Search & filters
+  - [ ] Hide/Publish/Delete actions
+  - [ ] Bulk actions
+
+#### 5.4 Data Export
+- [ ] Export Page (`29-admin-export.html` → `AdminExportPage.tsx`)
+  - [ ] Users export (CSV/Excel)
+  - [ ] Events export (CSV/Excel)
+  - [ ] Transactions export (CSV/Excel)
+  - [ ] Reviews export (CSV/Excel)
+  - [ ] Date range filter
+  - [ ] Format selection
+
+### Phase 6: Enhancements (From UX Suggestions)
+
+#### 6.1 High Priority
+- [ ] Add wishlist icon on all event cards (toggle functionality)
+- [ ] Implement proactive review request system
+  - [ ] Push notifications
+  - [ ] In-app banner
+  - [ ] Email follow-up
+- [ ] Add payment method selection before checkout
+- [ ] Implement auto-save for event creation
+- [ ] Add non-linear navigation for event creation steps
+- [ ] Create organizer onboarding flow
+
+#### 6.2 Medium Priority
+- [ ] Add category filter to Search tab
+- [ ] Create public organizer profile pages
+- [ ] Implement bulk actions for attendee management
+- [ ] Add expandable QR code preview in tickets list
+- [ ] Add location filter mode toggle (GPS vs Manual)
+
+#### 6.3 Low Priority
+- [ ] Add quick update actions on events list
+- [ ] Show review status indicators on past tickets
+
+### Phase 7: Testing & Polish
+
+#### 7.1 Functionality Testing
+- [ ] Test all user flows end-to-end
+- [ ] Test form validations
+- [ ] Test error handling
+- [ ] Test loading states
+- [ ] Test empty states
+- [ ] Cross-browser testing
+
+#### 7.2 Responsive Testing
+- [ ] Mobile (320px - 768px)
+- [ ] Tablet (768px - 1024px)
+- [ ] Desktop (1024px+)
+- [ ] Test navigation on all devices
+- [ ] Test touch interactions
+
+#### 7.3 Accessibility
+- [ ] Keyboard navigation
+- [ ] Screen reader compatibility
+- [ ] Color contrast (WCAG AA)
+- [ ] Focus indicators
+- [ ] ARIA labels
+
+#### 7.4 Performance
+- [ ] Image optimization
+- [ ] Code splitting
+- [ ] Lazy loading
+- [ ] Bundle size optimization
+
+---
+
+## Page-by-Page Guide
+
+### Authentication Pages
+
+#### 1. Splash Screen (`index.html`)
+
+**Purpose:** App entry point with brand identity
+
+**Key Elements:**
+- App logo (hexagon icon with gradient)
+- App name "EventHive"
+- Loading spinner
+- Auto-redirect to login/home after 2 seconds
+
+**Implementation Notes:**
+```javascript
+// Auto-redirect logic
+useEffect(() => {
+  const timer = setTimeout(() => {
+    // Check if user is logged in
+    if (isAuthenticated) {
+      // Redirect based on user role
+      if (userRole === 'admin') navigate('/admin/dashboard');
+      else if (userRole === 'organizer') navigate('/organizer/dashboard');
+      else navigate('/home');
+    } else {
+      navigate('/login');
+    }
+  }, 2000);
+  return () => clearTimeout(timer);
+}, []);
+```
+
+**Design Specs:**
+- Background: Blue to purple gradient (`from-[#3B82F6] to-[#8B5CF6]`)
+- Logo size: 120px × 120px
+- Font size: 36px (text-4xl)
+- Loading spinner: 32px, white color
+
+---
+
+#### 2. Login Page (`02-login.html`)
+
+**Purpose:** User authentication
+
+**Key Elements:**
+1. Email input field
+2. Password input field
+3. "Forgot password?" link
+4. Login button
+5. Google OAuth button
+6. "Don't have an account? Sign up" link
+
+**Form Validation Rules:**
+- Email: Required, valid email format
+- Password: Required, minimum 8 characters
+
+**Error Messages:**
+- "Invalid email or password" (generic for security)
+- "Please enter a valid email address"
+- "Password is required"
+
+**Implementation Notes:**
+```javascript
+// Form submission
+const handleLogin = async (email, password) => {
+  try {
+    const response = await authAPI.login(email, password);
+    // Store token
+    localStorage.setItem('token', response.token);
+    // Redirect based on user type
+    if (response.userType === 'admin') navigate('/admin/dashboard');
+    else if (response.userType === 'organizer') navigate('/organizer/dashboard');
+    else navigate('/home');
+  } catch (error) {
+    setError('Invalid email or password');
+  }
+};
+```
+
+**Google OAuth Flow:**
+```javascript
+const handleGoogleLogin = async () => {
+  // Initialize Google OAuth
+  // Redirect to Google consent screen
+  // Handle callback with token
+  // Store token and redirect
+};
+```
+
+---
+
+#### 3. Sign Up Page (`05-signup.html`)
+
+**Purpose:** New user registration
+
+**Key Elements:**
+1. Email (required)
+2. Password (required)
+3. Full Name (required)
+4. Phone number (optional)
+5. Profile photo upload (optional)
+6. Location input (optional)
+7. User type radio buttons (Attendee/Organizer, default: Attendee)
+8. Terms and conditions checkbox (required)
+9. Sign Up button
+10. "Already have an account? Login" link
+
+**Form Validation Rules:**
+- Email: Required, valid format, unique
+- Password: Required, minimum 8 characters, show strength indicator
+- Full Name: Required, minimum 2 characters
+- Phone: Optional, valid phone format if provided
+- Terms: Required, must be checked
+
+**Password Strength Indicator:**
+```javascript
+const getPasswordStrength = (password) => {
+  let strength = 0;
+  if (password.length >= 8) strength++;
+  if (/[a-z]/.test(password)) strength++;
+  if (/[A-Z]/.test(password)) strength++;
+  if (/[0-9]/.test(password)) strength++;
+  if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+  if (strength <= 2) return { label: 'Weak', color: 'red' };
+  if (strength <= 3) return { label: 'Medium', color: 'yellow' };
+  return { label: 'Strong', color: 'green' };
+};
+```
+
+**Implementation Notes:**
+- Profile photo: Accept image files, max 5MB, preview before upload
+- Location: Use autocomplete API (Google Places)
+- Default user type: Attendee
+
+---
+
+#### 4. Forgot Password & Reset Password (`03-forgot-password.html`, `04-reset-password.html`)
+
+**Forgot Password:**
+- Email input
+- Send reset link button
+- Success message: "Password reset link sent to your email"
+
+**Reset Password:**
+- New password input
+- Confirm password input
+- Password strength indicator
+- Submit button
+- Success → Redirect to login
+
+**Validation:**
+- Passwords must match
+- Password must be 8+ characters
+
+---
+
+### Attendee Pages
+
+#### 5. Home Page (`06-home.html`)
+
+**Purpose:** Main event discovery page
+
+**Layout Structure:**
+1. **Top Navigation Bar** (Sticky, 72px height)
+   - Logo (left)
+   - Search bar (center, max 480px)
+   - Location button + Profile avatar (right)
+
+2. **Hero Section** (400px height)
+   - Background image with overlay
+   - Headline text
+   - CTA button
+
+3. **Featured Events Section**
+   - Horizontal scrollable carousel
+   - Event cards: Image, Title, Date, Venue, Price
+   - Click → Event Detail Page
+
+4. **Categories Section**
+   - Grid layout (responsive: 2 cols mobile, 4 cols tablet, 6 cols desktop)
+   - Category chips with icons
+   - Click → Filter events by category
+
+5. **Upcoming Events Section**
+   - Vertical list of event cards
+   - Infinite scroll pagination
+   - Each card: Image, Title, Date, Venue, Price, Attendee count
+
+6. **Events Near You Section**
+   - Location-based recommendations
+   - Shows distance from user location
+   - Uses geolocation API
+
+**Bottom Navigation** (Mobile only, 64px height)
+- Home, Search, My Tickets, Profile tabs
+
+**Implementation Notes:**
+```javascript
+// Infinite scroll
+const [events, setEvents] = useState([]);
+const [page, setPage] = useState(1);
+const [hasMore, setHasMore] = useState(true);
+
+const loadMoreEvents = async () => {
+  const newEvents = await fetchEvents(page);
+  setEvents([...events, ...newEvents]);
+  setPage(page + 1);
+  if (newEvents.length === 0) setHasMore(false);
+};
+
+// Intersection Observer for infinite scroll
+useEffect(() => {
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && hasMore) {
+      loadMoreEvents();
+    }
+  });
+  observer.observe(lastEventRef.current);
+  return () => observer.disconnect();
+}, [hasMore]);
+```
+
+**Featured Events Carousel:**
+```javascript
+// Horizontal scroll with smooth behavior
+const scrollContainer = useRef(null);
+
+const scrollLeft = () => {
+  scrollContainer.current.scrollBy({ left: -300, behavior: 'smooth' });
+};
+
+const scrollRight = () => {
+  scrollContainer.current.scrollBy({ left: 300, behavior: 'smooth' });
+};
+```
+
+---
+
+#### 6. Event Detail Page (`07-event-detail.html`)
+
+**Purpose:** Detailed event information and ticket purchase
+
+**Layout Structure:**
+1. **Header Section**
+   - Back button (top-left)
+   - Event cover image (full-width, 400px height)
+   - Wishlist button (heart icon, top-right)
+   - Share button (top-right)
+
+2. **Event Information Section**
+   - Event title (h1)
+   - Date and time (icon + text)
+   - Venue with map preview (Google Maps embed)
+   - Organizer info (avatar, name, rating)
+   - Click organizer → Organizer profile (future enhancement)
+
+3. **Description Section**
+   - Full event description (markdown/rich text)
+   - "Read more" if truncated
+
+4. **Ticket Section**
+   - Available ticket types (cards)
+   - Each ticket: Name, Price, Description, Quantity available
+   - Quantity selector (+ / - buttons)
+   - "Buy Tickets" button (sticky on mobile)
+
+5. **Reviews Section**
+   - Average rating (stars + number)
+   - Total reviews count
+   - Individual reviews list
+   - Each review: Avatar, Name, Rating, Date, Comment
+
+6. **Actions**
+   - Save to wishlist (heart icon)
+   - Share event (share icon)
+
+**Implementation Notes:**
+```javascript
+// Ticket quantity selector
+const [tickets, setTickets] = useState({
+  'general': 0,
+  'vip': 0
+});
+
+const updateQuantity = (ticketType, change) => {
+  setTickets({
+    ...tickets,
+    [ticketType]: Math.max(0, tickets[ticketType] + change)
+  });
+};
+
+// Calculate total
+const totalAmount = Object.entries(tickets).reduce((sum, [type, qty]) => {
+  return sum + (qty * ticketPrices[type]);
+}, 0);
+
+// Buy tickets button
+const handleBuyTickets = () => {
+  // Validate quantity > 0
+  const totalTickets = Object.values(tickets).reduce((a, b) => a + b, 0);
+  if (totalTickets === 0) {
+    alert('Please select at least one ticket');
+    return;
+  }
+  // Navigate to checkout with selected tickets
+  navigate('/checkout', { state: { eventId, tickets } });
+};
+```
+
+**Wishlist Toggle:**
+```javascript
+const [isWishlisted, setIsWishlisted] = useState(false);
+
+const toggleWishlist = async () => {
+  if (isWishlisted) {
+    await removeFromWishlist(eventId);
+  } else {
+    await addToWishlist(eventId);
+  }
+  setIsWishlisted(!isWishlisted);
+};
+```
+
+**Share Functionality:**
+```javascript
+const handleShare = async () => {
+  if (navigator.share) {
+    // Web Share API (mobile)
+    await navigator.share({
+      title: event.title,
+      text: event.description,
+      url: window.location.href
+    });
+  } else {
+    // Copy to clipboard
+    navigator.clipboard.writeText(window.location.href);
+    toast.success('Link copied to clipboard');
+  }
+};
+```
+
+---
+
+#### 7. Checkout Page (`08-checkout.html`)
+
+**Purpose:** Payment processing for ticket purchase
+
+**Layout Structure:**
+1. **Order Summary Section** (Left/Top)
+   - Event name and image
+   - Ticket breakdown (type, quantity, unit price, subtotal)
+   - Service fee
+   - Grand total
+
+2. **Payment Section** (Right/Bottom)
+   - Saved payment methods (radio buttons)
+   - "Add new card" option
+   - Stripe payment form (when new card selected)
+   - Billing address
+   - "Complete Purchase" button
+
+**Implementation Notes:**
+```javascript
+// Stripe integration
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe('pk_test_...');
+
+const CheckoutForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Create payment intent on backend
+    const { clientSecret } = await createPaymentIntent(totalAmount);
+
+    // Confirm payment
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: { name, email, address }
+      }
+    });
+
+    if (result.error) {
+      setError(result.error.message);
+    } else {
+      // Payment successful
+      navigate('/order-confirmation', { state: { orderId: result.paymentIntent.id } });
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button type="submit" disabled={!stripe}>Pay ${totalAmount}</button>
+    </form>
+  );
+};
+```
+
+**Saved Cards Display:**
+```javascript
+const [savedCards, setSavedCards] = useState([]);
+const [selectedCard, setSelectedCard] = useState(null);
+
+// Load saved cards
+useEffect(() => {
+  const fetchCards = async () => {
+    const cards = await getUserPaymentMethods();
+    setSavedCards(cards);
+  };
+  fetchCards();
+}, []);
+
+// Card selection
+<div className="space-y-2">
+  {savedCards.map(card => (
+    <div key={card.id} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer"
+         onClick={() => setSelectedCard(card.id)}>
+      <input type="radio" checked={selectedCard === card.id} />
+      <span>•••• {card.last4}</span>
+      <span>{card.brand}</span>
+    </div>
+  ))}
+</div>
+```
+
+---
+
+#### 8. Order Confirmation Page (`09-order-confirmation.html`)
+
+**Purpose:** Display purchase success and ticket details
+
+**Layout Structure:**
+1. **Success Message**
+   - Green checkmark icon
+   - "Order Confirmed!" heading
+   - Order number
+
+2. **E-Ticket Section**
+   - Large QR code (for event check-in)
+   - Ticket details (event name, date, venue, tickets)
+
+3. **Event Details Summary**
+   - Event image
+   - Full details recap
+
+4. **Action Buttons**
+   - "Add to Calendar" (download .ics file)
+   - "View My Tickets" (navigate to My Tickets page)
+   - "Share" button
+
+**Implementation Notes:**
+```javascript
+// QR Code generation
+import QRCode from 'qrcode.react';
+
+<QRCode
+  value={ticketId}
+  size={256}
+  level="H"
+  includeMargin={true}
+/>
+
+// Add to Calendar (.ics file generation)
+const addToCalendar = () => {
+  const icsContent = `
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${formatDate(event.startDate)}
+DTEND:${formatDate(event.endDate)}
+SUMMARY:${event.title}
+LOCATION:${event.venue}
+DESCRIPTION:${event.description}
+END:VEVENT
+END:VCALENDAR
+  `.trim();
+
+  const blob = new Blob([icsContent], { type: 'text/calendar' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${event.title}.ics`;
+  link.click();
+};
+```
+
+---
+
+#### 9. Search Page (`10-search.html`)
+
+**Purpose:** Advanced event search and filtering
+
+**Layout Structure:**
+1. **Search Bar** (Top)
+   - Text input with magnifying glass icon
+   - Recent searches dropdown
+
+2. **Filter Panel** (Left sidebar on desktop, collapsible on mobile)
+   - Date filter (Today, This Week, This Month, Custom range)
+   - Category filter (checkboxes)
+   - Location filter (Near me, Custom location)
+   - Price filter (slider or range inputs)
+   - "Clear all" button
+
+3. **Results Section** (Right/Main area)
+   - Sort dropdown (Relevance, Date, Price, Popularity)
+   - View toggle (Grid / List)
+   - Event cards
+   - Pagination or infinite scroll
+
+**Implementation Notes:**
+```javascript
+// Search with debounce
+import { useDebounce } from 'use-debounce';
+
+const [searchTerm, setSearchTerm] = useState('');
+const [debouncedSearch] = useDebounce(searchTerm, 500);
+
+useEffect(() => {
+  if (debouncedSearch) {
+    searchEvents(debouncedSearch);
+  }
+}, [debouncedSearch]);
+
+// Filters state
+const [filters, setFilters] = useState({
+  dateRange: null,
+  categories: [],
+  location: null,
+  priceMin: 0,
+  priceMax: 1000
+});
+
+// Apply filters
+const searchWithFilters = async () => {
+  const results = await searchEvents({
+    query: debouncedSearch,
+    ...filters
+  });
+  setSearchResults(results);
+};
+
+// Recent searches (localStorage)
+const [recentSearches, setRecentSearches] = useState([]);
+
+useEffect(() => {
+  const recent = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+  setRecentSearches(recent);
+}, []);
+
+const addToRecentSearches = (term) => {
+  const updated = [term, ...recentSearches.filter(s => s !== term)].slice(0, 5);
+  setRecentSearches(updated);
+  localStorage.setItem('recentSearches', JSON.stringify(updated));
+};
+```
+
+---
+
+#### 10. My Tickets Page (`11-my-tickets.html`)
+
+**Purpose:** View purchased tickets
+
+**Layout Structure:**
+1. **Tab Switcher** (Top)
+   - Upcoming tab (default)
+   - Past tab
+
+2. **Upcoming Tickets Section**
+   - List of future event tickets
+   - Each card: Event image, Title, Date, Venue, QR code preview, "View Details" button
+
+3. **Past Tickets Section**
+   - List of past event tickets
+   - Each card: Event image, Title, Date, "Leave Review" button (if not reviewed)
+
+**Implementation Notes:**
+```javascript
+const [activeTab, setActiveTab] = useState('upcoming');
+const [tickets, setTickets] = useState({ upcoming: [], past: [] });
+
+useEffect(() => {
+  const fetchTickets = async () => {
+    const userTickets = await getUserTickets();
+    const now = new Date();
+
+    setTickets({
+      upcoming: userTickets.filter(t => new Date(t.event.date) > now),
+      past: userTickets.filter(t => new Date(t.event.date) <= now)
+    });
+  };
+  fetchTickets();
+}, []);
+
+// Review status check
+const hasReviewed = (eventId) => {
+  // Check if user has already reviewed this event
+  return reviews.some(r => r.eventId === eventId);
+};
+```
+
+---
+
+#### 11. Ticket Detail Page (`12-ticket-detail.html`)
+
+**Purpose:** Display full ticket details with QR code for check-in
+
+**Layout Structure:**
+1. **Header** - Back button, "Share" button
+
+2. **QR Code Section** (Large, centered)
+   - Full-size QR code (512px)
+   - "Show to staff at venue entrance"
+
+3. **Ticket Information**
+   - Event name
+   - Date and time
+   - Venue address
+   - Ticket type
+   - Order number
+   - Purchase date
+
+4. **Action Buttons**
+   - "Add to Wallet" (Apple Wallet / Google Pay)
+   - "Download as PDF"
+   - "Transfer Ticket"
+
+**Implementation Notes:**
+```javascript
+// Large QR code
+<QRCode
+  value={ticketData.id}
+  size={512}
+  level="H"
+  includeMargin={true}
+  style={{ margin: '0 auto' }}
+/>
+
+// Add to Wallet (Apple Wallet)
+const addToAppleWallet = async () => {
+  // Generate .pkpass file
+  const passFile = await generateApplePass(ticketData);
+  window.location.href = passFile.url;
+};
+
+// Download PDF
+const downloadPDF = async () => {
+  const pdfBlob = await generateTicketPDF(ticketData);
+  const url = URL.createObjectURL(pdfBlob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `ticket-${ticketData.id}.pdf`;
+  link.click();
+};
+```
+
+---
+
+#### 12. Review Submission Page (`14-review-submission.html`)
+
+**Purpose:** Submit review for attended event
+
+**Layout Structure:**
+1. **Event Header**
+   - Event image
+   - Event name
+   - Date attended
+
+2. **Rating Section**
+   - Star rating component (1-5 stars)
+   - Tap to select
+
+3. **Review Form**
+   - Text area for written review
+   - Character count (optional, e.g. max 500 chars)
+   - "Submit Review" button
+
+**Implementation Notes:**
+```javascript
+// Star rating component
+const [rating, setRating] = useState(0);
+const [hover, setHover] = useState(0);
+
+<div className="flex items-center gap-2">
+  {[1, 2, 3, 4, 5].map(star => (
+    <button
+      key={star}
+      onClick={() => setRating(star)}
+      onMouseEnter={() => setHover(star)}
+      onMouseLeave={() => setHover(0)}
+      className="text-3xl transition-colors"
+    >
+      {(hover || rating) >= star ? (
+        <span className="text-yellow-400">★</span>
+      ) : (
+        <span className="text-gray-300">☆</span>
+      )}
+    </button>
+  ))}
+</div>
+
+// Review submission
+const [reviewText, setReviewText] = useState('');
+
+const handleSubmit = async () => {
+  if (rating === 0) {
+    alert('Please select a rating');
+    return;
+  }
+
+  await submitReview({
+    eventId,
+    rating,
+    comment: reviewText
+  });
+
+  toast.success('Review submitted successfully');
+  navigate('/my-tickets');
+};
+```
+
+---
+
+#### 13. Profile Page - Attendee (`15-profile-attendee.html`)
+
+**Purpose:** Manage attendee profile and settings
+
+**Layout Structure:**
+1. **Profile Header**
+   - Profile photo (large, circular)
+   - Name
+   - Email
+   - Location
+   - "Edit Profile" button
+
+2. **Wishlist Section**
+   - Grid of saved events
+   - "Remove from wishlist" option
+
+3. **Settings Menu**
+   - Notification Settings
+   - Payment Methods
+   - Privacy & Security
+   - Help & Support
+   - Terms & Conditions
+   - Log Out (red text)
+
+**Implementation Notes:**
+```javascript
+// Edit profile modal
+const [isEditOpen, setIsEditOpen] = useState(false);
+const [profileData, setProfileData] = useState({
+  name: '',
+  email: '',
+  phone: '',
+  location: '',
+  photo: null
+});
+
+const handleUpdateProfile = async () => {
+  await updateUser(profileData);
+  toast.success('Profile updated successfully');
+  setIsEditOpen(false);
+};
+
+// Wishlist management
+const removeFromWishlist = async (eventId) => {
+  await deleteWishlistItem(eventId);
+  // Refresh wishlist
+  const updated = wishlist.filter(e => e.id !== eventId);
+  setWishlist(updated);
+};
+
+// Logout
+const handleLogout = () => {
+  localStorage.removeItem('token');
+  navigate('/login');
+};
+```
+
+---
+
+### Organizer Pages
+
+#### 14. Organizer Dashboard (`16-dashboard-organizer.html`)
+
+**Purpose:** Overview of organizer's events and performance
+
+**Layout Structure:**
+1. **Sidebar Navigation** (240px wide, fixed)
+   - Logo
+   - Navigation links: Dashboard, Events, Attendees, Settings
+   - User profile at bottom
+
+2. **Main Content Area** (ml-[240px])
+   - **Welcome Header**
+     - "Welcome back, [Name]"
+     - Subtitle: "Here's what's happening with your events today"
+     - "Create Event" button (top-right)
+
+   - **Stats Overview** (4 cards in grid)
+     - Total Events (with % change)
+     - Total Tickets Sold (with % change)
+     - Total Revenue (with % change)
+     - Upcoming Events (count)
+
+   - **Recent Sales Table**
+     - Columns: Event, Attendee, Date, Amount, Status
+     - "View all transactions" link
+
+   - **Upcoming Events Section**
+     - Cards with event details
+     - Quick actions on each card
+
+**Implementation Notes:**
+```javascript
+// Stats calculation
+const [stats, setStats] = useState({
+  totalEvents: 0,
+  ticketsSold: 0,
+  revenue: 0,
+  upcomingEvents: 0
+});
+
+useEffect(() => {
+  const fetchStats = async () => {
+    const data = await getOrganizerStats();
+    setStats(data);
+  };
+  fetchStats();
+}, []);
+
+// Recent sales
+const [recentSales, setRecentSales] = useState([]);
+
+useEffect(() => {
+  const fetchSales = async () => {
+    const sales = await getRecentSales({ limit: 10 });
+    setRecentSales(sales);
+  };
+  fetchSales();
+}, []);
+```
+
+---
+
+#### 15. Events List - Organizer (`17-events-list-organizer.html`)
+
+**Purpose:** Manage all organizer events
+
+**Layout Structure:**
+1. **Header**
+   - "Events" heading
+   - "Create Event" button (top-right)
+
+2. **Tab Switcher**
+   - Active (default)
+   - Past
+   - Draft
+
+3. **Events List**
+   - Each event card shows:
+     - Event image
+     - Title, Date, Venue
+     - Quick stats (Tickets sold, Revenue, Views)
+     - Status badge (Published, Cancelled, Draft)
+     - Three-dot menu → Quick actions
+   - Empty state if no events
+
+**Implementation Notes:**
+```javascript
+const [activeTab, setActiveTab] = useState('active');
+const [events, setEvents] = useState({ active: [], past: [], draft: [] });
+
+useEffect(() => {
+  const fetchEvents = async () => {
+    const allEvents = await getOrganizerEvents();
+    const now = new Date();
+
+    setEvents({
+      active: allEvents.filter(e => e.status === 'published' && new Date(e.date) >= now),
+      past: allEvents.filter(e => new Date(e.date) < now),
+      draft: allEvents.filter(e => e.status === 'draft')
+    });
+  };
+  fetchEvents();
+}, []);
+
+// Quick actions menu
+const quickActions = [
+  { label: 'Edit', icon: 'lucide:edit', action: editEvent },
+  { label: 'View Attendees', icon: 'lucide:users', action: viewAttendees },
+  { label: 'Send Update', icon: 'lucide:send', action: sendUpdate },
+  { label: 'Cancel Event', icon: 'lucide:x-circle', action: cancelEvent, danger: true }
+];
+```
+
+---
+
+#### 16. Event Creation Page (`18-event-creation.html`)
+
+**Purpose:** Create new event (5-step wizard)
+
+**Layout Structure:**
+
+**Step 1: Basic Info**
+- Event title (required)
+- Category dropdown (required)
+- Description (rich text editor, required)
+- Tags (optional)
+
+**Step 2: Date & Location**
+- Start date & time (required)
+- End date & time (optional)
+- Venue name (required)
+- Address (required, with autocomplete)
+- Map preview (Google Maps)
+
+**Step 3: Media**
+- Cover image upload (required, 16:9 aspect ratio)
+- Additional photos (optional, up to 10)
+- Drag-and-drop zone
+- Image preview with crop/edit
+
+**Step 4: Tickets**
+- Add ticket types (minimum 1)
+- For each ticket type:
+  - Name (e.g., "General Admission", "VIP")
+  - Price
+  - Quantity available
+  - Description (optional)
+- "Add another ticket type" button
+
+**Step 5: Review & Publish**
+- Summary of all entered information
+- Edit buttons for each section
+- "Save as Draft" button
+- "Publish Event" button
+
+**Navigation:**
+- Progress indicator (1/5, 2/5, etc.)
+- "Back" button (go to previous step)
+- "Next" button (go to next step)
+- "Save as Draft" (available on all steps)
+
+**Implementation Notes:**
+```javascript
+const [currentStep, setCurrentStep] = useState(1);
+const [formData, setFormData] = useState({
+  basicInfo: {},
+  dateLocation: {},
+  media: {},
+  tickets: []
+});
+
+// Step validation
+const validateStep = (step) => {
+  switch(step) {
+    case 1:
+      return formData.basicInfo.title && formData.basicInfo.category && formData.basicInfo.description;
+    case 2:
+      return formData.dateLocation.startDate && formData.dateLocation.venue && formData.dateLocation.address;
+    case 3:
+      return formData.media.coverImage;
+    case 4:
+      return formData.tickets.length > 0 && formData.tickets.every(t => t.name && t.price >= 0 && t.quantity > 0);
+    default:
+      return true;
+  }
+};
+
+const nextStep = () => {
+  if (validateStep(currentStep)) {
+    setCurrentStep(Math.min(5, currentStep + 1));
+  } else {
+    alert('Please fill in all required fields');
+  }
+};
+
+const previousStep = () => {
+  setCurrentStep(Math.max(1, currentStep - 1));
+};
+
+// Save as draft
+const saveAsDraft = async () => {
+  await createEvent({ ...formData, status: 'draft' });
+  toast.success('Event saved as draft');
+  navigate('/organizer/events');
+};
+
+// Publish event
+const publishEvent = async () => {
+  if (!validateStep(4)) {
+    alert('Please complete all required information');
+    return;
+  }
+
+  await createEvent({ ...formData, status: 'published' });
+  toast.success('Event published successfully');
+  navigate('/organizer/events');
+};
+
+// Auto-save (future enhancement)
+useEffect(() => {
+  const timer = setInterval(() => {
+    // Auto-save to localStorage every 30 seconds
+    localStorage.setItem('draftEvent', JSON.stringify(formData));
+  }, 30000);
+
+  return () => clearInterval(timer);
+}, [formData]);
+```
+
+---
+
+#### 17. Event Management Page (`19-event-management.html`)
+
+**Purpose:** Manage specific event details
+
+**Layout Structure:**
+1. **Event Header**
+   - Back button
+   - Event cover image
+   - Title, Date, Status badge
+
+2. **Stats Cards** (3 cards in grid)
+   - Tickets Sold (progress bar showing sold/total)
+   - Revenue ($ amount)
+   - Page Views (count)
+
+3. **Actions Section**
+   - Edit Event button → Navigate to Event Creation (edit mode)
+   - View Attendees button → Navigate to Attendee List
+   - Send Update button → Open modal
+   - Cancel Event button (destructive, confirmation required)
+
+4. **Event Details**
+   - Full event information (read-only)
+   - Description
+   - Ticket types and availability
+   - Venue details
+
+**Implementation Notes:**
+```javascript
+// Send update modal
+const [showUpdateModal, setShowUpdateModal] = useState(false);
+const [updateMessage, setUpdateMessage] = useState('');
+
+const sendUpdate = async () => {
+  if (!updateMessage.trim()) {
+    alert('Please enter a message');
+    return;
+  }
+
+  await sendEventUpdate(eventId, updateMessage);
+  toast.success('Update sent to all attendees');
+  setShowUpdateModal(false);
+  setUpdateMessage('');
+};
+
+// Cancel event confirmation
+const [showCancelModal, setShowCancelModal] = useState(false);
+
+const cancelEvent = async () => {
+  // Show confirmation dialog
+  if (window.confirm('Are you sure you want to cancel this event? This action cannot be undone and all attendees will be notified.')) {
+    await updateEventStatus(eventId, 'cancelled');
+    toast.success('Event cancelled');
+    navigate('/organizer/events');
+  }
+};
+```
+
+---
+
+#### 18. Attendee List Page (`21-attendee-list.html`)
+
+**Purpose:** View and manage event attendees
+
+**Layout Structure:**
+1. **Header**
+   - Back button
+   - Event name
+   - Total attendees count
+
+2. **Actions Bar**
+   - Search bar (search by name, email)
+   - "Export to CSV" button
+
+3. **Attendees Table**
+   - Columns:
+     - Checkbox (for future bulk actions)
+     - Profile photo
+     - Name
+     - Email
+     - Ticket type
+     - Check-in status (toggle)
+     - Actions (three-dot menu)
+
+4. **Check-in Stats** (Top)
+   - Checked in: X / Total
+   - Progress bar
+
+**Implementation Notes:**
+```javascript
+const [attendees, setAttendees] = useState([]);
+const [searchTerm, setSearchTerm] = useState('');
+
+useEffect(() => {
+  const fetchAttendees = async () => {
+    const data = await getEventAttendees(eventId);
+    setAttendees(data);
+  };
+  fetchAttendees();
+}, [eventId]);
+
+// Search filter
+const filteredAttendees = attendees.filter(a =>
+  a.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  a.email.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+// Check-in toggle
+const toggleCheckIn = async (attendeeId, currentStatus) => {
+  await updateCheckInStatus(attendeeId, !currentStatus);
+  // Update local state
+  setAttendees(attendees.map(a =>
+    a.id === attendeeId ? { ...a, checkedIn: !currentStatus } : a
+  ));
+};
+
+// Export to CSV
+const exportToCSV = () => {
+  const csv = [
+    ['Name', 'Email', 'Ticket Type', 'Purchase Date', 'Check-in Status'],
+    ...attendees.map(a => [
+      a.name,
+      a.email,
+      a.ticketType,
+      a.purchaseDate,
+      a.checkedIn ? 'Checked In' : 'Not Checked In'
+    ])
+  ].map(row => row.join(',')).join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${eventName}-attendees.csv`;
+  link.click();
+};
+```
+
+---
+
+#### 19. Organizer Profile Page (`22-profile-organizer.html`)
+
+**Purpose:** Organizer profile and settings
+
+**Layout Structure:**
+1. **Profile Header**
+   - Profile photo (large)
+   - Name
+   - Bio/Description
+   - Overall rating (stars + number)
+   - Total events hosted
+   - "Edit Profile" button
+
+2. **Reviews Section**
+   - List of reviews from attendees
+   - Each review: Avatar, Name, Rating, Comment, Date, Event name
+
+3. **Settings Menu**
+   - Payout Settings
+   - Notification Settings
+   - Help & Support
+   - Terms & Conditions
+   - Log Out
+
+**Implementation Notes:**
+```javascript
+// Payout settings
+const [payoutMethod, setPayoutMethod] = useState('bank');
+const [bankDetails, setBankDetails] = useState({
+  accountNumber: '',
+  routingNumber: '',
+  accountName: ''
+});
+
+const updatePayoutSettings = async () => {
+  await savePayoutSettings({ method: payoutMethod, details: bankDetails });
+  toast.success('Payout settings updated');
+};
+```
+
+---
+
+### Admin Pages
+
+#### 20. Admin Dashboard (`23-admin-dashboard.html`)
+
+**Purpose:** System-wide analytics and monitoring
+
+**Layout Structure:**
+1. **Dark Sidebar** (240px, bg-[#1E293B])
+   - Logo (white)
+   - Navigation: Dashboard, Attendees, Organizers, Events, Transactions, Reviews, Export
+   - Admin profile at bottom with logout
+
+2. **Main Content**
+   - **Header**
+     - "Dashboard" heading
+     - Period filter dropdown (Today / 7 days / 30 days / Custom)
+
+   - **Statistics Cards** (4 cards)
+     - Total Users (with % change)
+     - Total Events (with % change)
+     - Total Revenue (with % change)
+     - Today's Sales (count)
+
+   - **Charts Section** (2 columns)
+     - User Signups Chart (line chart)
+     - Ticket Sales Chart (bar chart)
+     - Revenue by Category (pie/donut chart)
+
+   - **Recent Activity Feed**
+     - List of recent actions (new users, new events, purchases, reviews)
+     - Timestamp for each activity
+
+**Implementation Notes:**
+```javascript
+// Period filter
+const [period, setPeriod] = useState('7days');
+
+useEffect(() => {
+  const fetchDashboardData = async () => {
+    const data = await getAdminDashboard({ period });
+    setStats(data.stats);
+    setChartData(data.charts);
+    setRecentActivity(data.recentActivity);
+  };
+  fetchDashboardData();
+}, [period]);
+
+// Chart library: Chart.js or Recharts
+import { LineChart, BarChart, PieChart } from 'recharts';
+
+<LineChart data={userSignupsData}>
+  <XAxis dataKey="date" />
+  <YAxis />
+  <Line type="monotone" dataKey="signups" stroke="#3B82F6" />
+</LineChart>
+```
+
+---
+
+#### 21. Admin User Management (`24-admin-attendees.html`, `25-admin-organizers.html`)
+
+**Purpose:** Manage attendees and organizers
+
+**Layout Structure (Both pages have similar structure):**
+
+1. **Header**
+   - Page title ("Attendees" or "Organizers")
+   - "Create New" button (opens modal)
+
+2. **Filters & Search Bar**
+   - Search input (name, email)
+   - Status filter (Active / Suspended / All)
+   - Date filter (Joined date range)
+   - "Export" button
+
+3. **Data Table**
+   - Columns (Attendees):
+     - Checkbox (bulk selection)
+     - Photo
+     - Name
+     - Email
+     - Join Date
+     - Events Attended
+     - Status badge
+     - Actions (Edit / Suspend / Delete)
+
+   - Columns (Organizers):
+     - Checkbox
+     - Photo
+     - Name
+     - Email
+     - Join Date
+     - Events Created
+     - Verification Status
+     - Status badge
+     - Actions (Edit / Verify / Suspend / Delete)
+
+4. **Pagination**
+   - Page numbers
+   - Items per page selector (10 / 25 / 50 / 100)
+
+5. **Bulk Actions Bar** (appears when items selected)
+   - "X items selected"
+   - Bulk actions: Suspend, Delete, Export selected
+
+**Implementation Notes:**
+```javascript
+// Table with sorting, filtering, pagination
+const [users, setUsers] = useState([]);
+const [page, setPage] = useState(1);
+const [perPage, setPerPage] = useState(25);
+const [sortBy, setSortBy] = useState('joinDate');
+const [sortOrder, setSortOrder] = useState('desc');
+const [filters, setFilters] = useState({ status: 'all', search: '' });
+
+useEffect(() => {
+  const fetchUsers = async () => {
+    const data = await getUsers({
+      type: 'attendee', // or 'organizer'
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+      ...filters
+    });
+    setUsers(data.users);
+    setTotalPages(data.totalPages);
+  };
+  fetchUsers();
+}, [page, perPage, sortBy, sortOrder, filters]);
+
+// Bulk selection
+const [selectedUsers, setSelectedUsers] = useState([]);
+
+const toggleSelect = (userId) => {
+  if (selectedUsers.includes(userId)) {
+    setSelectedUsers(selectedUsers.filter(id => id !== userId));
+  } else {
+    setSelectedUsers([...selectedUsers, userId]);
+  }
+};
+
+const selectAll = () => {
+  setSelectedUsers(users.map(u => u.id));
+};
+
+const deselectAll = () => {
+  setSelectedUsers([]);
+};
+
+// Bulk actions
+const bulkSuspend = async () => {
+  await suspendUsers(selectedUsers);
+  toast.success(`${selectedUsers.length} users suspended`);
+  deselectAll();
+  // Refresh list
+};
+
+// Create user modal
+const [showCreateModal, setShowCreateModal] = useState(false);
+
+// Edit user modal
+const [editingUser, setEditingUser] = useState(null);
+
+// Suspend user (confirmation)
+const suspendUser = async (userId) => {
+  if (window.confirm('Are you sure you want to suspend this user?')) {
+    await updateUserStatus(userId, 'suspended');
+    toast.success('User suspended');
+    // Refresh list
+  }
+};
+```
+
+---
+
+#### 22. Admin Events Management (`26-admin-events.html`)
+
+**Purpose:** Moderate and manage all events
+
+**Layout Structure:**
+1. **Header**
+   - "Events" heading
+
+2. **Filters**
+   - Search (event name, organizer)
+   - Status filter (Published / Cancelled / Draft / All)
+   - Category filter
+   - Date range filter
+
+3. **Events Table**
+   - Columns:
+     - Checkbox
+     - Event image (thumbnail)
+     - Event name
+     - Organizer name
+     - Date
+     - Category
+     - Tickets sold
+     - Status badge
+     - Featured badge
+     - Actions (View / Edit / Cancel / Feature / Delete)
+
+4. **Bulk Actions**
+   - Cancel selected
+   - Feature selected
+   - Delete selected
+
+**Implementation Notes:**
+```javascript
+// Feature event (highlight on homepage)
+const toggleFeature = async (eventId, currentStatus) => {
+  await updateEvent(eventId, { featured: !currentStatus });
+  toast.success(currentStatus ? 'Event unfeatured' : 'Event featured');
+  // Refresh list
+};
+
+// Cancel event
+const cancelEvent = async (eventId) => {
+  if (window.confirm('Cancel this event? All attendees will be notified and refunds will be processed.')) {
+    await updateEvent(eventId, { status: 'cancelled' });
+    // Trigger refund workflow
+    await processEventRefunds(eventId);
+    toast.success('Event cancelled and refunds initiated');
+  }
+};
+```
+
+---
+
+#### 23. Admin Transactions Management (`27-admin-transactions.html`)
+
+**Purpose:** View and manage all transactions
+
+**Layout Structure:**
+1. **Header** - "Transactions"
+
+2. **Filters**
+   - Search (order ID, attendee name, event name)
+   - Date range
+   - Status filter (Completed / Refunded / Failed)
+
+3. **Transactions Table**
+   - Columns:
+     - Order ID
+     - Date
+     - Attendee name
+     - Event name
+     - Amount
+     - Payment method
+     - Status badge
+     - Actions (View Details / Refund)
+
+4. **Transaction Detail Modal**
+   - Full transaction details
+   - Attendee info
+   - Event info
+   - Payment method
+   - Refund button (if applicable)
+
+**Implementation Notes:**
+```javascript
+// Refund processing
+const [showRefundModal, setShowRefundModal] = useState(false);
+const [refundTransaction, setRefundTransaction] = useState(null);
+const [refundReason, setRefundReason] = useState('');
+
+const processRefund = async () => {
+  if (!refundReason.trim()) {
+    alert('Please enter a reason for refund');
+    return;
+  }
+
+  await refundTransaction(refundTransaction.id, refundReason);
+  toast.success('Refund processed successfully');
+  setShowRefundModal(false);
+  // Refresh list
+};
+```
+
+---
+
+#### 24. Admin Reviews Management (`28-admin-reviews.html`)
+
+**Purpose:** Moderate user reviews
+
+**Layout Structure:**
+1. **Header** - "Reviews"
+
+2. **Filters**
+   - Search (reviewer name, event name)
+   - Rating filter (1-5 stars)
+   - Status filter (Published / Hidden / All)
+
+3. **Reviews Table**
+   - Columns:
+     - Reviewer info (photo, name)
+     - Event name
+     - Rating (stars)
+     - Comment (truncated)
+     - Date
+     - Status badge (Published / Hidden)
+     - Actions (View / Hide / Publish / Delete)
+
+4. **Review Detail Modal**
+   - Full review text
+   - Reviewer info
+   - Event info
+   - Moderation actions
+
+**Implementation Notes:**
+```javascript
+// Hide review (keep in database but don't show publicly)
+const hideReview = async (reviewId) => {
+  await updateReview(reviewId, { status: 'hidden' });
+  toast.success('Review hidden');
+};
+
+// Publish review (show publicly)
+const publishReview = async (reviewId) => {
+  await updateReview(reviewId, { status: 'published' });
+  toast.success('Review published');
+};
+
+// Delete review (permanent)
+const deleteReview = async (reviewId) => {
+  if (window.confirm('Permanently delete this review? This action cannot be undone.')) {
+    await deleteReview(reviewId);
+    toast.success('Review deleted');
+  }
+};
+```
+
+---
+
+#### 25. Admin Export Data (`29-admin-export.html`)
+
+**Purpose:** Export system data for analysis
+
+**Layout Structure:**
+1. **Header** - "Export Data"
+
+2. **Export Sections** (4 cards)
+
+   **Card 1: Export Users**
+   - User type selection (Attendees / Organizers / All)
+   - Date range filter
+   - Format selection (CSV / Excel)
+   - "Export Users" button
+
+   **Card 2: Export Events**
+   - Status filter (Published / Cancelled / All)
+   - Date range filter
+   - Format selection (CSV / Excel)
+   - "Export Events" button
+
+   **Card 3: Export Transactions**
+   - Date range filter
+   - Status filter (Completed / Refunded / All)
+   - Format selection (CSV / Excel)
+   - "Export Transactions" button
+
+   **Card 4: Export Reviews**
+   - Date range filter
+   - Rating filter (1-5 stars / All)
+   - Format selection (CSV / Excel)
+   - "Export Reviews" button
+
+3. **Export History** (Table below cards)
+   - Recent exports list
+   - Columns: Export Type, Date, Filters Applied, Download Link
+
+**Implementation Notes:**
+```javascript
+// Export users
+const exportUsers = async (type, dateRange, format) => {
+  const data = await getUsers({ type, dateRange });
+
+  if (format === 'csv') {
+    generateCSV(data, `users-${type}-${Date.now()}.csv`);
+  } else {
+    generateExcel(data, `users-${type}-${Date.now()}.xlsx`);
+  }
+};
+
+// CSV generation
+const generateCSV = (data, filename) => {
+  const headers = Object.keys(data[0]);
+  const csv = [
+    headers.join(','),
+    ...data.map(row => headers.map(h => row[h]).join(','))
+  ].join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+};
+
+// Excel generation (using library like xlsx)
+import * as XLSX from 'xlsx';
+
+const generateExcel = (data, filename) => {
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Data');
+  XLSX.writeFile(wb, filename);
+};
+```
+
+---
+
+## Technical Stack
+
+### Frontend
+
+#### Core Technologies
+- **Framework**: React 18+ with TypeScript
+- **Build Tool**: Vite or Create React App
+- **CSS Framework**: Tailwind CSS v3
+- **Routing**: React Router v6
+- **State Management**: React Context API + useReducer (or Redux Toolkit for complex state)
+
+#### UI Libraries & Utilities
+- **Icons**: Iconify (Lucide icon set)
+  ```bash
+  npm install @iconify/react
+  ```
+- **Forms**: React Hook Form
+  ```bash
+  npm install react-hook-form
+  ```
+- **Validation**: Zod or Yup
+  ```bash
+  npm install zod
+  ```
+- **Date Handling**: date-fns or Day.js
+  ```bash
+  npm install date-fns
+  ```
+- **QR Codes**: qrcode.react
+  ```bash
+  npm install qrcode.react
+  ```
+- **Charts**: Recharts or Chart.js
+  ```bash
+  npm install recharts
+  ```
+- **Toast Notifications**: react-hot-toast or react-toastify
+  ```bash
+  npm install react-hot-toast
+  ```
+- **Modals**: Headless UI or Radix UI
+  ```bash
+  npm install @headlessui/react
+  ```
+
+#### Payment Integration
+- **Stripe**: @stripe/stripe-js + @stripe/react-stripe-js
+  ```bash
+  npm install @stripe/stripe-js @stripe/react-stripe-js
+  ```
+
+#### Authentication
+- **Google OAuth**: react-google-login or @react-oauth/google
+  ```bash
+  npm install @react-oauth/google
+  ```
+
+### Backend (NestJS)
+
+#### Core Technologies
+- **Framework**: NestJS (Node.js + TypeScript)
+- **Database**: PostgreSQL (recommended) or MongoDB
+- **ORM**: TypeORM (for PostgreSQL) or Prisma
+- **Authentication**: Passport.js + JWT
+- **File Upload**: Multer
+- **Email**: NodeMailer or SendGrid
+
+#### API Documentation
+- **Swagger/OpenAPI**: @nestjs/swagger
+
+### Development Tools
+
+#### Code Quality
+- **Linting**: ESLint
+- **Formatting**: Prettier
+- **Type Checking**: TypeScript strict mode
+
+#### Version Control
+- **Git** with conventional commits
+- **GitHub** or GitLab
+
+#### Testing (Recommended)
+- **Unit Tests**: Jest + React Testing Library
+- **E2E Tests**: Playwright or Cypress
+
+---
+
+## Next Steps
+
+### For Frontend Developers
+
+1. **Set Up Project**
+   ```bash
+   # Create React app with TypeScript
+   npx create-react-app eventhive --template typescript
+   # or with Vite
+   npm create vite@latest eventhive -- --template react-ts
+
+   cd eventhive
+
+   # Install Tailwind CSS
+   npm install -D tailwindcss postcss autoprefixer
+   npx tailwindcss init -p
+
+   # Install dependencies
+   npm install react-router-dom @iconify/react react-hook-form zod date-fns qrcode.react recharts react-hot-toast @headlessui/react @stripe/stripe-js @stripe/react-stripe-js
+   ```
+
+2. **Configure Tailwind CSS**
+   Update `tailwind.config.js`:
+   ```javascript
+   module.exports = {
+     content: ['./src/**/*.{js,jsx,ts,tsx}'],
+     theme: {
+       extend: {
+         colors: {
+           primary: '#3B82F6',
+           primaryDark: '#2563EB',
+           primaryLight: '#EFF6FF',
+         },
+         fontFamily: {
+           sans: ['Inter', 'sans-serif'],
+         },
+       },
+     },
+     plugins: [],
+   };
+   ```
+
+3. **Create Folder Structure**
+   ```
+   src/
+   ├── components/          # Reusable components
+   │   ├── common/          # Buttons, Inputs, Cards, etc.
+   │   ├── layout/          # Navigation, Sidebar, Layout wrappers
+   │   └── features/        # Feature-specific components
+   ├── pages/               # Page components
+   │   ├── auth/            # Login, Signup, etc.
+   │   ├── attendee/        # Attendee pages
+   │   ├── organizer/       # Organizer pages
+   │   └── admin/           # Admin pages
+   ├── hooks/               # Custom React hooks
+   ├── context/             # React Context providers
+   ├── utils/               # Utility functions
+   ├── types/               # TypeScript type definitions
+   ├── constants/           # Constants and configs
+   └── App.tsx              # Main app component
+   ```
+
+4. **Start Converting HTML to React**
+   - Begin with authentication flow (Splash, Login, Signup)
+   - Then implement layout components (Navigation, Sidebar)
+   - Follow the implementation checklist in order
+   - Use the HTML files as visual reference
+
+5. **Implement Routing**
+   ```typescript
+   // App.tsx
+   import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+   function App() {
+     return (
+       <BrowserRouter>
+         <Routes>
+           {/* Public routes */}
+           <Route path="/" element={<SplashScreen />} />
+           <Route path="/login" element={<LoginPage />} />
+           <Route path="/signup" element={<SignUpPage />} />
+
+           {/* Protected attendee routes */}
+           <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+           <Route path="/event/:id" element={<ProtectedRoute><EventDetailPage /></ProtectedRoute>} />
+
+           {/* Protected organizer routes */}
+           <Route path="/organizer/dashboard" element={<ProtectedRoute role="organizer"><OrganizerDashboard /></ProtectedRoute>} />
+
+           {/* Protected admin routes */}
+           <Route path="/admin/dashboard" element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>} />
+         </Routes>
+       </BrowserRouter>
+     );
+   }
+   ```
+
+### For Backend Developers
+
+1. **Set Up NestJS Project**
+   ```bash
+   # Install NestJS CLI
+   npm install -g @nestjs/cli
+
+   # Create new project
+   nest new eventhive-api
+
+   cd eventhive-api
+
+   # Install dependencies
+   npm install @nestjs/typeorm typeorm pg @nestjs/passport passport passport-jwt @nestjs/jwt bcrypt class-validator class-transformer
+   ```
+
+2. **Database Schema Planning**
+   Based on PRD, create these entities:
+   - Users (attendees, organizers, admins)
+   - Events
+   - Tickets
+   - Orders/Transactions
+   - Reviews
+   - Categories
+   - Venues
+
+3. **API Endpoints Planning**
+   Reference the PRD for required functionality and create RESTful endpoints
+
+4. **Authentication Setup**
+   - Implement JWT authentication
+   - Google OAuth integration
+   - Role-based access control
+
+### For Full-Stack Teams
+
+1. **Define API Contract**
+   - Create API specification (OpenAPI/Swagger)
+   - Agree on request/response formats
+   - Define error handling patterns
+
+2. **Set Up Development Environment**
+   - Backend runs on `localhost:3000` (or 5000)
+   - Frontend proxy to backend in development
+   - Use environment variables for config
+
+3. **Implement Features Incrementally**
+   - Start with authentication flow
+   - Then implement one user type at a time
+   - Follow the implementation checklist
+
+4. **Regular Testing & Integration**
+   - Test API endpoints with Postman/Insomnia
+   - Test frontend with mock data first
+   - Integrate and test together
+
+### Priority Order
+
+**Week 1-2: Foundation**
+- Project setup (frontend + backend)
+- Authentication flow (login, signup, logout)
+- Layout components (navigation, sidebar)
+
+**Week 3-4: Attendee Application**
+- Home page with event listing
+- Event detail page
+- Checkout flow (Stripe integration)
+- My Tickets page
+
+**Week 5-6: Organizer Application**
+- Dashboard
+- Event creation flow
+- Event management
+- Attendee list
+
+**Week 7-8: Admin Dashboard**
+- Admin dashboard
+- User management (attendees, organizers)
+- Event management
+- Transactions & reviews
+
+**Week 9-10: Polish & Enhancements**
+- UX improvements (wishlist, review requests, etc.)
+- Performance optimization
+- Responsive design refinement
+- Testing & bug fixes
+
+---
+
+## Questions & Support
+
+### Reference Documents
+- **PRD**: [`.claude-project/prd/EventHive_PRD_260118.md`](.claude-project/prd/EventHive_PRD_260118.md)
+- **HTML Prototypes**: `html/` directory
+- **This Guide**: `.claude-project/DEVELOPER_HANDOVER.md`
+
+### Clarifications Needed (from PRD)
+
+#### Required Clarifications
+1. What is the service fee percentage for ticket purchases?
+2. What is the refund policy?
+3. Should organizers be verified before creating events?
+4. What is the maximum tickets per purchase?
+
+#### Recommended Clarifications
+1. Should there be event capacity limits?
+2. How to handle timezone conversions?
+3. Can attendees transfer tickets?
+4. What notification triggers for organizers?
+
+### Contact
+
+For questions or clarifications, please:
+1. Review the PRD document first
+2. Check the HTML prototypes for visual reference
+3. Consult this handover guide
+4. Reach out to the project manager with specific questions
+
+---
+
+**Document prepared by:** Claude AI Assistant
+**Last updated:** 2026-01-20
+**Version:** 1.0
+
+This handover guide should provide everything your development team needs to understand the project structure, design system, and implementation requirements. Good luck with the development!
