@@ -1,48 +1,47 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventHive - Write a Review</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#3B82F6',
-                        canvas: '#F9FAFB',
-                        amber: {
-                            400: '#FBBF24',
-                            500: '#F59E0B',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom scrollbar for textarea */
-        textarea::-webkit-scrollbar {
-            width: 8px;
-        }
-        textarea::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        textarea::-webkit-scrollbar-thumb {
-            background-color: #E2E8F0;
-            border-radius: 4px;
-        }
-        textarea::-webkit-scrollbar-thumb:hover {
-            background-color: #CBD5E1;
-        }
-    </style>
-</head>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Write a Review</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+canvas: '#F9FAFB',
+amber: {
+400: '#FBBF24',
+500: '#F59E0B',
+}
+}
+}
+}
+}
+</script>
+<style>
+/* Custom scrollbar for textarea */
+textarea::-webkit-scrollbar {
+width: 8px;
+}
+textarea::-webkit-scrollbar-track {
+background: transparent;
+}
+textarea::-webkit-scrollbar-thumb {
+background-color: #E2E8F0;
+border-radius: 4px;
+}
+textarea::-webkit-scrollbar-thumb:hover {
+background-color: #CBD5E1;
+}
+</style></head>
 <body class="bg-canvas font-sans text-slate-900 antialiased min-h-screen flex flex-col items-center justify-center py-10 px-4">
 
     <!-- MAIN CARD -->
@@ -51,7 +50,7 @@
         <!-- EVENT SUMMARY HEADER -->
         <div class="relative w-full h-[120px] rounded-t-[12px] rounded-b-[12px] overflow-hidden group isolate">
             <!-- Image -->
-            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="Neon Nights" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <img src="https://images.unsplash.com/photo-1550977239-c56433e56a64?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Neon Nights" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
             
             <!-- Gradient Overlay -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
@@ -108,10 +107,10 @@
             <button class="w-full h-12 flex items-center justify-center rounded-xl bg-primary text-white font-medium text-base hover:bg-blue-600 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary active:scale-[0.99]">
                 Submit Review
             </button>
-            
-            <a href="11-my-tickets.html" class="w-full flex items-center justify-center text-primary text-sm font-medium hover:text-blue-700 transition-colors focus:outline-none rounded-lg p-2">
+
+            <button onclick="window.location.href='11-my-tickets.html'" class="w-full flex items-center justify-center text-primary text-sm font-medium hover:text-blue-700 transition-colors focus:outline-none rounded-lg p-2">
                 Maybe Later
-            </a>
+            </button>
         </div>
 
     </main>

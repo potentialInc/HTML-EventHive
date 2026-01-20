@@ -56,19 +56,19 @@ scroll-behavior: smooth;
             </div>
 
             <!-- Center: Search Bar (Max 480px, 44px height) -->
-            <a href="10-search.html" class="flex-1 max-w-[480px] hidden md:block">
+            <div class="flex-1 max-w-[480px] hidden md:block">
                 <div class="relative group">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                         <span class="iconify text-gray-400 group-focus-within:text-primary transition-colors" data-icon="lucide:search" data-width="18"></span>
                     </div>
-                    <input type="text" class="block w-full h-[44px] pl-10 pr-4 bg-gray-100/50 border border-gray-200 rounded-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm cursor-pointer" placeholder="Search events, artists, or venues..." readonly>
+                    <input type="text" class="block w-full h-[44px] pl-10 pr-4 bg-gray-100/50 border border-gray-200 rounded-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm" placeholder="Search events, artists, or venues...">
                     <div class="absolute inset-y-0 right-2 flex items-center">
                         <button class="p-1 text-gray-400 hover:text-gray-600">
                             <span class="iconify" data-icon="lucide:sliders-horizontal" data-width="16"></span>
                         </button>
                     </div>
                 </div>
-            </a>
+            </div>
 
             <!-- Right: Location & Profile -->
             <div class="flex items-center gap-3 md:gap-5 flex-shrink-0">
@@ -79,15 +79,15 @@ scroll-behavior: smooth;
                 </button>
                 
                 <!-- Notifications (Mobile/Tablet only placeholder) -->
-                <button class="lg:hidden text-gray-500">
+                <button class="lg:hidden text-gray-500" onclick="window.location.href='10-search.html'">
                     <span class="iconify" data-icon="lucide:search" data-width="20"></span>
                 </button>
 
                 <!-- Profile Avatar -->
-                <a href="15-profile-attendee.html" class="relative">
+                <button class="relative" onclick="window.location.href='15-profile-attendee.html'">
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="Profile" class="h-10 w-10 rounded-full border border-gray-200 object-cover shadow-sm hover:ring-2 hover:ring-primary hover:ring-offset-2 transition-all">
                     <div class="absolute bottom-0 right-0 h-2.5 w-2.5 bg-green-500 border-2 border-white rounded-full"></div>
-                </a>
+                </button>
             </div>
         </div>
     </nav>
@@ -131,13 +131,13 @@ scroll-behavior: smooth;
 
                 <!-- CTA -->
                 <div class="flex items-center gap-4">
-                    <a href="07-event-detail.html" class="h-11 px-6 bg-primary hover:bg-primaryDark text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
+                    <button class="h-11 px-6 bg-primary hover:bg-primaryDark text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2" onclick="window.location.href='07-event-detail.html'">
                         <span class="iconify" data-icon="lucide:ticket" data-width="18"></span>
                         Get Tickets
-                    </a>
-                    <a href="07-event-detail.html" class="h-11 px-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-sm font-medium rounded-lg transition-all flex items-center justify-center">
+                    </button>
+                    <button class="h-11 px-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-sm font-medium rounded-lg transition-all" onclick="window.location.href='07-event-detail.html'">
                         More Info
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -155,7 +155,7 @@ scroll-behavior: smooth;
             <section>
                 <div class="flex items-center justify-between mb-5">
                     <h3 class="text-xl font-semibold text-gray-900 tracking-tight">Browse by Category</h3>
-                    <a href="#" class="text-sm font-medium text-primary hover:text-primaryDark flex items-center gap-1">
+                    <a href="10-search.html" class="text-sm font-medium text-primary hover:text-primaryDark flex items-center gap-1">
                         See All <span class="iconify" data-icon="lucide:chevron-right" data-width="16"></span>
                     </a>
                 </div>
@@ -163,35 +163,35 @@ scroll-behavior: smooth;
                 <div class="relative -mx-6 px-6 overflow-hidden">
                     <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
                         <!-- Category Pills (44px height) -->
-                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group" onclick="window.location.href='10-search.html'">
                             <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:music" data-width="18"></span>
                             Music
                         </button>
-                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group" onclick="window.location.href='10-search.html'">
                             <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:trophy" data-width="18"></span>
                             Sports
                         </button>
-                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group" onclick="window.location.href='10-search.html'">
                             <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:palette" data-width="18"></span>
                             Arts
                         </button>
-                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group" onclick="window.location.href='10-search.html'">
                             <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:utensils" data-width="18"></span>
                             Food &amp; Drink
                         </button>
-                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group" onclick="window.location.href='10-search.html'">
                             <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:cpu" data-width="18"></span>
                             Tech
                         </button>
-                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group" onclick="window.location.href='10-search.html'">
                             <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:users" data-width="18"></span>
                             Community
                         </button>
-                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group" onclick="window.location.href='10-search.html'">
                             <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:martini" data-width="18"></span>
                             Nightlife
                         </button>
-                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group">
+                        <button class="flex-shrink-0 h-[44px] px-5 bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700 rounded-full flex items-center gap-2 text-sm font-medium transition-all shadow-subtle whitespace-nowrap group" onclick="window.location.href='10-search.html'">
                             <span class="iconify text-gray-400 group-hover:text-primary" data-icon="lucide:briefcase" data-width="18"></span>
                             Business
                         </button>
@@ -214,9 +214,9 @@ scroll-behavior: smooth;
                 </div>
 
                 <div id="featured-carousel" class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth pb-4 -mx-1 px-1">
-                    
+
                     <!-- Card 1 -->
-                    <a href="07-event-detail.html" class="w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
+                    <a href="07-event-detail.html" class="block w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
                         <div class="h-40 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
                             <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-gray-900 shadow-sm">$45</div>
@@ -229,7 +229,7 @@ scroll-behavior: smooth;
                     </a>
 
                     <!-- Card 2 -->
-                    <a href="07-event-detail.html" class="w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
+                    <a href="07-event-detail.html" class="block w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
                         <div class="h-40 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
                             <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-gray-900 shadow-sm">Free</div>
@@ -242,7 +242,7 @@ scroll-behavior: smooth;
                     </a>
 
                     <!-- Card 3 -->
-                    <a href="07-event-detail.html" class="w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
+                    <a href="07-event-detail.html" class="block w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
                         <div class="h-40 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
                             <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-gray-900 shadow-sm">$120</div>
@@ -255,9 +255,9 @@ scroll-behavior: smooth;
                     </a>
 
                      <!-- Card 4 -->
-                     <a href="07-event-detail.html" class="w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
+                     <a href="07-event-detail.html" class="block w-[280px] flex-shrink-0 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group">
                         <div class="h-40 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1551632436-cbf8dd354ca8?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
+                            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Event">
                             <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-gray-900 shadow-sm">$35</div>
                         </div>
                         <div class="p-4">
@@ -285,9 +285,9 @@ scroll-behavior: smooth;
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Event Card 1 -->
-                    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
+                    <a href="07-event-detail.html" class="block bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
                         <div class="relative h-48 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1459749411177-287ce35e8b2f?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                             <div class="absolute top-3 left-3 bg-white/95 backdrop-blur rounded-lg px-2.5 py-1 flex flex-col items-center shadow-sm text-gray-900 min-w-[50px]">
                                 <span class="text-[10px] font-bold uppercase tracking-wider text-red-500">Oct</span>
                                 <span class="text-lg font-bold leading-none">28</span>
@@ -296,7 +296,7 @@ scroll-behavior: smooth;
                         <div class="p-5 flex-1 flex flex-col">
                             <h4 class="text-lg font-semibold text-gray-900 mb-1 leading-tight group-hover:text-primary transition-colors">StartUp Networking Night</h4>
                             <p class="text-sm text-gray-500 mb-4">WeWork Salesforce Tower</p>
-                            
+
                             <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
                                 <div class="flex -space-x-2">
                                     <img class="w-7 h-7 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="">
@@ -306,12 +306,12 @@ scroll-behavior: smooth;
                                 <span class="text-sm font-semibold text-gray-900">$25</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Event Card 2 -->
-                    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
+                    <a href="07-event-detail.html" class="block bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
                         <div class="relative h-48 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c543a9e1-f226-4ced-80b0-feb8445a75b9_1600w.jpg" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                             <div class="absolute top-3 left-3 bg-white/95 backdrop-blur rounded-lg px-2.5 py-1 flex flex-col items-center shadow-sm text-gray-900 min-w-[50px]">
                                 <span class="text-[10px] font-bold uppercase tracking-wider text-red-500">Oct</span>
                                 <span class="text-lg font-bold leading-none">29</span>
@@ -320,7 +320,7 @@ scroll-behavior: smooth;
                         <div class="p-5 flex-1 flex flex-col">
                             <h4 class="text-lg font-semibold text-gray-900 mb-1 leading-tight group-hover:text-primary transition-colors">Jazz by the Bay</h4>
                             <p class="text-sm text-gray-500 mb-4">Pier 23 Cafe</p>
-                            
+
                             <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
                                 <div class="flex -space-x-2">
                                     <img class="w-7 h-7 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="">
@@ -329,10 +329,10 @@ scroll-behavior: smooth;
                                 <span class="text-sm font-semibold text-gray-900">$55</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Event Card 3 -->
-                    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
+                    <a href="07-event-detail.html" class="block bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-card hover:shadow-md transition-all group flex flex-col h-full">
                         <div class="relative h-48 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1560439514-e960a3ef5019?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                             <div class="absolute top-3 left-3 bg-white/95 backdrop-blur rounded-lg px-2.5 py-1 flex flex-col items-center shadow-sm text-gray-900 min-w-[50px]">
@@ -343,7 +343,7 @@ scroll-behavior: smooth;
                         <div class="p-5 flex-1 flex flex-col">
                             <h4 class="text-lg font-semibold text-gray-900 mb-1 leading-tight group-hover:text-primary transition-colors">Coffee Tasting Workshop</h4>
                             <p class="text-sm text-gray-500 mb-4">Sightglass Coffee</p>
-                            
+
                             <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
                                 <div class="flex -space-x-2">
                                     <img class="w-7 h-7 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="">
@@ -353,7 +353,7 @@ scroll-behavior: smooth;
                                 <span class="text-sm font-semibold text-gray-900">$30</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="mt-10 flex justify-center">
@@ -375,7 +375,7 @@ scroll-behavior: smooth;
 
                 <div class="space-y-4">
                     <!-- List Item 1 -->
-                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex gap-4 hover:border-gray-300 hover:shadow-card transition-all group cursor-pointer">
+                    <a href="07-event-detail.html" class="block bg-white border border-gray-200 rounded-xl p-3 flex gap-4 hover:border-gray-300 hover:shadow-card transition-all group cursor-pointer">
                         <div class="w-[100px] h-[100px] rounded-lg overflow-hidden flex-shrink-0">
                             <img src="https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         </div>
@@ -395,12 +395,12 @@ scroll-behavior: smooth;
                                 <span class="text-sm font-semibold text-gray-900">Free</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- List Item 2 -->
-                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex gap-4 hover:border-gray-300 hover:shadow-card transition-all group cursor-pointer">
+                    <a href="07-event-detail.html" class="block bg-white border border-gray-200 rounded-xl p-3 flex gap-4 hover:border-gray-300 hover:shadow-card transition-all group cursor-pointer">
                         <div class="w-[100px] h-[100px] rounded-lg overflow-hidden flex-shrink-0">
-                            <img src="https://images.unsplash.com/photo-1524338198850-8a2ff6389420?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/5bab247f-35d9-400d-a82b-fd87cfe913d2_1600w.webp" alt="Event" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         </div>
                         <div class="flex-1 py-1 flex flex-col justify-between">
                             <div>
@@ -418,7 +418,7 @@ scroll-behavior: smooth;
                                 <span class="text-sm font-semibold text-gray-900">$150</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </section>
         </div>

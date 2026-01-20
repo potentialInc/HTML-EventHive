@@ -1,61 +1,40 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventHive - Attendee Profile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#3B82F6',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
-    </style>
-</head>
-<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased min-h-screen flex flex-col">
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Attendee Profile</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+}
+}
+}
+}
+</script>
+<style>
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+</style></head>
+<body class="bg-[#F9FAFB] font-sans text-slate-900 antialiased min-h-screen p-6 flex justify-center">
 
-    <!-- TOP NAV -->
-    <nav class="sticky top-0 z-50 bg-white border-b border-gray-200 h-[64px]">
-        <div class="max-w-[600px] mx-auto h-full px-6 flex items-center justify-between">
-            <a href="06-home.html" class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-lg flex items-center justify-center text-white">
-                    <span class="iconify" data-icon="lucide:hexagon" data-width="18" style="stroke-width: 2.5;"></span>
-                </div>
-                <span class="text-lg font-semibold tracking-tight text-gray-900">EventHive</span>
-            </a>
-            <div class="flex items-center gap-4">
-                <a href="11-my-tickets.html" class="text-gray-600 hover:text-primary transition-colors">
-                    <span class="iconify" data-icon="lucide:ticket" data-width="20"></span>
-                </a>
-                <a href="02-login.html" class="text-gray-500 hover:text-gray-700 transition-colors">
-                    <span class="iconify" data-icon="lucide:log-out" data-width="20"></span>
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="w-full max-w-[600px] mx-auto flex flex-col gap-8 p-6">
+    <main class="w-full max-w-[600px] flex flex-col gap-8">
 
         <!-- PROFILE HEADER CARD -->
         <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center">
@@ -189,7 +168,7 @@
             <div class="h-px w-full bg-gray-100"></div>
 
             <!-- Logout -->
-            <button class="h-14 w-full px-4 flex items-center justify-between hover:bg-red-50 transition-colors group text-left">
+            <button onclick="window.location.href='02-login.html'" class="h-14 w-full px-4 flex items-center justify-between hover:bg-red-50 transition-colors group text-left">
                 <div class="flex items-center gap-3">
                     <span class="iconify text-red-500" data-icon="lucide:log-out" data-width="20" data-height="20" data-stroke-width="1.5"></span>
                     <span class="text-sm font-medium text-red-500">Logout</span>

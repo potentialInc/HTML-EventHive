@@ -78,28 +78,20 @@ transform: scale(1);
 
         <!-- Navigation -->
         <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto no-scrollbar">
-            <!-- Dashboard -->
             <a href="23-admin-dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
                 <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:layout-dashboard" data-width="20" data-height="20" data-stroke-width="1.5"></span>
                 Dashboard
             </a>
 
-            <!-- Expandable Users (Active State) -->
-            <div class="space-y-1 pt-2">
-                <button class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg bg-slate-800 text-white text-sm font-medium shadow-sm transition-colors group">
-                    <div class="flex items-center gap-3">
-                        <span class="iconify text-white" data-icon="lucide:users" data-width="20" data-height="20" data-stroke-width="1.5"></span>
-                        Users
-                    </div>
-                    <span class="iconify text-slate-400" data-icon="lucide:chevron-down" data-width="16" data-height="16"></span>
-                </button>
-                <!-- Sub Items -->
-                <div class="pl-11 space-y-1">
-                    <a href="24-admin-attendees.html" class="block px-3 py-2 rounded-lg text-white bg-primary text-xs font-medium shadow-sm">Attendees</a>
-                    <a href="25-admin-organizers.html" class="block px-3 py-2 rounded-lg text-slate-400 hover:text-white text-xs font-medium hover:bg-slate-800/50">Organizers</a>
-                </div>
-            </div>
-
+            <!-- Active State: Attendees -->
+            <a href="24-admin-attendees.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white text-sm font-medium shadow-sm transition-colors group">
+                <span class="iconify text-white" data-icon="lucide:users" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Attendees
+            </a>
+            <a href="25-admin-organizers.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+                <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:briefcase" data-width="20" data-height="20" data-stroke-width="1.5"></span>
+                Organizers
+            </a>
             <a href="26-admin-events.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
                 <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:calendar" data-width="20" data-height="20" data-stroke-width="1.5"></span>
                 Events
@@ -112,7 +104,7 @@ transform: scale(1);
                 <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:star" data-width="20" data-height="20" data-stroke-width="1.5"></span>
                 Reviews
             </a>
-             <a href="29-admin-export.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
+            <a href="29-admin-export.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm font-medium transition-colors group">
                 <span class="iconify text-slate-400 group-hover:text-white" data-icon="lucide:download" data-width="20" data-height="20" data-stroke-width="1.5"></span>
                 Export
             </a>

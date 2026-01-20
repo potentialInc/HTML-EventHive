@@ -1,19 +1,33 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventHive - Search</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-    
-    <style>
-        /* Custom scrollbar hiding for clean UI */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
-</head>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventHive - Search</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+primary: '#3B82F6',
+secondary: '#64748B',
+canvas: '#F9FAFB',
+}
+}
+}
+}
+</script>
+<style>
+/* Custom scrollbar hiding for clean UI */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style></head>
 <body class="bg-white font-sans text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900">
 
     <!-- SEARCH HEADER -->
@@ -106,7 +120,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <!-- Card 1 -->
-            <div class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
+            <a href="07-event-detail.html" class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
                 <div class="relative w-full aspect-video overflow-hidden bg-gray-100">
                     <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <button class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-red-500 hover:bg-white transition-all shadow-sm">
@@ -130,10 +144,10 @@
                         <span class="text-sm font-semibold text-gray-900">$45.00</span>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 2 -->
-            <div class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
+            <a href="07-event-detail.html" class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
                 <div class="relative w-full aspect-video overflow-hidden bg-gray-100">
                     <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <button class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-red-500 hover:bg-white transition-all shadow-sm">
@@ -157,12 +171,12 @@
                         <span class="text-sm font-semibold text-gray-900">$299.00</span>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 3 -->
-            <div class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
+            <a href="07-event-detail.html" class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
                 <div class="relative w-full aspect-video overflow-hidden bg-gray-100">
-                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <button class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-red-500 hover:bg-white transition-all shadow-sm">
                         <span class="iconify" data-icon="lucide:heart" data-width="18" data-stroke-width="1.5"></span>
                     </button>
@@ -184,10 +198,10 @@
                         <span class="text-sm font-semibold text-gray-900">$85.00</span>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 4 -->
-            <div class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
+            <a href="07-event-detail.html" class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
                 <div class="relative w-full aspect-video overflow-hidden bg-gray-100">
                     <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <button class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-red-500 hover:bg-white transition-all shadow-sm">
@@ -211,10 +225,10 @@
                         <span class="text-sm font-semibold text-gray-900">Free</span>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 5 -->
-            <div class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
+            <a href="07-event-detail.html" class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
                 <div class="relative w-full aspect-video overflow-hidden bg-gray-100">
                     <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <button class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-red-500 hover:bg-white transition-all shadow-sm">
@@ -238,10 +252,10 @@
                         <span class="text-sm font-semibold text-gray-900">$20.00</span>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 6 -->
-            <div class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
+            <a href="07-event-detail.html" class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col cursor-pointer">
                 <div class="relative w-full aspect-video overflow-hidden bg-gray-100">
                     <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <button class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-red-500 hover:bg-white transition-all shadow-sm">
@@ -265,7 +279,7 @@
                         <span class="text-sm font-semibold text-gray-900">Starts at $15</span>
                     </div>
                 </div>
-            </div>
+            </a>
 
         </div>
     </main>
